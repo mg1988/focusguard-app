@@ -3,13 +3,23 @@ import SwiftUI
 /// FocusGuard 应用主入口，适配 macOS 菜单栏常驻模式
 @main
 struct focus_macApp: App {
-    // 禁用窗口模式 (LSUIElement) 的情况下，MenuBarExtra 是主要交互入口
+    @StateObject private var viewModel = FocusViewModel()
+    
     var body: some Scene {
-        // 使用 MenuBarExtra 在系统状态栏显示应用图标
-        MenuBarExtra("FocusGuard", systemImage: "timer") {
-            // 在菜单项中直接展示主视图 (macOS 13+)
-            MainView()
+        MenuBarExtra {
+            MainView(viewModel: viewModel)
+        } label: {
+            HStack {
+                DynamicMenuBarIcon(
+                    progress: viewModel.progress,
+                    status: viewModel.status,
+                    remainingTime: viewModel.remainingTime,
+                    isGoalActive: viewModel.isGoalActive
+                )
+                // 增加一个隐藏的文字标签，有助于系统分配菜单栏空间
+                Text("Focus").opacity(0)
+            }
         }
-        .menuBarExtraStyle(.window) // 设置为窗口风格，点击图标弹出界面
+        .menuBarExtraStyle(.window)
     }
 }

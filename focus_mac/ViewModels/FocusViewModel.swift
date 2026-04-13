@@ -1,6 +1,7 @@
 import Foundation
 import Combine
 import SwiftUI
+import ServiceManagement
 
 /// 专注状态枚举，定义专注应用的不同运行状态
 enum FocusStatus {
@@ -47,9 +48,27 @@ class FocusViewModel: ObservableObject {
     @Published var isSoundEnabled: Bool = true
     @Published var isHapticEnabled: Bool = true
     @Published var drowsyThreshold: Double = 2.0 // 瞌睡判定秒数
+    @Published var isDoNotDisturbEnabled: Bool = false // 免打扰模式
+    @Published var isLaunchAtLoginEnabled: Bool = false // 开机自启动
     
     // 历史数据
     @Published var history: [DailyStats] = []
+    
+    // 进度属性用于动态图标
+    @Published var progress: Double = 0.0
+    
+    // 专注目标相关
+    @Published var focusGoal: TimeInterval = 25 * 60 // 默认 25 分钟
+    @Published var remainingTime: TimeInterval = 25 * 60
+    @Published var isGoalActive: Bool = false
+    
+    // 效率评分 (0-100)
+    var efficiencyScore: Int {
+        let totalInterruptionPenalty = Double(distractionCount * 30 + drowsyCount * 60)
+        guard focusTime > 0 else { return 0 }
+        let score = (focusTime / (focusTime + totalInterruptionPenalty)) * 100
+        return Int(min(max(score, 0), 100))
+    }
     
     // 计时器相关
     private var mainTimer: Timer?
@@ -114,6 +133,7 @@ class FocusViewModel: ObservableObject {
     /// 停止专注会话并持久化数据
     private func stopFocusSession() {
         status = .idle
+        isGoalActive = false
         faceManager.stopDetection()
         mainTimer?.invalidate()
         mainTimer = nil
@@ -122,9 +142,27 @@ class FocusViewModel: ObservableObject {
         saveDailyStats()
     }
     
+    /// 专注目标达成处理
+    private func handleGoalReached() {
+        stopFocusSession()
+        notificationManager.sendNotification(
+            title: NSLocalizedString("goal_reached_title", comment: ""),
+            body: NSLocalizedString("goal_reached_body", comment: "")
+        )
+        // 播放成功音效
+        if isSoundEnabled {
+            NSSound(named: "Glass")?.play()
+        }
+    }
+    
     /// 处理面部检测状态变更 (走神判定)
     private func handleFaceDetectionUpdate(_ detected: Bool) {
         guard status != .idle else { return }
+        
+        // 检查免打扰模式：如果开启且检测到全屏应用，则不触发逻辑
+        if isDoNotDisturbEnabled && isAnyAppFullScreen() {
+            return
+        }
         
         if detected {
             // 如果恢复面部，则重置走神计时
@@ -161,11 +199,28 @@ class FocusViewModel: ObservableObject {
         }
     }
     
-    /// 启动主计时器 (累加专注时间)
+    /// 启动主计时器 (累加专注时间并更新进度)
     private func startMainTimer() {
         mainTimer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { [weak self] _ in
             guard let self = self, self.status != .idle else { return }
             self.focusTime += 1
+            
+            // 处理倒计时目标
+            if self.isGoalActive && self.remainingTime > 0 {
+                self.remainingTime -= 1
+                if self.remainingTime <= 0 {
+                    self.handleGoalReached()
+                }
+            }
+            
+            // 更新进度 (用于 UI 展示)
+            if self.isGoalActive {
+                self.progress = 1.0 - (self.remainingTime / self.focusGoal)
+            } else {
+                let hourInSeconds: Double = 3600
+                self.progress = (self.focusTime.truncatingRemainder(dividingBy: hourInSeconds)) / hourInSeconds
+            }
+            
             // 每分钟自动保存一次
             if Int(self.focusTime) % 60 == 0 {
                 self.saveDailyStats()
@@ -219,6 +274,16 @@ class FocusViewModel: ObservableObject {
         }
     }
     
+    /// 开启/关闭开机自启动
+    func toggleLaunchAtLogin() {
+        if isLaunchAtLoginEnabled {
+            try? SMAppService.mainApp.register()
+        } else {
+            try? SMAppService.mainApp.unregister()
+        }
+        saveDailyStats()
+    }
+    
     // MARK: - 数据持久化
     
     private func loadDailyStats() {
@@ -231,6 +296,9 @@ class FocusViewModel: ObservableObject {
         
         self.drowsyThreshold = UserDefaults.standard.double(forKey: "drowsyThreshold")
         if self.drowsyThreshold == 0 { self.drowsyThreshold = 2.0 }
+        
+        self.isDoNotDisturbEnabled = UserDefaults.standard.bool(forKey: "isDoNotDisturbEnabled")
+        self.isLaunchAtLoginEnabled = SMAppService.mainApp.status == .enabled
 
         // 加载历史数据
         if let data = UserDefaults.standard.data(forKey: "FocusGuardHistory"),
@@ -252,6 +320,7 @@ class FocusViewModel: ObservableObject {
         UserDefaults.standard.set(isSoundEnabled, forKey: "isSoundEnabled")
         UserDefaults.standard.set(isHapticEnabled, forKey: "isHapticEnabled")
         UserDefaults.standard.set(drowsyThreshold, forKey: "drowsyThreshold")
+        UserDefaults.standard.set(isDoNotDisturbEnabled, forKey: "isDoNotDisturbEnabled")
 
         // 保存统计数据
         let todayStr = getTodayString()
@@ -275,6 +344,33 @@ class FocusViewModel: ObservableObject {
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy-MM-dd"
         return formatter.string(from: Date())
+    }
+    
+    /// 检查是否有应用处于全屏模式
+    private func isAnyAppFullScreen() -> Bool {
+        // 通过判断是否有窗口占据了主屏幕的完整显示区域来简单判定
+        if let screen = NSScreen.main {
+            let screenFrame = screen.frame
+            // 获取所有可见窗口的描述
+            let options = CGWindowListOption(arrayLiteral: .excludeDesktopElements, .optionOnScreenOnly)
+            let windowList = CGWindowListCopyWindowInfo(options, kCGNullWindowID) as? [[String: Any]] ?? []
+            
+            for window in windowList {
+                if let bounds = window[kCGWindowBounds as String] as? [String: Any],
+                   let width = bounds["Width"] as? CGFloat,
+                   let height = bounds["Height"] as? CGFloat {
+                    // 如果某个窗口的宽高几乎等于屏幕宽高，判定为全屏
+                    if abs(width - screenFrame.width) < 10 && abs(height - screenFrame.height) < 10 {
+                        // 排除 Dock 和系统菜单栏 (通常它们也是全屏宽度的)
+                        if let ownerName = window[kCGWindowOwnerName as String] as? String,
+                           ownerName != "Window Server" && ownerName != "Dock" {
+                            return true
+                        }
+                    }
+                }
+            }
+        }
+        return false
     }
     
     /// 获取过去 7 天的统计摘要

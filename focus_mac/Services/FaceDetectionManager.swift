@@ -8,8 +8,13 @@ class FaceDetectionManager: NSObject, ObservableObject {
     static let shared = FaceDetectionManager()
     
     @Published var isFaceDetected: Bool = false
-    @Published var isEyesClosed: Bool = false // 增加眼睛闭合状态
+    @Published var isEyesClosed: Bool = false // 眼睛状态
     @Published var cameraPermissionStatus: AVAuthorizationStatus = .notDetermined
+    
+    // EAR 平滑处理：滑动窗口
+    private var leftEARHistory: [CGFloat] = []
+    private var rightEARHistory: [CGFloat] = []
+    private let earWindowSize = 5 // 窗口大小为 5 帧
     
     private let captureSession = AVCaptureSession()
     private let videoDataOutput = AVCaptureVideoDataOutput()
@@ -125,14 +130,25 @@ extension FaceDetectionManager: AVCaptureVideoDataOutputSampleBufferDelegate {
         }
     }
     
-    /// 根据眼睛特征点判断是否闭眼 (使用 EAR 算法：Eye Aspect Ratio)
+    /// 根据眼睛特征点判断是否闭眼 (使用平滑后的 EAR 算法)
     private func checkEyesClosed(leftEye: VNFaceLandmarkRegion2D, rightEye: VNFaceLandmarkRegion2D) -> Bool {
         let leftEAR = calculateEAR(for: leftEye)
         let rightEAR = calculateEAR(for: rightEye)
         
-        // 通常 EAR 小于 0.2 被视为闭眼
+        // 更新历史记录
+        leftEARHistory.append(leftEAR)
+        rightEARHistory.append(rightEAR)
+        
+        if leftEARHistory.count > earWindowSize { leftEARHistory.removeFirst() }
+        if rightEARHistory.count > earWindowSize { rightEARHistory.removeFirst() }
+        
+        // 计算滑动窗口平均值
+        let avgLeftEAR = leftEARHistory.reduce(0, +) / CGFloat(leftEARHistory.count)
+        let avgRightEAR = rightEARHistory.reduce(0, +) / CGFloat(rightEARHistory.count)
+        
+        // 通常 EAR 小于 0.22 被视为闭眼
         let threshold: CGFloat = 0.22
-        return leftEAR < threshold && rightEAR < threshold
+        return avgLeftEAR < threshold && avgRightEAR < threshold
     }
     
     /// 计算单只眼睛的纵横比 (EAR)

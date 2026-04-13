@@ -72,7 +72,7 @@ class NotificationManager: NSObject, UNUserNotificationCenterDelegate, Observabl
         hapticPerformer.perform(.generic, performanceTime: .now)
     }
     
-    private func sendNotification(title: String, body: String) {
+    func sendNotification(title: String, body: String) {
         let content = UNMutableNotificationContent()
         content.title = title
         content.body = body
