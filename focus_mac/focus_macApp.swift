@@ -1,32 +1,15 @@
-//
-//  focus_macApp.swift
-//  focus_mac
-//
-//  Created by Genwei Mi on 2026/4/12.
-//
-
 import SwiftUI
-import SwiftData
 
+/// FocusGuard 应用主入口，适配 macOS 菜单栏常驻模式
 @main
 struct focus_macApp: App {
-    var sharedModelContainer: ModelContainer = {
-        let schema = Schema([
-            Item.self,
-        ])
-        let modelConfiguration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false)
-
-        do {
-            return try ModelContainer(for: schema, configurations: [modelConfiguration])
-        } catch {
-            fatalError("Could not create ModelContainer: \(error)")
-        }
-    }()
-
+    // 禁用窗口模式 (LSUIElement) 的情况下，MenuBarExtra 是主要交互入口
     var body: some Scene {
-        WindowGroup {
-            ContentView()
+        // 使用 MenuBarExtra 在系统状态栏显示应用图标
+        MenuBarExtra("FocusGuard", systemImage: "timer") {
+            // 在菜单项中直接展示主视图 (macOS 13+)
+            MainView()
         }
-        .modelContainer(sharedModelContainer)
+        .menuBarExtraStyle(.window) // 设置为窗口风格，点击图标弹出界面
     }
 }

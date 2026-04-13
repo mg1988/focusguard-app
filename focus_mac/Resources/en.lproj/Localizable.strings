@@ -1,0 +1,33 @@
+/* FocusGuard English Localization */
+
+"app_name" = "FocusGuard";
+"focus_time" = "Focus Time";
+"distractions" = "Left Desk";
+"drowsiness" = "Drowsiness";
+"start_detection" = "Start Focus Mode";
+"stop_detection" = "Stop Focus";
+"sensitivity" = "Sensitivity";
+"sensitivity_low" = "Low (5s)";
+"sensitivity_medium" = "Medium (3s)";
+"sensitivity_high" = "High (1s)";
+"status_idle" = "Idle";
+"status_detecting" = "Detecting";
+"status_distracted" = "Away";
+"status_drowsy" = "Drowsy";
+"notification_distraction_title" = "Focus Alert";
+"notification_distraction_body" = "Get back to work!";
+"notification_drowsy_title" = "Drowsy Alert";
+"notification_drowsy_body" = "Wake up and stay focused!";
+"camera_permission_required" = "Camera permission is required for face detection.";
+"notification_permission_required" = "Notification permission is required for focus alerts.";
+"tab_focus" = "Focus";
+"tab_stats" = "Stats";
+"tab_settings" = "Settings";
+"history_7_days" = "Last 7 Days";
+"sound_alerts" = "Sound Alerts";
+"haptic_alerts" = "Haptic Alerts";
+"drowsy_threshold" = "Drowsy Threshold";
+"seconds" = "s";
+"total_focus" = "Total Focus";
+"avg_distractions" = "Avg. Away";
+"avg_drowsy" = "Avg. Drowsy";

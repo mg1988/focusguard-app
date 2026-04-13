@@ -1,0 +1,33 @@
+/* FocusGuard 简体中文本地化 */
+
+"app_name" = "FocusGuard";
+"focus_time" = "今日专注";
+"distractions" = "离席次数";
+"drowsiness" = "瞌睡次数";
+"start_detection" = "开启专注模式";
+"stop_detection" = "停止专注";
+"sensitivity" = "检测灵敏度";
+"sensitivity_low" = "低 (5s)";
+"sensitivity_medium" = "中 (3s)";
+"sensitivity_high" = "高 (1s)";
+"status_idle" = "待命";
+"status_detecting" = "检测中";
+"status_distracted" = "离席中";
+"status_drowsy" = "瞌睡中";
+"notification_distraction_title" = "离席提醒";
+"notification_distraction_body" = "检测到您已离开，请回到工作中！";
+"notification_drowsy_title" = "瞌睡提醒";
+"notification_drowsy_body" = "检测到您正在打瞌睡，请保持清醒！";
+"camera_permission_required" = "需要开启摄像头权限以进行面部识别。";
+"notification_permission_required" = "需要开启通知权限以推送专注提醒。";
+"tab_focus" = "专注";
+"tab_stats" = "统计";
+"tab_settings" = "设置";
+"history_7_days" = "过去7天历史";
+"sound_alerts" = "声音提醒";
+"haptic_alerts" = "震动提醒";
+"drowsy_threshold" = "瞌睡判定时长";
+"seconds" = "秒";
+"total_focus" = "累计专注";
+"avg_distractions" = "日均离席";
+"avg_drowsy" = "日均瞌睡";

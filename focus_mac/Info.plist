@@ -2,9 +2,9 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>UIBackgroundModes</key>
-	<array>
-		<string>remote-notification</string>
-	</array>
+	<key>NSCameraUsageDescription</key>
+	<string>需要访问摄像头以检测面部状态，判断是否专注。仅本地分析，不会上传任何数据。</string>
+	<key>LSUIElement</key>
+	<true/>
 </dict>
 </plist>
