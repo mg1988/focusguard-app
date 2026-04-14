@@ -25,5 +25,12 @@ struct focus_macApp: App {
             }
         }
         .menuBarExtraStyle(.window)
+        
+        // 支持 Touch Bar 坐姿状态显示
+        .commands {
+            CommandGroup(after: .appInfo) {
+                // 这里可以添加菜单项
+            }
+        }
     }
 }

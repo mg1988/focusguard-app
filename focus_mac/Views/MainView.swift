@@ -72,6 +72,39 @@ struct MainView: View {
         .background(
             VisualEffectView(material: .popover, blendingMode: .withinWindow)
         )
+        // 增加 Touch Bar 支持
+        .touchBar {
+            HStack(spacing: 20) {
+                Spacer()
+                PostureTouchBarView(viewModel: viewModel)
+                Spacer()
+            }
+        }
+    }
+}
+
+/// 适配 Touch Bar 的辅助视图
+struct PostureTouchBarView: View {
+    @ObservedObject var viewModel: FocusViewModel
+    
+    var body: some View {
+        HStack(spacing: 12) {
+            Image(systemName: viewModel.currentPosture.iconName)
+                .imageScale(.large)
+                .symbolRenderingMode(.multicolor)
+                .foregroundColor(viewModel.currentPosture == .good ? .green : .orange)
+            
+            VStack(alignment: .leading, spacing: 2) {
+                Text(viewModel.currentPosture.localizedName)
+                    .font(.system(size: 13, weight: .bold))
+                
+                if viewModel.status == .active {
+                    Text(viewModel.formattedFocusTime)
+                        .font(.system(size: 11, design: .monospaced))
+                        .foregroundColor(.secondary)
+                }
+            }
+        }
     }
 }
 

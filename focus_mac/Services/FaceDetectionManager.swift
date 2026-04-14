@@ -18,9 +18,8 @@ class FaceDetectionManager: NSObject, ObservableObject {
     // EAR 平滑处理：滑动窗口
     private var leftEARHistory: [CGFloat] = []
     private var rightEARHistory: [CGFloat] = []
-    private let earWindowSize = 8 // 增加窗口大小到 8 帧，更平滑
+    private let earWindowSize = 12 // 增加到 12 帧（约 0.4 秒），让波动更平缓
     private var consecutiveClosedCount: Int = 0 // 连续闭眼计数
-    private let consecutiveThreshold: Int = 3 // 需要连续 3 帧检测到闭眼才判定
     
     private let captureSession = AVCaptureSession()
     private let videoDataOutput = AVCaptureVideoDataOutput()
@@ -115,7 +114,13 @@ class FaceDetectionManager: NSObject, ObservableObject {
             }
             DispatchQueue.main.async {
                 self.isFaceDetected = false
-                self.postureHistory.removeAll() // 清空坐姿历史
+                self.isEyesClosed = false
+                self.currentPosture = .good
+                self.postureHistory.removeAll()
+                self.faceRectHistory.removeAll()
+                self.leftEARHistory.removeAll()
+                self.rightEARHistory.removeAll()
+                self.consecutiveClosedCount = 0
             }
         }
     }
@@ -123,6 +128,9 @@ class FaceDetectionManager: NSObject, ObservableObject {
 
 extension FaceDetectionManager: AVCaptureVideoDataOutputSampleBufferDelegate {
     func captureOutput(_ output: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {
+        // 如果 Session 已经不在运行，直接返回，不处理任何数据
+        guard captureSession.isRunning else { return }
+        
         guard let pixelBuffer = CMSampleBufferGetImageBuffer(sampleBuffer) else { return }
         
         // 保存当前帧用于抓拍
@@ -185,15 +193,17 @@ extension FaceDetectionManager: AVCaptureVideoDataOutputSampleBufferDelegate {
         let avgLeftEAR = leftEARHistory.reduce(0, +) / CGFloat(leftEARHistory.count)
         let avgRightEAR = rightEARHistory.reduce(0, +) / CGFloat(rightEARHistory.count)
         
-        // 进一步提高阈值到 0.28（原 0.25），并增加连续确认帧数
-        // 0.28 是更宽松的闭眼判定标准，能减少因眯眼或光线问题导致的误判
-        let threshold: CGFloat = 0.28
+        // 针对“眼睛较小”的情况，将阈值下调到 0.21（原 0.28）
+        // EAR 值通常在 0.15-0.35 之间。0.21 是一个更严格的闭眼判定标准，
+        // 意味着只有当眼睛高度压缩到宽度的 21% 以下时，才认为是闭眼。
+        let threshold: CGFloat = 0.21
         let isClosed = avgLeftEAR < threshold && avgRightEAR < threshold
         
-        // 使用连续帧验证，增加到 5 帧（约 0.16 秒），避免眨眼误判
+        // 增加确认时间到 10 帧（约 0.33 秒）
+        // 这样可以完全排除眨眼和误判，只有在“真的睡着了”且眼睛高度极低时才报警
         if isClosed {
             consecutiveClosedCount += 1
-            return consecutiveClosedCount >= 5
+            return consecutiveClosedCount >= 10
         } else {
             consecutiveClosedCount = 0
             return false
