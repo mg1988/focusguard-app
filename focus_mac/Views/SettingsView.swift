@@ -104,6 +104,39 @@ struct SettingsView: View {
                         
                         Divider()
                         
+                        // 坐姿检测设置
+                        VStack(alignment: .leading, spacing: 12) {
+                            HStack {
+                                Image(systemName: "figure.stand")
+                                    .foregroundColor(.accentColor)
+                                Text(NSLocalizedString("posture_detection_settings", comment: "坐姿检测"))
+                                    .font(.subheadline)
+                                    .fontWeight(.semibold)
+                                Spacer()
+                            }
+                            
+                            Toggle(NSLocalizedString("enable_posture_detection", comment: "启用坐姿检测"), isOn: $viewModel.isPostureDetectionEnabled)
+                                .toggleStyle(.switch)
+                            
+                            Text(NSLocalizedString("posture_detection_description", comment: "实时检测坐姿，提醒保持正确姿势"))
+                                .font(.caption)
+                                .foregroundColor(.secondary)
+                            
+                            // 当前坐姿状态
+                            HStack {
+                                Text(NSLocalizedString("current_posture", comment: "当前坐姿"))
+                                    .font(.caption)
+                                    .foregroundColor(.secondary)
+                                Spacer()
+                                Text(viewModel.currentPosture.localizedName)
+                                    .font(.caption)
+                                    .fontWeight(.medium)
+                                    .foregroundColor(viewModel.currentPosture == .good ? .green : .orange)
+                            }
+                        }
+                        
+                        Divider()
+                        
                         // 阈值设置
                         VStack(alignment: .leading, spacing: 8) {
                             HStack {

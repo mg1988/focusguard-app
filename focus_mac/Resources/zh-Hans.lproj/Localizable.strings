@@ -55,6 +55,17 @@
 "snapshots_count" = "已保存 %d 张照片";
 "snapshot_location" = "存储位置";
 "open_snapshot_folder" = "打开照片文件夹";
+
+/* 坐姿检测功能 */
+"posture_detection_settings" = "坐姿检测";
+"enable_posture_detection" = "启用坐姿检测";
+"posture_detection_description" = "实时检测坐姿，提醒保持正确姿势";
+"current_posture" = "当前坐姿";
+"posture_good" = "坐姿良好";
+"posture_slouching" = "弯腰驼背";
+"posture_leaning" = "身体侧倾";
+"posture_too_close" = "距离太近";
+"posture_too_far" = "距离太远";
 "recent_history" = "最近记录";
 "distraction_snapshots" = "走神抓拍";
 "snapshots_gallery" = "抓拍相册";
@@ -70,3 +81,4 @@
 "delete_snapshot_message" = "确定要删除这张照片吗？";
 "cancel" = "取消";
 "delete" = "删除";
+"quit" = "退出";

@@ -44,6 +44,7 @@ class FocusViewModel: ObservableObject {
     @Published var sensitivity: Sensitivity = .medium
     @Published var isFaceDetected: Bool = false
     @Published var isEyesClosed: Bool = false // 眼睛状态
+    @Published var cameraPermissionStatus: AVAuthorizationStatus = .notDetermined
     
     // 设置属性
     @Published var isSoundEnabled: Bool = true
@@ -58,6 +59,11 @@ class FocusViewModel: ObservableObject {
     // 抓拍照片数据
     @Published var snapshots: [DistractionSnapshot] = []
     @Published var isSnapshotEnabled: Bool = true // 是否启用抓拍功能
+    
+    // 坐姿检测数据
+    @Published var currentPosture: PostureState = .good
+    @Published var isPostureDetectionEnabled: Bool = true
+    @Published var postureStats: PostureStats = PostureStats()
     
     // 进度属性用于动态图标
     @Published var progress: Double = 0.0
@@ -110,12 +116,37 @@ class FocusViewModel: ObservableObject {
                 self?.handleFaceDetectionUpdate(detected)
             }
             .store(in: &cancellables)
-            
+        
         faceManager.$isEyesClosed
             .receive(on: DispatchQueue.main)
             .sink { [weak self] closed in
                 self?.isEyesClosed = closed
                 self?.handleDrowsyUpdate(closed)
+            }
+            .store(in: &cancellables)
+        
+        faceManager.$cameraPermissionStatus
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] status in
+                self?.cameraPermissionStatus = status
+            }
+            .store(in: &cancellables)
+        
+        // 绑定坐姿检测
+        faceManager.$currentPosture
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] posture in
+                self?.currentPosture = posture
+                self?.updatePostureStats(posture: posture)
+            }
+            .store(in: &cancellables)
+        
+        // 同步坐姿检测开关状态
+        faceManager.$isPostureDetectionEnabled
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] enabled in
+                self?.isPostureDetectionEnabled = enabled
+                self?.faceManager.isPostureDetectionEnabled = enabled
             }
             .store(in: &cancellables)
     }
@@ -240,6 +271,23 @@ class FocusViewModel: ObservableObject {
                 drowsyStartTime = Date()
                 startDrowsyTimer()
             }
+        }
+    }
+    
+    /// 更新坐姿统计数据
+    private func updatePostureStats(posture: PostureState) {
+        switch posture {
+        case .good:
+            postureStats.goodPostureCount += 1
+        case .slouching:
+            postureStats.badPostureCount += 1
+            postureStats.slouchingCount += 1
+        case .leaning:
+            postureStats.badPostureCount += 1
+            postureStats.leaningCount += 1
+        case .tooClose, .tooFar:
+            postureStats.badPostureCount += 1
+            postureStats.distanceWarningCount += 1
         }
     }
     
@@ -381,10 +429,11 @@ class FocusViewModel: ObservableObject {
         if let today = history.first(where: { $0.date == todayStr }) {
             // 如果找到今天的记录，加载数据
             self.focusTime = today.focusTime
-            self.distractionCount = today.distractionCount
-            self.drowsyCount = today.drowsyCount
+            // 今天的计数从 0 开始，不加载昨天的数据
+            self.distractionCount = 0
+            self.drowsyCount = 0
         } else {
-            // 如果是新的一天，重置为 0
+            // 如果是新的一天，全部重置为 0
             self.focusTime = 0
             self.distractionCount = 0
             self.drowsyCount = 0

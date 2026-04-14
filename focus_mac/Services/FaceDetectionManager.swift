@@ -12,11 +12,15 @@ class FaceDetectionManager: NSObject, ObservableObject {
     @Published var isEyesClosed: Bool = false // 眼睛状态
     @Published var cameraPermissionStatus: AVAuthorizationStatus = .notDetermined
     @Published var snapshotTaken: Bool = false // 抓拍完成标记
+    @Published var currentPosture: PostureState = .good // 当前坐姿
+    @Published var isPostureDetectionEnabled: Bool = true // 是否启用坐姿检测
     
     // EAR 平滑处理：滑动窗口
     private var leftEARHistory: [CGFloat] = []
     private var rightEARHistory: [CGFloat] = []
-    private let earWindowSize = 5 // 窗口大小为 5 帧
+    private let earWindowSize = 8 // 增加窗口大小到 8 帧，更平滑
+    private var consecutiveClosedCount: Int = 0 // 连续闭眼计数
+    private let consecutiveThreshold: Int = 3 // 需要连续 3 帧检测到闭眼才判定
     
     private let captureSession = AVCaptureSession()
     private let videoDataOutput = AVCaptureVideoDataOutput()
@@ -27,6 +31,12 @@ class FaceDetectionManager: NSObject, ObservableObject {
     private var lastSnapshotTime: Date?
     private let snapshotCooldown: TimeInterval = 5.0 // 抓拍冷却时间，避免连续抓拍
     private var currentSampleBuffer: CMSampleBuffer? // 保存当前帧用于抓拍
+    
+    // 坐姿检测相关
+    private var faceRectHistory: [CGRect] = []
+    private let faceRectWindowSize = 10 // 面部位置滑动窗口
+    private var badPostureStartTime: Date?
+    private let badPostureThreshold: TimeInterval = 3.0 // 不良坐姿持续时间阈值
     
     private override init() {
         super.init()
@@ -128,6 +138,9 @@ extension FaceDetectionManager: AVCaptureVideoDataOutputSampleBufferDelegate {
                        let rightEye = face.landmarks?.rightEye {
                         eyesClosed = checkEyesClosed(leftEye: leftEye, rightEye: rightEye)
                     }
+                    
+                    // 检测坐姿
+                    detectPosture(faceObservation: face)
                 }
                 
                 DispatchQueue.main.async {
@@ -146,7 +159,7 @@ extension FaceDetectionManager: AVCaptureVideoDataOutputSampleBufferDelegate {
         return currentSampleBuffer
     }
     
-    /// 根据眼睛特征点判断是否闭眼 (使用平滑后的 EAR 算法)
+    /// 根据眼睛特征点判断是否闭眼 (使用平滑后的 EAR 算法 + 连续帧验证)
     private func checkEyesClosed(leftEye: VNFaceLandmarkRegion2D, rightEye: VNFaceLandmarkRegion2D) -> Bool {
         let leftEAR = calculateEAR(for: leftEye)
         let rightEAR = calculateEAR(for: rightEye)
@@ -162,9 +175,20 @@ extension FaceDetectionManager: AVCaptureVideoDataOutputSampleBufferDelegate {
         let avgLeftEAR = leftEARHistory.reduce(0, +) / CGFloat(leftEARHistory.count)
         let avgRightEAR = rightEARHistory.reduce(0, +) / CGFloat(rightEARHistory.count)
         
-        // 通常 EAR 小于 0.22 被视为闭眼
-        let threshold: CGFloat = 0.22
-        return avgLeftEAR < threshold && avgRightEAR < threshold
+        // 提高阈值到 0.25，降低敏感度（原为 0.22）
+        let threshold: CGFloat = 0.25
+        let isClosed = avgLeftEAR < threshold && avgRightEAR < threshold
+        
+        // 使用连续帧验证，避免误判
+        if isClosed {
+            consecutiveClosedCount += 1
+            // 只有连续检测到闭眼才判定为闭眼
+            return consecutiveClosedCount >= consecutiveThreshold
+        } else {
+            // 睁眼时重置计数器
+            consecutiveClosedCount = 0
+            return false
+        }
     }
     
     /// 计算单只眼睛的纵横比 (EAR)
@@ -194,6 +218,90 @@ extension FaceDetectionManager: AVCaptureVideoDataOutputSampleBufferDelegate {
     
     private func dist(_ p1: CGPoint, _ p2: CGPoint) -> CGFloat {
         return sqrt(pow(p1.x - p2.x, 2) + pow(p1.y - p2.y, 2))
+    }
+    
+    /// 检测坐姿
+    /// - Parameter faceObservation: 面部观察对象
+    func detectPosture(faceObservation: VNFaceObservation) {
+        guard isPostureDetectionEnabled else {
+            currentPosture = .good
+            return
+        }
+        
+        // 1. 检测面部位置（判断距离）
+        let faceRect = faceObservation.boundingBox
+        faceRectHistory.append(faceRect)
+        
+        if faceRectHistory.count > faceRectWindowSize {
+            faceRectHistory.removeFirst()
+        }
+        
+        // 计算平均面部大小
+        let avgFaceSize = faceRectHistory.reduce(0) { $0 + $1.size.width } / CGFloat(faceRectHistory.count)
+        
+        // 2. 使用面部地标检测头部姿态
+        let posture = analyzePostureFromLandmarks(faceObservation: faceObservation, faceSize: avgFaceSize)
+        
+        DispatchQueue.main.async {
+            self.currentPosture = posture
+        }
+    }
+    
+    /// 从面部地标分析坐姿
+    private func analyzePostureFromLandmarks(faceObservation: VNFaceObservation, faceSize: CGFloat) -> PostureState {
+        // 距离检测（基于面部大小）
+        // 正常面部大小约为 0.15-0.25（归一化坐标）
+        if faceSize > 0.35 {
+            return .tooClose  // 太近
+        } else if faceSize < 0.10 {
+            return .tooFar  // 太远
+        }
+        
+        // 使用面部地标检测低头（弯腰驼背）
+        if let landmarks = faceObservation.landmarks {
+            // 检测鼻子和嘴巴的相对位置
+            if let nose = landmarks.nose,
+               let mouth = landmarks.outerLips,
+               nose.pointCount > 0,
+               mouth.pointCount > 0 {
+                
+                let nosePoint = nose.normalizedPoints[0]
+                let mouthPoint = mouth.normalizedPoints[0]
+                
+                // 计算鼻子到嘴巴的垂直距离
+                let verticalDist = nosePoint.y - mouthPoint.y
+                
+                // 如果垂直距离过大，说明在低头
+                if verticalDist > 0.08 {
+                    return .slouching
+                }
+            }
+            
+            // 检测眼睛水平位置（判断侧倾）
+            if let leftEye = landmarks.leftEye,
+               let rightEye = landmarks.rightEye,
+               leftEye.pointCount > 0,
+               rightEye.pointCount > 0 {
+                
+                let leftCenter = leftEye.normalizedPoints.reduce(CGPoint(x: 0, y: 0)) {
+                    CGPoint(x: $0.x + $1.x, y: $0.y + $1.y)
+                }
+                let rightCenter = rightEye.normalizedPoints.reduce(CGPoint(x: 0, y: 0)) {
+                    CGPoint(x: $0.x + $1.x, y: $0.y + $1.y)
+                }
+                
+                // 计算两眼高度差
+                let heightDiff = abs(leftCenter.y - rightCenter.y)
+                
+                // 高度差过大说明侧倾
+                if heightDiff > 0.05 {
+                    return .leaning
+                }
+            }
+        }
+        
+        // 良好坐姿
+        return .good
     }
     
     /// 抓拍当前帧并保存为图片

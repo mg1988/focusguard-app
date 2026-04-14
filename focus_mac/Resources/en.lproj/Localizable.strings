@@ -55,6 +55,17 @@
 "snapshots_count" = "%d snapshots saved";
 "snapshot_location" = "Storage Location";
 "open_snapshot_folder" = "Open Snapshot Folder";
+
+/* Posture Detection Feature */
+"posture_detection_settings" = "Posture Detection";
+"enable_posture_detection" = "Enable Posture Detection";
+"posture_detection_description" = "Real-time posture detection to remind you to maintain proper posture";
+"current_posture" = "Current Posture";
+"posture_good" = "Good Posture";
+"posture_slouching" = "Slouching";
+"posture_leaning" = "Leaning";
+"posture_too_close" = "Too Close";
+"posture_too_far" = "Too Far";
 "recent_history" = "Recent History";
 "distraction_snapshots" = "Distraction Snapshots";
 "snapshots_gallery" = "Snapshot Gallery";

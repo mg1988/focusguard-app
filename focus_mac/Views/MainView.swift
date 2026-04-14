@@ -10,18 +10,26 @@ struct MainView: View {
     var body: some View {
         VStack(spacing: 0) {
             // 顶部导航/标题栏
-            HStack {
-                Text(NSLocalizedString("app_name", comment: ""))
-                    .font(.system(size: 18, weight: .heavy))
-                Spacer()
-                StatusIndicator(
-                    status: viewModel.status,
-                    isFaceDetected: viewModel.isFaceDetected,
-                    isEyesClosed: viewModel.isEyesClosed
-                )
-                .onTapGesture {
-                    // 快速点击指示器显示隐私说明
-                    showPrivacyMask = true
+            VStack(spacing: 12) {
+                HStack {
+                    Text(NSLocalizedString("app_name", comment: ""))
+                        .font(.system(size: 18, weight: .heavy))
+                    Spacer()
+                    StatusIndicator(
+                        status: viewModel.status,
+                        isFaceDetected: viewModel.isFaceDetected,
+                        isEyesClosed: viewModel.isEyesClosed
+                    )
+                    .onTapGesture {
+                        // 快速点击指示器显示隐私说明
+                        showPrivacyMask = true
+                    }
+                }
+                
+                // 坐姿状态指示器
+                if viewModel.isPostureDetectionEnabled {
+                    PostureIndicatorView(posture: viewModel.currentPosture)
+                        .transition(.scale.combined(with: .opacity))
                 }
             }
             .padding(.horizontal, 24)
