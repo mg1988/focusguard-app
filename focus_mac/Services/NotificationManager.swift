@@ -46,7 +46,7 @@ class NotificationManager: NSObject, UNUserNotificationCenterDelegate, Observabl
     /// 发送瞌睡提醒通知 (闭眼)
     func sendDrowsyAlert(sound: Bool, haptic: Bool) {
         if sound { playDrowsySound() }
-        if haptic { performHapticFeedback() }
+        if haptic { performStrongHaptic() } // 瞌睡使用更强烈的反馈
         sendNotification(
             title: NSLocalizedString("notification_drowsy_title", comment: "Drowsy Alert"),
             body: NSLocalizedString("notification_drowsy_body", comment: "Wake up!")
@@ -69,18 +69,15 @@ class NotificationManager: NSObject, UNUserNotificationCenterDelegate, Observabl
         if sound {
             switch level {
             case 1:
-                print("[Notification] 播放温和提示音")
-                playGentleSound()  // 温和提示音
+                playGentleSound()
             case 2:
-                print("[Notification] 播放中等提示音")
-                playModerateSound()  // 中等提示音
+                playModerateSound()
             default:
-                print("[Notification] 播放强烈提示音")
-                playStrongSound()  // 强烈提示音
+                playStrongSound()
             }
         }
         
-        // 触觉反馈：渐进式震动
+        // 触觉反馈：渐进式反馈
         if haptic {
             switch level {
             case 1:
@@ -164,21 +161,24 @@ class NotificationManager: NSObject, UNUserNotificationCenterDelegate, Observabl
     
     /// 执行温和触感反馈（轻微震动）
     private func performGentleHaptic() {
+        // 使用 alignment 产生轻微感
         hapticPerformer.perform(.alignment, performanceTime: .now)
     }
     
     /// 执行中等触感反馈（明显震动）
     private func performModerateHaptic() {
+        // 两次连续的 levelChange
         hapticPerformer.perform(.levelChange, performanceTime: .now)
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.15) { [weak self] in
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) { [weak self] in
             self?.hapticPerformer.perform(.levelChange, performanceTime: .now)
         }
     }
     
     /// 执行强烈触感反馈（连续震动）
     private func performStrongHaptic() {
-        for i in 0..<3 {
-            DispatchQueue.main.asyncAfter(deadline: .now() + Double(i) * 0.1) { [weak self] in
+        // 快速连续的 5 次 generic 模拟震动感
+        for i in 0..<5 {
+            DispatchQueue.main.asyncAfter(deadline: .now() + Double(i) * 0.08) { [weak self] in
                 self?.hapticPerformer.perform(.generic, performanceTime: .now)
             }
         }
@@ -186,6 +186,7 @@ class NotificationManager: NSObject, UNUserNotificationCenterDelegate, Observabl
     
     /// 执行触感反馈 (震动)
     private func performHapticFeedback() {
+        // 默认反馈
         hapticPerformer.perform(.generic, performanceTime: .now)
     }
     

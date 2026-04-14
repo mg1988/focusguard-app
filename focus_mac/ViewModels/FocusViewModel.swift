@@ -320,6 +320,18 @@ class FocusViewModel: ObservableObject {
             return
         }
         
+        // 检查免打扰模式：如果开启且检测到全屏应用，则暂停提醒
+        if isDoNotDisturbEnabled && isAnyAppFullScreen() {
+            if badPostureTimer != nil {
+                print("[PostureAlert] 免打扰模式开启且处于全屏，暂停坐姿提醒")
+            }
+            badPostureStartTime = nil
+            badPostureTimer?.invalidate()
+            badPostureTimer = nil
+            currentAlertLevel = 0
+            return
+        }
+        
         // 如果是良好坐姿，重置提醒
         if posture == .good {
             if badPostureTimer != nil {
@@ -503,6 +515,19 @@ class FocusViewModel: ObservableObject {
         self.timerMode = UserDefaults.standard.integer(forKey: "timerMode")
         self.isSnapshotEnabled = UserDefaults.standard.bool(forKey: "isSnapshotEnabled")
         if UserDefaults.standard.object(forKey: "isSnapshotEnabled") == nil { self.isSnapshotEnabled = true }
+        
+        // 加载坐姿提醒设置
+        self.isPostureAlertEnabled = UserDefaults.standard.bool(forKey: "isPostureAlertEnabled")
+        if UserDefaults.standard.object(forKey: "isPostureAlertEnabled") == nil { self.isPostureAlertEnabled = true }
+        
+        self.isPostureSoundEnabled = UserDefaults.standard.bool(forKey: "isPostureSoundEnabled")
+        if UserDefaults.standard.object(forKey: "isPostureSoundEnabled") == nil { self.isPostureSoundEnabled = true }
+        
+        self.isPostureHapticEnabled = UserDefaults.standard.bool(forKey: "isPostureHapticEnabled")
+        if UserDefaults.standard.object(forKey: "isPostureHapticEnabled") == nil { self.isPostureHapticEnabled = true }
+        
+        self.isPostureBannerEnabled = UserDefaults.standard.bool(forKey: "isPostureBannerEnabled")
+        if UserDefaults.standard.object(forKey: "isPostureBannerEnabled") == nil { self.isPostureBannerEnabled = true }
 
         // 加载历史数据
         if let data = UserDefaults.standard.data(forKey: "FocusGuardHistory"),
@@ -540,6 +565,12 @@ class FocusViewModel: ObservableObject {
         UserDefaults.standard.set(isDoNotDisturbEnabled, forKey: "isDoNotDisturbEnabled")
         UserDefaults.standard.set(timerMode, forKey: "timerMode")
         UserDefaults.standard.set(isSnapshotEnabled, forKey: "isSnapshotEnabled")
+        
+        // 保存坐姿提醒设置
+        UserDefaults.standard.set(isPostureAlertEnabled, forKey: "isPostureAlertEnabled")
+        UserDefaults.standard.set(isPostureSoundEnabled, forKey: "isPostureSoundEnabled")
+        UserDefaults.standard.set(isPostureHapticEnabled, forKey: "isPostureHapticEnabled")
+        UserDefaults.standard.set(isPostureBannerEnabled, forKey: "isPostureBannerEnabled")
 
         // 保存统计数据
         let todayStr = getTodayString()

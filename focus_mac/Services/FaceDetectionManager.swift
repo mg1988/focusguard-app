@@ -35,6 +35,8 @@ class FaceDetectionManager: NSObject, ObservableObject {
     // 坐姿检测相关
     private var faceRectHistory: [CGRect] = []
     private let faceRectWindowSize = 10 // 面部位置滑动窗口
+    private var postureHistory: [PostureState] = [] // 坐姿状态历史记录
+    private let postureWindowSize = 15 // 坐姿状态滑动窗口，约 0.5 秒 (30fps)
     private var badPostureStartTime: Date?
     private let badPostureThreshold: TimeInterval = 3.0 // 不良坐姿持续时间阈值
     
@@ -113,6 +115,7 @@ class FaceDetectionManager: NSObject, ObservableObject {
             }
             DispatchQueue.main.async {
                 self.isFaceDetected = false
+                self.postureHistory.removeAll() // 清空坐姿历史
             }
         }
     }
@@ -141,6 +144,13 @@ extension FaceDetectionManager: AVCaptureVideoDataOutputSampleBufferDelegate {
                     
                     // 检测坐姿
                     detectPosture(faceObservation: face)
+                } else {
+                    // 如果没检测到脸，将坐姿设为 good 或保持现状，避免误报
+                    // 此处选择清空坐姿历史，这样恢复时需要重新判定
+                    DispatchQueue.main.async {
+                        self.postureHistory.removeAll()
+                        self.currentPosture = .good
+                    }
                 }
                 
                 DispatchQueue.main.async {
@@ -175,17 +185,16 @@ extension FaceDetectionManager: AVCaptureVideoDataOutputSampleBufferDelegate {
         let avgLeftEAR = leftEARHistory.reduce(0, +) / CGFloat(leftEARHistory.count)
         let avgRightEAR = rightEARHistory.reduce(0, +) / CGFloat(rightEARHistory.count)
         
-        // 提高阈值到 0.25，降低敏感度（原为 0.22）
-        let threshold: CGFloat = 0.25
+        // 进一步提高阈值到 0.28（原 0.25），并增加连续确认帧数
+        // 0.28 是更宽松的闭眼判定标准，能减少因眯眼或光线问题导致的误判
+        let threshold: CGFloat = 0.28
         let isClosed = avgLeftEAR < threshold && avgRightEAR < threshold
         
-        // 使用连续帧验证，避免误判
+        // 使用连续帧验证，增加到 5 帧（约 0.16 秒），避免眨眼误判
         if isClosed {
             consecutiveClosedCount += 1
-            // 只有连续检测到闭眼才判定为闭眼
-            return consecutiveClosedCount >= consecutiveThreshold
+            return consecutiveClosedCount >= 5
         } else {
-            // 睁眼时重置计数器
             consecutiveClosedCount = 0
             return false
         }
@@ -240,26 +249,58 @@ extension FaceDetectionManager: AVCaptureVideoDataOutputSampleBufferDelegate {
         let avgFaceSize = faceRectHistory.reduce(0) { $0 + $1.size.width } / CGFloat(faceRectHistory.count)
         
         // 2. 使用面部地标检测头部姿态
-        let posture = analyzePostureFromLandmarks(faceObservation: faceObservation, faceSize: avgFaceSize)
+        let rawPosture = analyzePostureFromLandmarks(faceObservation: faceObservation, faceSize: avgFaceSize)
+        
+        // 3. 平滑处理：使用滑动窗口投票机制
+        postureHistory.append(rawPosture)
+        if postureHistory.count > postureWindowSize {
+            postureHistory.removeFirst()
+        }
+        
+        // 统计窗口中出现最多的状态
+        let smoothedPosture = getMostFrequentPosture(in: postureHistory)
         
         DispatchQueue.main.async {
-            self.currentPosture = posture
+            if self.currentPosture != smoothedPosture {
+                self.currentPosture = smoothedPosture
+            }
         }
+    }
+    
+    /// 获取窗口中出现最频繁的坐姿
+    private func getMostFrequentPosture(in history: [PostureState]) -> PostureState {
+        guard !history.isEmpty else { return .good }
+        
+        var counts: [PostureState: Int] = [:]
+        for state in history {
+            counts[state, default: 0] += 1
+        }
+        
+        // 优先返回非良好的姿态，以便更敏感地触发提醒，但需要足够多的帧数确认
+        // 如果 good 的比例很高（比如 > 80%），才判定为 good
+        let goodCount = counts[.good, default: 0]
+        if Double(goodCount) / Double(history.count) > 0.8 {
+            return .good
+        }
+        
+        // 否则返回最频繁的非良好姿态
+        return counts.filter { $0.key != .good }
+            .max { $0.value < $1.value }?
+            .key ?? .good
     }
     
     /// 从面部地标分析坐姿
     private func analyzePostureFromLandmarks(faceObservation: VNFaceObservation, faceSize: CGFloat) -> PostureState {
-        // 距离检测（基于面部大小）
-        // 正常面部大小约为 0.15-0.25（归一化坐标）
-        if faceSize > 0.35 {
-            return .tooClose  // 太近
-        } else if faceSize < 0.10 {
-            return .tooFar  // 太远
+        // 距离检测：适当扩大正常范围 (0.08 - 0.38)
+        if faceSize > 0.38 {
+            return .tooClose
+        } else if faceSize < 0.08 {
+            return .tooFar
         }
         
-        // 使用面部地标检测低头（弯腰驼背）
+        // 使用面部地标检测
         if let landmarks = faceObservation.landmarks {
-            // 检测鼻子和嘴巴的相对位置
+            // 低头检测：增加垂直距离的阈值，允许轻微低头
             if let nose = landmarks.nose,
                let mouth = landmarks.outerLips,
                nose.pointCount > 0,
@@ -267,17 +308,15 @@ extension FaceDetectionManager: AVCaptureVideoDataOutputSampleBufferDelegate {
                 
                 let nosePoint = nose.normalizedPoints[0]
                 let mouthPoint = mouth.normalizedPoints[0]
-                
-                // 计算鼻子到嘴巴的垂直距离
                 let verticalDist = nosePoint.y - mouthPoint.y
                 
-                // 如果垂直距离过大，说明在低头
-                if verticalDist > 0.08 {
+                // 阈值从 0.08 提高到 0.12，显著降低“弯腰”误判
+                if verticalDist > 0.12 {
                     return .slouching
                 }
             }
             
-            // 检测眼睛水平位置（判断侧倾）
+            // 侧倾检测：增加高度差阈值，允许头部自然倾斜
             if let leftEye = landmarks.leftEye,
                let rightEye = landmarks.rightEye,
                leftEye.pointCount > 0,
@@ -290,17 +329,15 @@ extension FaceDetectionManager: AVCaptureVideoDataOutputSampleBufferDelegate {
                     CGPoint(x: $0.x + $1.x, y: $0.y + $1.y)
                 }
                 
-                // 计算两眼高度差
                 let heightDiff = abs(leftCenter.y - rightCenter.y)
                 
-                // 高度差过大说明侧倾
-                if heightDiff > 0.05 {
+                // 阈值从 0.05 提高到 0.08，减少侧倾误判
+                if heightDiff > 0.08 {
                     return .leaning
                 }
             }
         }
         
-        // 良好坐姿
         return .good
     }
     

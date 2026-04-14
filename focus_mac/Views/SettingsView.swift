@@ -17,8 +17,14 @@ struct SettingsView: View {
                         Toggle(NSLocalizedString("sound_alerts", comment: ""), isOn: $viewModel.isSoundEnabled)
                             .toggleStyle(.switch)
                         
-                        Toggle(NSLocalizedString("haptic_alerts", comment: ""), isOn: $viewModel.isHapticEnabled)
-                            .toggleStyle(.switch)
+                        VStack(alignment: .leading, spacing: 4) {
+                            Toggle(NSLocalizedString("haptic_alerts", comment: ""), isOn: $viewModel.isHapticEnabled)
+                                .toggleStyle(.switch)
+                            
+                            Text(NSLocalizedString("haptic_desc", comment: ""))
+                                .font(.caption)
+                                .foregroundColor(.secondary)
+                        }
                         
                         Divider()
                         
@@ -132,6 +138,40 @@ struct SettingsView: View {
                                     .font(.caption)
                                     .fontWeight(.medium)
                                     .foregroundColor(viewModel.currentPosture == .good ? .green : .orange)
+                            }
+                            
+                            Divider()
+                            
+                            // 坐姿提醒详细设置
+                            VStack(alignment: .leading, spacing: 12) {
+                                HStack {
+                                    Image(systemName: "bell.badge")
+                                        .foregroundColor(.accentColor)
+                                    Text(NSLocalizedString("posture_alert_settings", comment: "坐姿提醒设置"))
+                                        .font(.subheadline)
+                                        .fontWeight(.semibold)
+                                }
+                                
+                                Toggle(NSLocalizedString("enable_posture_alert", comment: "启用坐姿提醒"), isOn: $viewModel.isPostureAlertEnabled)
+                                    .toggleStyle(.switch)
+                                
+                                Text(NSLocalizedString("posture_alert_description", comment: "不良坐姿持续时渐进式提醒"))
+                                    .font(.caption)
+                                    .foregroundColor(.secondary)
+                                
+                                if viewModel.isPostureAlertEnabled {
+                                    VStack(alignment: .leading, spacing: 10) {
+                                        Toggle(NSLocalizedString("posture_sound_alert", comment: "声音"), isOn: $viewModel.isPostureSoundEnabled)
+                                            .toggleStyle(.checkbox)
+                                        
+                                        Toggle(NSLocalizedString("posture_haptic_alert", comment: "震动"), isOn: $viewModel.isPostureHapticEnabled)
+                                            .toggleStyle(.checkbox)
+                                        
+                                        Toggle(NSLocalizedString("posture_banner_alert", comment: "通知横幅"), isOn: $viewModel.isPostureBannerEnabled)
+                                            .toggleStyle(.checkbox)
+                                    }
+                                    .padding(.leading, 8)
+                                }
                             }
                         }
                         

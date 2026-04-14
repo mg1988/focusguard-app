@@ -25,7 +25,8 @@
 "tab_settings" = "设置";
 "history_7_days" = "过去7天历史";
 "sound_alerts" = "声音提醒";
-"haptic_alerts" = "震动提醒";
+"haptic_alerts" = "触感提醒 (需手在触控板上)";
+"haptic_desc" = "通过触控板发送震动反馈。如果您的 Mac 配备 Force Touch 触控板 (MacBook 2015+)，您将感受到“轻敲”或“震动”效果。";
 "drowsy_threshold" = "瞌睡判定时长";
 "do_not_disturb" = "免打扰模式";
 "dnd_desc" = "全屏应用时暂停检测 (如看电影)";
