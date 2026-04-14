@@ -2,6 +2,7 @@ import Foundation
 import AVFoundation
 import Vision
 import Combine
+import AppKit
 
 /// 人脸检测管理服务，负责摄像头采集与面部识别逻辑
 class FaceDetectionManager: NSObject, ObservableObject {
@@ -10,6 +11,7 @@ class FaceDetectionManager: NSObject, ObservableObject {
     @Published var isFaceDetected: Bool = false
     @Published var isEyesClosed: Bool = false // 眼睛状态
     @Published var cameraPermissionStatus: AVAuthorizationStatus = .notDetermined
+    @Published var snapshotTaken: Bool = false // 抓拍完成标记
     
     // EAR 平滑处理：滑动窗口
     private var leftEARHistory: [CGFloat] = []
@@ -20,6 +22,11 @@ class FaceDetectionManager: NSObject, ObservableObject {
     private let videoDataOutput = AVCaptureVideoDataOutput()
     private let faceLandmarksRequest = VNDetectFaceLandmarksRequest() // 改为 LandMarks 以便检测眼睛
     private let sessionQueue = DispatchQueue(label: "com.focusguard.camera.queue")
+    
+    // 抓拍相关
+    private var lastSnapshotTime: Date?
+    private let snapshotCooldown: TimeInterval = 5.0 // 抓拍冷却时间，避免连续抓拍
+    private var currentSampleBuffer: CMSampleBuffer? // 保存当前帧用于抓拍
     
     private override init() {
         super.init()
@@ -105,6 +112,9 @@ extension FaceDetectionManager: AVCaptureVideoDataOutputSampleBufferDelegate {
     func captureOutput(_ output: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {
         guard let pixelBuffer = CMSampleBufferGetImageBuffer(sampleBuffer) else { return }
         
+        // 保存当前帧用于抓拍
+        self.currentSampleBuffer = sampleBuffer
+        
         let requestHandler = VNImageRequestHandler(cvPixelBuffer: pixelBuffer, orientation: .up, options: [:])
         do {
             try requestHandler.perform([faceLandmarksRequest])
@@ -123,11 +133,17 @@ extension FaceDetectionManager: AVCaptureVideoDataOutputSampleBufferDelegate {
                 DispatchQueue.main.async {
                     self.isFaceDetected = faceFound
                     self.isEyesClosed = eyesClosed
+                    self.snapshotTaken = false // 重置抓拍标记
                 }
             }
         } catch {
             print("Failed to perform face detection: \(error)")
         }
+    }
+    
+    /// 获取当前帧用于抓拍
+    func getCurrentFrame() -> CMSampleBuffer? {
+        return currentSampleBuffer
     }
     
     /// 根据眼睛特征点判断是否闭眼 (使用平滑后的 EAR 算法)
@@ -178,5 +194,58 @@ extension FaceDetectionManager: AVCaptureVideoDataOutputSampleBufferDelegate {
     
     private func dist(_ p1: CGPoint, _ p2: CGPoint) -> CGFloat {
         return sqrt(pow(p1.x - p2.x, 2) + pow(p1.y - p2.y, 2))
+    }
+    
+    /// 抓拍当前帧并保存为图片
+    /// - Parameters:
+    ///   - sampleBuffer: 当前的视频帧
+    ///   - type: 抓拍类型（走神或瞌睡）
+    ///   - duration: 触发抓拍的持续时间
+    /// - Returns: 抓拍照片的文件路径
+    func captureSnapshot(from sampleBuffer: CMSampleBuffer, type: SnapshotType, duration: TimeInterval) -> String? {
+        // 检查冷却时间
+        if let lastTime = lastSnapshotTime,
+           Date().timeIntervalSince(lastTime) < snapshotCooldown {
+            return nil
+        }
+        
+        guard let pixelBuffer = CMSampleBufferGetImageBuffer(sampleBuffer) else {
+            return nil
+        }
+        
+        // 将 PixelBuffer 转换为 CGImage
+        let ciImage = CIImage(cvPixelBuffer: pixelBuffer)
+        let context = CIContext(options: nil)
+        
+        guard let cgImage = context.createCGImage(ciImage, from: ciImage.extent) else {
+            return nil
+        }
+        
+        // 生成文件名和保存路径
+        let fileName = "\(type.rawValue)_\(Date().timeIntervalSince1970).jpg"
+        let fileManager = FileManager.default
+        
+        // 获取 Documents 目录
+        guard let documentsDir = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first else {
+            return nil
+        }
+        
+        let snapshotsDir = documentsDir.appendingPathComponent("Snapshots", isDirectory: true)
+        
+        // 创建快照目录（如果不存在）
+        if !fileManager.fileExists(atPath: snapshotsDir.path) {
+            try? fileManager.createDirectory(at: snapshotsDir, withIntermediateDirectories: true, attributes: nil)
+        }
+        
+        let filePath = snapshotsDir.appendingPathComponent(fileName)
+        
+        // 保存为 JPEG 图片
+        if let data = NSBitmapImageRep(cgImage: cgImage).representation(using: .jpeg, properties: [.compressionFactor: 0.8]),
+           fileManager.createFile(atPath: filePath.path, contents: data, attributes: nil) {
+            lastSnapshotTime = Date()
+            return filePath.path
+        }
+        
+        return nil
     }
 }

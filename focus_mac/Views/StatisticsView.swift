@@ -4,48 +4,99 @@ struct StatisticsView: View {
     @ObservedObject var viewModel: FocusViewModel
     
     var body: some View {
-        VStack(spacing: 20) {
-            Text(NSLocalizedString("history_7_days", comment: ""))
-                .font(.headline)
-                .frame(maxWidth: .infinity, alignment: .leading)
-            
-            // 新增：专注热力图 (Heatmap)
-            FocusHeatmap(history: viewModel.history)
-                .frame(height: 100)
-                .padding(.vertical, 8)
-            
-            let stats = viewModel.last7DaysStats
-            
-            VStack(spacing: 12) {
-                StatRow(title: NSLocalizedString("total_focus", comment: ""), value: formatTime(stats.totalTime), color: .green)
-                StatRow(title: NSLocalizedString("efficiency", comment: ""), value: "\(viewModel.efficiencyScore)%", color: .yellow)
-                StatRow(title: NSLocalizedString("avg_distractions", comment: ""), value: String(format: "%.1f", stats.avgDistraction), color: .orange)
-                StatRow(title: NSLocalizedString("avg_drowsy", comment: ""), value: String(format: "%.1f", stats.avgDrowsy), color: .blue)
-            }
-            .padding()
-            .background(RoundedRectangle(cornerRadius: 12).fill(Color.primary.opacity(0.05)))
-            
-            // 简单的历史列表
-            ScrollView {
-                VStack(spacing: 10) {
-                    ForEach(viewModel.history.prefix(7)) { day in
-                        HStack {
-                            Text(day.date).font(.system(.body, design: .monospaced))
-                            Spacer()
-                            Text(formatTime(day.focusTime)).foregroundColor(.secondary)
-                            Image(systemName: "figure.walk").foregroundColor(.orange)
-                            Text("\(day.distractionCount)")
-                            Image(systemName: "eye.slash").foregroundColor(.blue)
-                            Text("\(day.drowsyCount)")
+        ScrollView(.vertical, showsIndicators: true) {
+            VStack(spacing: 16) {
+                // 标题
+                Text(NSLocalizedString("history_7_days", comment: ""))
+                    .font(.headline)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                
+                // 专注热力图 (Heatmap)
+                FocusHeatmap(history: viewModel.history)
+                    .frame(height: 80)
+                
+                // 统计数据卡片
+                let stats = viewModel.last7DaysStats
+                
+                VStack(spacing: 12) {
+                    StatRow(title: NSLocalizedString("total_focus", comment: ""), value: formatTime(stats.totalTime), color: .green)
+                    StatRow(title: NSLocalizedString("efficiency", comment: ""), value: "\(viewModel.efficiencyScore)%", color: .yellow)
+                    StatRow(title: NSLocalizedString("avg_distractions", comment: ""), value: String(format: "%.1f", stats.avgDistraction), color: .orange)
+                    StatRow(title: NSLocalizedString("avg_drowsy", comment: ""), value: String(format: "%.1f", stats.avgDrowsy), color: .blue)
+                }
+                .padding(12)
+                .background(RoundedRectangle(cornerRadius: 12).fill(Color.primary.opacity(0.05)))
+                
+                // 历史列表（水平滚动）
+                VStack(alignment: .leading, spacing: 8) {
+                    Text(NSLocalizedString("recent_history", comment: "最近记录"))
+                        .font(.system(size: 13, weight: .semibold))
+                        .foregroundColor(.secondary)
+                    
+                    ScrollView(.horizontal, showsIndicators: false) {
+                        HStack(spacing: 8) {
+                            ForEach(viewModel.history.prefix(7)) { day in
+                                VStack(spacing: 6) {
+                                    Text(day.date)
+                                        .font(.system(.caption2, design: .monospaced))
+                                        .foregroundColor(.secondary)
+                                    
+                                    Text(formatTime(day.focusTime))
+                                        .font(.system(size: 11, weight: .bold))
+                                    
+                                    HStack(spacing: 4) {
+                                        Label("\(day.distractionCount)", systemImage: "figure.walk")
+                                            .font(.system(size: 9))
+                                            .foregroundColor(.orange)
+                                        
+                                        Label("\(day.drowsyCount)", systemImage: "eye.slash")
+                                            .font(.system(size: 9))
+                                            .foregroundColor(.blue)
+                                    }
+                                }
+                                .padding(10)
+                                .frame(width: 90)
+                                .background(RoundedRectangle(cornerRadius: 8).fill(Color.primary.opacity(0.03)))
+                            }
                         }
-                        .padding(.horizontal)
-                        .padding(.vertical, 8)
-                        .background(RoundedRectangle(cornerRadius: 8).fill(Color.primary.opacity(0.03)))
+                    }
+                }
+                
+                // 抓拍照片画廊
+                VStack(alignment: .leading, spacing: 10) {
+                    Divider()
+                    
+                    HStack {
+                        Text(NSLocalizedString("distraction_snapshots", comment: "走神抓拍"))
+                            .font(.system(size: 13, weight: .semibold))
+                            .foregroundColor(.secondary)
+                        
+                        Spacer()
+                        
+                        Text("\(viewModel.snapshots.count)")
+                            .font(.system(size: 11))
+                            .foregroundColor(.secondary)
+                    }
+                    
+                    if viewModel.snapshots.isEmpty {
+                        EmptyStateView()
+                            .frame(height: 180)
+                    } else {
+                        // 照片网格，固定高度
+                        ScrollView(.horizontal, showsIndicators: false) {
+                            HStack(spacing: 8) {
+                                ForEach(Array(viewModel.snapshots.prefix(6))) { snapshot in
+                                    SnapshotThumbnailView(snapshot: snapshot)
+                                        .frame(width: 100)
+                                }
+                            }
+                        }
+                        .frame(height: 140)
                     }
                 }
             }
+            .padding(16)
         }
-        .padding()
     }
     
     private func formatTime(_ time: TimeInterval) -> String {

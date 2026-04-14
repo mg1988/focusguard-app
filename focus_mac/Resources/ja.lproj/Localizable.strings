@@ -42,4 +42,27 @@
 "privacy_no_store" = "画像はディスクに保存されません。";
 "privacy_no_upload" = "サーバーへのデータアップロードはありません。";
 "privacy_got_it" = "了解しました";
+
+/* スナップショット機能 */
+"snapshot_settings" = "スナップショット設定";
+"enable_snapshots" = "スナップショットを有効にする";
+"snapshots_description" = "集中状態を振り返るために、散漫または眠気のあるときに自動撮影";
+"snapshots_count" = "%d枚のスナップショットを保存";
+"snapshot_location" = "保存場所";
+"open_snapshot_folder" = "スナップショットフォルダを開く";
+"recent_history" = "最近の記録";
+"distraction_snapshots" = "散漫スナップショット";
+"snapshots_gallery" = "スナップショットギャラリー";
+"snapshot_distraction" = "散漫";
+"snapshot_drowsy" = "居眠り";
+"triggered_after" = "%d秒後にトリガー";
+"triggered_after_format" = "%d秒後にトリガー";
+"no_snapshots" = "スナップショットはありません";
+"no_snapshots_description" = "散漫または眠気のあるときに自動的にスナップショットが撮影されます";
+"clear_all_snapshots" = "すべてのスナップショットをクリア";
+"clear_all_snapshots_message" = "すべてのスナップショットを削除してもよろしいですか？この操作は元に戻せません。";
+"delete_snapshot" = "スナップショットを削除";
+"delete_snapshot_message" = "このスナップショットを削除してもよろしいですか？";
+"cancel" = "キャンセル";
+"delete" = "削除";
 "quit" = "終了";

@@ -30,6 +30,9 @@
 "do_not_disturb" = "Do Not Disturb";
 "dnd_desc" = "Pause detection in full-screen apps.";
 "launch_at_login" = "Launch at Login";
+"timer_mode" = "Timer Mode";
+"timer_up" = "Count Up";
+"timer_down" = "Count Down";
 "seconds" = "s";
 "total_focus" = "Total Focus";
 "avg_distractions" = "Avg. Away";
@@ -44,3 +47,26 @@
 "privacy_no_store" = "Images are NEVER stored on disk.";
 "privacy_no_upload" = "No data uploaded to any server.";
 "privacy_got_it" = "I Understand";
+
+/* Snapshot Feature */
+"snapshot_settings" = "Snapshot Settings";
+"enable_snapshots" = "Enable Snapshots";
+"snapshots_description" = "Auto-capture when distracted or drowsy to review focus state";
+"snapshots_count" = "%d snapshots saved";
+"snapshot_location" = "Storage Location";
+"open_snapshot_folder" = "Open Snapshot Folder";
+"recent_history" = "Recent History";
+"distraction_snapshots" = "Distraction Snapshots";
+"snapshots_gallery" = "Snapshot Gallery";
+"snapshot_distraction" = "Distraction";
+"snapshot_drowsy" = "Drowsy";
+"triggered_after" = "Triggered after %ds";
+"triggered_after_format" = "Triggered after %d seconds";
+"no_snapshots" = "No snapshots yet";
+"no_snapshots_description" = "Snapshots will be captured automatically when you're distracted or drowsy";
+"clear_all_snapshots" = "Clear All Snapshots";
+"clear_all_snapshots_message" = "Are you sure you want to delete all snapshots? This cannot be undone.";
+"delete_snapshot" = "Delete Snapshot";
+"delete_snapshot_message" = "Are you sure you want to delete this snapshot?";
+"cancel" = "Cancel";
+"delete" = "Delete";

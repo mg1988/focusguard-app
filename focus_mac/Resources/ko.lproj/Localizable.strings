@@ -42,4 +42,27 @@
 "privacy_no_store" = "이미지는 디스크에 저장되지 않습니다.";
 "privacy_no_upload" = "서버로 데이터를 업로드하지 않습니다.";
 "privacy_got_it" = "알겠습니다";
+
+/* 스냅샷 기능 */
+"snapshot_settings" = "스냅샷 설정";
+"enable_snapshots" = "스냅샷 사용";
+"snapshots_description" = "집중 상태를 검토하기 위해 산만하거나 졸릴 때 자동 촬영";
+"snapshots_count" = "%d개의 스냅샷 저장됨";
+"snapshot_location" = "저장 위치";
+"open_snapshot_folder" = "스냅샷 폴더 열기";
+"recent_history" = "최근 기록";
+"distraction_snapshots" = "산만 스냅샷";
+"snapshots_gallery" = "스냅샷 갤러리";
+"snapshot_distraction" = "산만";
+"snapshot_drowsy" = "졸음";
+"triggered_after" = "%d 초 후 트리거";
+"triggered_after_format" = "%d 초 후 트리거";
+"no_snapshots" = "스냅샷이 없습니다";
+"no_snapshots_description" = "산만하거나 졸릴 때 자동으로 스냅샷이 촬영됩니다";
+"clear_all_snapshots" = "모든 스냅샷 지우기";
+"clear_all_snapshots_message" = "모든 스냅샷을 삭제하시겠습니까? 이 작업은 되돌릴 수 없습니다.";
+"delete_snapshot" = "스냅샷 삭제";
+"delete_snapshot_message" = "이 스냅샷을 삭제하시겠습니까?";
+"cancel" = "취소";
+"delete" = "삭제";
 "quit" = "종료";

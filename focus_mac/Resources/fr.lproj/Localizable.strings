@@ -42,4 +42,27 @@
 "privacy_no_store" = "Les images ne sont JAMAIS stockées.";
 "privacy_no_upload" = "Aucun téléchargement sur serveur.";
 "privacy_got_it" = "Compris";
+
+/* Fonction Instantané */
+"snapshot_settings" = "Paramètres des instantanés";
+"enable_snapshots" = "Activer les instantanés";
+"snapshots_description" = "Capture automatique en cas de distraction ou de somnolence pour revoir l'état de concentration";
+"snapshots_count" = "%d instantanés enregistrés";
+"snapshot_location" = "Emplacement de stockage";
+"open_snapshot_folder" = "Ouvrir le dossier des instantanés";
+"recent_history" = "Historique récent";
+"distraction_snapshots" = "Instantanés de distraction";
+"snapshots_gallery" = "Galerie d'instantanés";
+"snapshot_distraction" = "Distraction";
+"snapshot_drowsy" = "Somnolence";
+"triggered_after" = "Déclenché après %ds";
+"triggered_after_format" = "Déclenché après %d secondes";
+"no_snapshots" = "Aucun instantané";
+"no_snapshots_description" = "Les instantanés seront capturés automatiquement lorsque vous serez distrait ou somnolent";
+"clear_all_snapshots" = "Effacer tous les instantanés";
+"clear_all_snapshots_message" = "Êtes-vous sûr de vouloir supprimer tous les instantanés ? Cette action ne peut pas être annulée.";
+"delete_snapshot" = "Supprimer l'instantané";
+"delete_snapshot_message" = "Êtes-vous sûr de vouloir supprimer cet instantané ?";
+"cancel" = "Annuler";
+"delete" = "Supprimer";
 "quit" = "Quitter";

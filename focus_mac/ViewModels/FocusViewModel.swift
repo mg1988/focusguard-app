@@ -2,6 +2,7 @@ import Foundation
 import Combine
 import SwiftUI
 import ServiceManagement
+import AVFoundation
 
 /// 专注状态枚举，定义专注应用的不同运行状态
 enum FocusStatus {
@@ -54,6 +55,10 @@ class FocusViewModel: ObservableObject {
     // 历史数据
     @Published var history: [DailyStats] = []
     
+    // 抓拍照片数据
+    @Published var snapshots: [DistractionSnapshot] = []
+    @Published var isSnapshotEnabled: Bool = true // 是否启用抓拍功能
+    
     // 进度属性用于动态图标
     @Published var progress: Double = 0.0
     
@@ -61,6 +66,7 @@ class FocusViewModel: ObservableObject {
     @Published var focusGoal: TimeInterval = 25 * 60 // 默认 25 分钟
     @Published var remainingTime: TimeInterval = 25 * 60
     @Published var isGoalActive: Bool = false
+    @Published var timerMode: Int = 0 // 0: 正向计时, 1: 倒计时
     
     // 效率评分 (0-100)
     var efficiencyScore: Int {
@@ -180,6 +186,44 @@ class FocusViewModel: ObservableObject {
         }
     }
     
+    /// 执行走神抓拍
+    func takeDistractionSnapshot(sampleBuffer: CMSampleBuffer?, duration: TimeInterval) {
+        guard isSnapshotEnabled,
+              let sampleBuffer = sampleBuffer,
+              let imagePath = faceManager.captureSnapshot(from: sampleBuffer, type: .distraction, duration: duration) else {
+            return
+        }
+        
+        let snapshot = DistractionSnapshot(
+            type: .distraction,
+            imagePath: imagePath,
+            duration: duration
+        )
+        
+        snapshots.insert(snapshot, at: 0)
+        saveSnapshots()
+        print("走神抓拍成功：\(imagePath)")
+    }
+    
+    /// 执行瞌睡抓拍
+    func takeDrowsySnapshot(sampleBuffer: CMSampleBuffer?, duration: TimeInterval) {
+        guard isSnapshotEnabled,
+              let sampleBuffer = sampleBuffer,
+              let imagePath = faceManager.captureSnapshot(from: sampleBuffer, type: .drowsy, duration: duration) else {
+            return
+        }
+        
+        let snapshot = DistractionSnapshot(
+            type: .drowsy,
+            imagePath: imagePath,
+            duration: duration
+        )
+        
+        snapshots.insert(snapshot, at: 0)
+        saveSnapshots()
+        print("瞌睡抓拍成功：\(imagePath)")
+    }
+    
     /// 处理眼睛状态变更 (瞌睡判定)
     private func handleDrowsyUpdate(_ closed: Bool) {
         guard status != .idle && isFaceDetected else { return }
@@ -240,6 +284,11 @@ class FocusViewModel: ObservableObject {
             if elapsed >= self.sensitivity.distractionThreshold {
                 // 触发走神提醒
                 self.distractionCount += 1
+                
+                // 执行抓拍
+                let sampleBuffer = self.faceManager.getCurrentFrame()
+                self.takeDistractionSnapshot(sampleBuffer: sampleBuffer, duration: elapsed)
+                
                 self.notificationManager.sendDistractionAlert(
                     sound: self.isSoundEnabled,
                     haptic: self.isHapticEnabled
@@ -263,6 +312,11 @@ class FocusViewModel: ObservableObject {
             if elapsed >= self.drowsyThreshold {
                 // 触发走神提醒
                 self.drowsyCount += 1
+                
+                // 执行抓拍
+                let sampleBuffer = self.faceManager.getCurrentFrame()
+                self.takeDrowsySnapshot(sampleBuffer: sampleBuffer, duration: elapsed)
+                
                 self.notificationManager.sendDrowsyAlert(
                     sound: self.isSoundEnabled,
                     haptic: self.isHapticEnabled
@@ -276,10 +330,17 @@ class FocusViewModel: ObservableObject {
     
     /// 开启/关闭开机自启动
     func toggleLaunchAtLogin() {
-        if isLaunchAtLoginEnabled {
-            try? SMAppService.mainApp.register()
-        } else {
-            try? SMAppService.mainApp.unregister()
+        // SMAppService 仅在有正确签名和 Bundle ID 的情况下工作，增加防御
+        do {
+            if isLaunchAtLoginEnabled {
+                try SMAppService.mainApp.register()
+            } else {
+                try SMAppService.mainApp.unregister()
+            }
+        } catch {
+            print("SMAppService error: \(error.localizedDescription)")
+            // 如果失败，回滚状态
+            isLaunchAtLoginEnabled = (SMAppService.mainApp.status == .enabled)
         }
         saveDailyStats()
     }
@@ -298,7 +359,10 @@ class FocusViewModel: ObservableObject {
         if self.drowsyThreshold == 0 { self.drowsyThreshold = 2.0 }
         
         self.isDoNotDisturbEnabled = UserDefaults.standard.bool(forKey: "isDoNotDisturbEnabled")
-        self.isLaunchAtLoginEnabled = SMAppService.mainApp.status == .enabled
+        self.isLaunchAtLoginEnabled = UserDefaults.standard.bool(forKey: "isLaunchAtLoginEnabled")
+        self.timerMode = UserDefaults.standard.integer(forKey: "timerMode")
+        self.isSnapshotEnabled = UserDefaults.standard.bool(forKey: "isSnapshotEnabled")
+        if UserDefaults.standard.object(forKey: "isSnapshotEnabled") == nil { self.isSnapshotEnabled = true }
 
         // 加载历史数据
         if let data = UserDefaults.standard.data(forKey: "FocusGuardHistory"),
@@ -306,12 +370,24 @@ class FocusViewModel: ObservableObject {
             self.history = decoded
         }
         
+        // 加载抓拍照片数据
+        if let data = UserDefaults.standard.data(forKey: "FocusGuardSnapshots"),
+           let decoded = try? JSONDecoder().decode([DistractionSnapshot].self, from: data) {
+            self.snapshots = decoded
+        }
+        
         // 获取今日数据
         let todayStr = getTodayString()
         if let today = history.first(where: { $0.date == todayStr }) {
+            // 如果找到今天的记录，加载数据
             self.focusTime = today.focusTime
             self.distractionCount = today.distractionCount
             self.drowsyCount = today.drowsyCount
+        } else {
+            // 如果是新的一天，重置为 0
+            self.focusTime = 0
+            self.distractionCount = 0
+            self.drowsyCount = 0
         }
     }
     
@@ -321,14 +397,26 @@ class FocusViewModel: ObservableObject {
         UserDefaults.standard.set(isHapticEnabled, forKey: "isHapticEnabled")
         UserDefaults.standard.set(drowsyThreshold, forKey: "drowsyThreshold")
         UserDefaults.standard.set(isDoNotDisturbEnabled, forKey: "isDoNotDisturbEnabled")
+        UserDefaults.standard.set(timerMode, forKey: "timerMode")
+        UserDefaults.standard.set(isSnapshotEnabled, forKey: "isSnapshotEnabled")
 
         // 保存统计数据
         let todayStr = getTodayString()
+        
+        // 检查是否需要归档昨天的数据（跨天情况）
+        if let lastRecord = history.first, lastRecord.date != todayStr {
+            // 昨天的数据已经在历史记录中，不需要额外操作
+            // 因为 lastRecord 的 date 不等于今天，说明是昨天的数据
+        }
+        
+        // 保存或更新今日数据
         if let index = history.firstIndex(where: { $0.date == todayStr }) {
+            // 更新今日已存在的记录
             history[index].focusTime = focusTime
             history[index].distractionCount = distractionCount
             history[index].drowsyCount = drowsyCount
         } else {
+            // 创建新的一天记录
             let newDay = DailyStats(date: todayStr, focusTime: focusTime, distractionCount: distractionCount, drowsyCount: drowsyCount)
             history.insert(newDay, at: 0)
             // 仅保留最近 30 天
@@ -338,6 +426,40 @@ class FocusViewModel: ObservableObject {
         if let encoded = try? JSONEncoder().encode(history) {
             UserDefaults.standard.set(encoded, forKey: "FocusGuardHistory")
         }
+    }
+    
+    /// 保存抓拍照片数据
+    private func saveSnapshots() {
+        // 仅保留最近 100 张照片
+        if snapshots.count > 100 {
+            snapshots = Array(snapshots.prefix(100))
+        }
+        
+        if let encoded = try? JSONEncoder().encode(snapshots) {
+            UserDefaults.standard.set(encoded, forKey: "FocusGuardSnapshots")
+        }
+    }
+    
+    /// 删除指定照片
+    func deleteSnapshot(at indexSet: IndexSet) {
+        for index in indexSet {
+            if index < snapshots.count {
+                // 删除文件
+                let snapshot = snapshots[index]
+                try? FileManager.default.removeItem(atPath: snapshot.imagePath)
+            }
+        }
+        snapshots.remove(atOffsets: indexSet)
+        saveSnapshots()
+    }
+    
+    /// 清空所有照片
+    func clearAllSnapshots() {
+        for snapshot in snapshots {
+            try? FileManager.default.removeItem(atPath: snapshot.imagePath)
+        }
+        snapshots.removeAll()
+        saveSnapshots()
     }
     
     private func getTodayString() -> String {

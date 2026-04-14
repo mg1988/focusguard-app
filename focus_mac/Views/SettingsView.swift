@@ -13,6 +13,7 @@ struct SettingsView: View {
                         .frame(maxWidth: .infinity, alignment: .leading)
                     
                     VStack(spacing: 16) {
+                        // 提醒设置
                         Toggle(NSLocalizedString("sound_alerts", comment: ""), isOn: $viewModel.isSoundEnabled)
                             .toggleStyle(.switch)
                         
@@ -21,6 +22,7 @@ struct SettingsView: View {
                         
                         Divider()
                         
+                        // 系统设置
                         VStack(alignment: .leading, spacing: 4) {
                             Toggle(NSLocalizedString("do_not_disturb", comment: ""), isOn: $viewModel.isDoNotDisturbEnabled)
                                 .toggleStyle(.switch)
@@ -37,6 +39,72 @@ struct SettingsView: View {
                         
                         Divider()
                         
+                        // 计时模式设置
+                        VStack(alignment: .leading, spacing: 8) {
+                            Text(NSLocalizedString("timer_mode", comment: ""))
+                                .font(.subheadline)
+                                .foregroundColor(.secondary)
+                            
+                            Picker("", selection: $viewModel.timerMode) {
+                                Text(NSLocalizedString("timer_up", comment: "")).tag(0)
+                                Text(NSLocalizedString("timer_down", comment: "")).tag(1)
+                            }
+                            .pickerStyle(.segmented)
+                        }
+                        
+                        Divider()
+                        
+                        // 抓拍功能设置
+                        VStack(alignment: .leading, spacing: 12) {
+                            HStack {
+                                Image(systemName: "camera.viewfinder")
+                                    .foregroundColor(.accentColor)
+                                Text(NSLocalizedString("snapshot_settings", comment: "抓拍设置"))
+                                    .font(.subheadline)
+                                    .fontWeight(.semibold)
+                                Spacer()
+                            }
+                            
+                            Toggle(NSLocalizedString("enable_snapshots", comment: "启用抓拍"), isOn: $viewModel.isSnapshotEnabled)
+                                .toggleStyle(.switch)
+                            
+                            Text(NSLocalizedString("snapshots_description", comment: "走神或瞌睡时自动拍照，帮助回顾专注状态"))
+                                .font(.caption)
+                                .foregroundColor(.secondary)
+                            
+                            HStack(spacing: 8) {
+                                Image(systemName: "folder")
+                                    .foregroundColor(.secondary)
+                                Text(NSLocalizedString("snapshot_location", comment: "存储位置"))
+                                    .font(.caption)
+                                    .foregroundColor(.secondary)
+                                Spacer()
+                                Text("Documents/Snapshots")
+                                    .font(.caption)
+                                    .foregroundColor(.accentColor)
+                                    .fontWeight(.medium)
+                            }
+                            
+                            Button(action: {
+                                openSnapshotFolder()
+                            }) {
+                                HStack {
+                                    Image(systemName: "folder.badge.plus")
+                                    Text(NSLocalizedString("open_snapshot_folder", comment: "打开照片文件夹"))
+                                }
+                                .font(.caption)
+                                .foregroundColor(.accentColor)
+                            }
+                            .buttonStyle(.plain)
+                            
+                            Text(String(format: NSLocalizedString("snapshots_count", comment: "已保存 %d 张照片"), viewModel.snapshots.count))
+                                .font(.caption)
+                                .foregroundColor(.accentColor)
+                        }
+                        
+                        Divider()
+                        
+                        // 阈值设置
                         VStack(alignment: .leading, spacing: 8) {
                             HStack {
                                 Text(NSLocalizedString("drowsy_threshold", comment: ""))
@@ -51,6 +119,7 @@ struct SettingsView: View {
                     .padding()
                     .background(RoundedRectangle(cornerRadius: 12).fill(Color.primary.opacity(0.05)))
                     
+                    // 数据导出
                     Button(action: {
                         exportData()
                     }) {
@@ -65,7 +134,7 @@ struct SettingsView: View {
                 .padding(20)
             }
             
-            // 底部退出按钮，固定位置
+            // 底部退出按钮
             Divider()
             
             Button(action: {
@@ -103,6 +172,29 @@ struct SettingsView: View {
                     }
                 }
             }
+        }
+    }
+    
+    private func openSnapshotFolder() {
+        DispatchQueue.main.async {
+            let fileManager = FileManager.default
+            guard let documentsDir = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first else {
+                return
+            }
+            
+            let snapshotsDir = documentsDir.appendingPathComponent("Snapshots", isDirectory: true)
+            
+            // 如果文件夹不存在，则创建
+            if !fileManager.fileExists(atPath: snapshotsDir.path) {
+                do {
+                    try fileManager.createDirectory(at: snapshotsDir, withIntermediateDirectories: true, attributes: nil)
+                } catch {
+                    print("Failed to create snapshots folder: \(error.localizedDescription)")
+                }
+            }
+            
+            // 在 Finder 中打开
+            NSWorkspace.shared.selectFile(nil, inFileViewerRootedAtPath: snapshotsDir.path)
         }
     }
 }

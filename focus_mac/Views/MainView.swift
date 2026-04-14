@@ -92,13 +92,13 @@ struct FocusContentView: View {
                         )
                         
                         StatCard(
-                            title: NSLocalizedString("efficiency", comment: ""),
-                            value: "\(viewModel.efficiencyScore)%",
-                            iconName: "bolt.fill",
-                            color: .yellow
-                        )
-                    }
+                        title: NSLocalizedString("drowsiness", comment: ""),
+                        value: "\(viewModel.drowsyCount)",
+                        iconName: "eye.slash",
+                        color: .blue
+                    )
                 }
+            }
                 .padding(.top, 4)
                 
                 // 专注目标设置 (仅在待命状态可见)

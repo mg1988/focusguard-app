@@ -5,7 +5,9 @@ struct DynamicMenuBarIcon: View {
     let progress: Double
     let status: FocusStatus
     let remainingTime: TimeInterval
+    let focusTime: TimeInterval
     let isGoalActive: Bool
+    let timerMode: Int
     
     var body: some View {
         HStack(spacing: 4) {
@@ -32,8 +34,8 @@ struct DynamicMenuBarIcon: View {
             }
             .frame(width: 18, height: 18)
             
-            if isGoalActive && status != .idle {
-                Text(formatTime(remainingTime))
+            if status != .idle {
+                Text(timerMode == 1 && isGoalActive ? formatTime(remainingTime) : formatTime(focusTime))
                     .font(.system(size: 10, weight: .medium, design: .monospaced))
                     .foregroundColor(statusColor)
             }

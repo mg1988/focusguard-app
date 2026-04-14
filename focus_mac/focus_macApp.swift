@@ -14,7 +14,9 @@ struct focus_macApp: App {
                     progress: viewModel.progress,
                     status: viewModel.status,
                     remainingTime: viewModel.remainingTime,
-                    isGoalActive: viewModel.isGoalActive
+                    focusTime: viewModel.focusTime,
+                    isGoalActive: viewModel.isGoalActive,
+                    timerMode: viewModel.timerMode
                 )
                 // 增加一个隐藏的文字标签，有助于系统分配菜单栏空间
                 Text("Focus").opacity(0)
