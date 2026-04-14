@@ -52,6 +52,7 @@ class FocusViewModel: ObservableObject {
     @Published var drowsyThreshold: Double = 2.0 // 瞌睡判定秒数
     @Published var isDoNotDisturbEnabled: Bool = false // 免打扰模式
     @Published var isLaunchAtLoginEnabled: Bool = false // 开机自启动
+    @Published var isSystemFocusSyncEnabled: Bool = false // 是否与系统专注模式同步
     
     // 历史数据
     @Published var history: [DailyStats] = []
@@ -122,6 +123,28 @@ class FocusViewModel: ObservableObject {
     init() {
         loadDailyStats()
         bindFaceDetection()
+        setupNotificationObservers()
+    }
+    
+    /// 监听来自系统的指令 (AppIntents / Focus Filters)
+    private func setupNotificationObservers() {
+        NotificationCenter.default.publisher(for: .startFocusFromIntent)
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] _ in
+                if self?.status == .idle {
+                    self?.startFocusSession()
+                }
+            }
+            .store(in: &cancellables)
+        
+        NotificationCenter.default.publisher(for: .stopFocusFromIntent)
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] _ in
+                if self?.status != .idle {
+                    self?.stopFocusSession()
+                }
+            }
+            .store(in: &cancellables)
     }
     
     /// 绑定 FaceDetectionManager 的检测结果
@@ -184,6 +207,11 @@ class FocusViewModel: ObservableObject {
         status = .active
         faceManager.startDetection()
         startMainTimer()
+        
+        // 如果启用了系统同步，尝试触发勿扰模式
+        if isSystemFocusSyncEnabled {
+            runShortcut(name: "开启勿扰")
+        }
     }
     
     /// 停止专注会话并持久化数据
@@ -196,6 +224,20 @@ class FocusViewModel: ObservableObject {
         distractionTimer?.invalidate()
         distractionTimer = nil
         saveDailyStats()
+        
+        // 如果启用了系统同步，尝试关闭勿扰模式
+        if isSystemFocusSyncEnabled {
+            runShortcut(name: "关闭勿扰")
+        }
+    }
+    
+    /// 运行系统快捷指令
+    private func runShortcut(name: String) {
+        let process = Process()
+        process.executableURL = URL(fileURLWithPath: "/usr/bin/shortcuts")
+        process.arguments = ["run", name]
+        
+        try? process.run()
     }
     
     /// 专注目标达成处理
@@ -519,6 +561,7 @@ class FocusViewModel: ObservableObject {
         
         self.isDoNotDisturbEnabled = UserDefaults.standard.bool(forKey: "isDoNotDisturbEnabled")
         self.isLaunchAtLoginEnabled = UserDefaults.standard.bool(forKey: "isLaunchAtLoginEnabled")
+        self.isSystemFocusSyncEnabled = UserDefaults.standard.bool(forKey: "isSystemFocusSyncEnabled")
         self.timerMode = UserDefaults.standard.integer(forKey: "timerMode")
         self.isSnapshotEnabled = UserDefaults.standard.bool(forKey: "isSnapshotEnabled")
         if UserDefaults.standard.object(forKey: "isSnapshotEnabled") == nil { self.isSnapshotEnabled = true }
@@ -576,6 +619,7 @@ class FocusViewModel: ObservableObject {
         UserDefaults.standard.set(isHapticEnabled, forKey: "isHapticEnabled")
         UserDefaults.standard.set(drowsyThreshold, forKey: "drowsyThreshold")
         UserDefaults.standard.set(isDoNotDisturbEnabled, forKey: "isDoNotDisturbEnabled")
+        UserDefaults.standard.set(isSystemFocusSyncEnabled, forKey: "isSystemFocusSyncEnabled")
         UserDefaults.standard.set(timerMode, forKey: "timerMode")
         UserDefaults.standard.set(isSnapshotEnabled, forKey: "isSnapshotEnabled")
         UserDefaults.standard.set(isSmallEyesModeEnabled, forKey: "isSmallEyesModeEnabled")

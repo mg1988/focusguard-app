@@ -1,4 +1,5 @@
 import SwiftUI
+import AppKit
 
 /// 动态菜单栏图标视图，实时展示专注进度
 struct DynamicMenuBarIcon: View {
@@ -14,44 +15,56 @@ struct DynamicMenuBarIcon: View {
     @State private var isBlinking: Bool = false  // 闪烁状态
     
     var body: some View {
-        HStack(spacing: 4) {
+        HStack(spacing: 6) {
             ZStack {
-                // 背景环
-                Circle()
-                    .stroke(Color.primary.opacity(0.15), lineWidth: 1.5)
-                    .frame(width: 14, height: 14)
-                
                 // 进度环
+                Circle()
+                    .stroke(Color.primary.opacity(0.15), lineWidth: 2)
+                    .frame(width: 18, height: 18)
+                
                 Circle()
                     .trim(from: 0, to: CGFloat(max(0.01, progress)))
                     .stroke(
                         statusColor,
-                        style: StrokeStyle(lineWidth: 1.5, lineCap: .round)
+                        style: StrokeStyle(lineWidth: 2, lineCap: .round)
                     )
-                    .frame(width: 14, height: 14)
+                    .frame(width: 18, height: 18)
                     .rotationEffect(.degrees(-90))
                 
-                // 中心图标
-                Image(systemName: isGoalActive ? "hourglass" : iconSymbol)
-                    .font(.system(size: 8, weight: .bold)) // 稍微调大一点中心图标
-                    .foregroundColor(displayColor)
+                // 中心图标：优先显示坐姿警告，否则显示 AppIcon
+                if isPostureAlertActive && currentPosture != .good {
+                    Image(systemName: iconSymbol)
+                        .font(.system(size: 8, weight: .black))
+                        .foregroundColor(.orange)
+                } else if let appIcon = NSApp.applicationIconImage {
+                    // 使用应用自身的图标
+                    Image(nsImage: appIcon)
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width: 12, height: 12)
+                } else {
+                    // 备选图标
+                    Image(systemName: "timer")
+                        .font(.system(size: 8, weight: .bold))
+                        .foregroundColor(displayColor)
+                }
             }
-            .frame(width: 18, height: 18)
-            .scaleEffect(isPostureAlertActive ? 1.1 : 1.0) // 坐姿不良时图标略微放大
-            .opacity(isBlinking && isPostureAlertActive ? 0.4 : 1.0)  // 闪烁效果
+            .frame(width: 20, height: 20)
+            .scaleEffect(isPostureAlertActive ? 1.1 : 1.0)
+            .opacity(isBlinking && isPostureAlertActive ? 0.5 : 1.0)
             .animation(isPostureAlertActive ? .easeInOut(duration: 0.5).repeatForever(autoreverses: true) : .default, value: isPostureAlertActive)
             
-            // 如果坐姿不良且正在提醒，显示状态文字，帮助用户直接在菜单栏看到问题
             if isPostureAlertActive && currentPosture != .good {
                 Text(currentPosture.localizedName)
-                    .font(.system(size: 10, weight: .bold))
+                    .font(.system(size: 11, weight: .bold))
                     .foregroundColor(.orange)
             } else if status != .idle {
                 Text(timerMode == 1 && isGoalActive ? formatTime(remainingTime) : formatTime(focusTime))
-                    .font(.system(size: 10, weight: .medium, design: .monospaced))
+                    .font(.system(size: 11, weight: .semibold, design: .monospaced))
                     .foregroundColor(displayColor)
             }
         }
+        .padding(.horizontal, 2)
         .onAppear {
             if isPostureAlertActive { isBlinking = true }
         }

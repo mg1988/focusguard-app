@@ -35,6 +35,8 @@
 "small_eyes_desc" = "如果您的眼睛较小或眯眼，请开启此模式以大幅减少误判。";
 "do_not_disturb" = "免打扰模式";
 "dnd_desc" = "全屏应用时暂停检测 (如看电影)";
+"system_focus_sync" = "同步系统专注模式";
+"system_focus_sync_desc" = "开启专注时自动触发系统勿扰 (需配置快捷指令)";
 "launch_at_login" = "开机自启动";
 "timer_mode" = "计时模式";
 "timer_up" = "正向计时";

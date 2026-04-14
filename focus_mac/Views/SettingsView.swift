@@ -23,6 +23,11 @@ struct SettingsView: View {
                             Toggle("", isOn: $viewModel.isDoNotDisturbEnabled).toggleStyle(.switch).labelsHidden()
                         }
                         .subtitle(NSLocalizedString("dnd_desc", comment: ""))
+                        
+                        SettingsRow(icon: "link", color: .blue, title: NSLocalizedString("system_focus_sync", comment: "")) {
+                            Toggle("", isOn: $viewModel.isSystemFocusSyncEnabled).toggleStyle(.switch).labelsHidden()
+                        }
+                        .subtitle(NSLocalizedString("system_focus_sync_desc", comment: ""))
                     }
                     
                     // --- 专注功能区块 ---
