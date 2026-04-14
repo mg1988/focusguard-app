@@ -8,6 +8,10 @@ struct DynamicMenuBarIcon: View {
     let focusTime: TimeInterval
     let isGoalActive: Bool
     let timerMode: Int
+    let currentPosture: PostureState  // 当前坐姿
+    let isPostureAlertActive: Bool    // 是否正在坐姿提醒
+    
+    @State private var isBlinking: Bool = false  // 闪烁状态
     
     var body: some View {
         HStack(spacing: 4) {
@@ -28,16 +32,25 @@ struct DynamicMenuBarIcon: View {
                     .rotationEffect(.degrees(-90))
                 
                 // 中心图标
-                Image(systemName: isGoalActive ? "hourglass" : "timer")
+                Image(systemName: isGoalActive ? "hourglass" : iconSymbol)
                     .font(.system(size: 6, weight: .bold))
-                    .foregroundColor(statusColor)
+                    .foregroundColor(displayColor)
             }
             .frame(width: 18, height: 18)
+            .opacity(isBlinking && isPostureAlertActive ? 0.4 : 1.0)  // 闪烁效果
+            .animation(isPostureAlertActive ? .easeInOut(duration: 0.6).repeatForever(autoreverses: true) : .default, value: isBlinking)
             
             if status != .idle {
                 Text(timerMode == 1 && isGoalActive ? formatTime(remainingTime) : formatTime(focusTime))
                     .font(.system(size: 10, weight: .medium, design: .monospaced))
-                    .foregroundColor(statusColor)
+                    .foregroundColor(displayColor)
+            }
+        }
+        .onChange(of: isPostureAlertActive) { newValue in
+            if newValue {
+                isBlinking = true
+            } else {
+                isBlinking = false
             }
         }
     }
@@ -54,5 +67,28 @@ struct DynamicMenuBarIcon: View {
         case .active: return .green
         case .distracted: return .orange
         }
+    }
+    
+    /// 根据坐姿状态返回图标符号
+    private var iconSymbol: String {
+        if isPostureAlertActive && currentPosture != .good {
+            // 坐姿不良时显示警告图标
+            switch currentPosture {
+            case .slouching: return "figure.bend"
+            case .leaning: return "arrow.left.and.right"
+            case .tooClose: return "arrow.up.left.and.arrow.down.right"
+            case .tooFar: return "arrow.up.right.and.arrow.down.left"
+            case .good: return "timer"
+            }
+        }
+        return "timer"
+    }
+    
+    /// 显示颜色（坐姿不良时变为橙色或红色）
+    private var displayColor: Color {
+        if isPostureAlertActive && currentPosture != .good {
+            return .orange  // 坐姿不良时显示橙色
+        }
+        return statusColor
     }
 }

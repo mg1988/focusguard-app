@@ -65,6 +65,17 @@ class FocusViewModel: ObservableObject {
     @Published var isPostureDetectionEnabled: Bool = true
     @Published var postureStats: PostureStats = PostureStats()
     
+    // 坐姿提醒配置
+    @Published var isPostureAlertEnabled: Bool = true  // 是否启用坐姿提醒
+    @Published var isPostureSoundEnabled: Bool = true  // 坐姿提醒声音
+    @Published var isPostureHapticEnabled: Bool = true // 坐姿提醒震动
+    @Published var isPostureBannerEnabled: Bool = true // 坐姿通知横幅
+    
+    // 坐姿提醒计时器
+    private var badPostureStartTime: Date?
+    private var badPostureTimer: Timer?
+    private var currentAlertLevel: Int = 0  // 当前提醒级别 (0: 无提醒，1-3: 渐进级别)
+    
     // 进度属性用于动态图标
     @Published var progress: Double = 0.0
     
@@ -138,6 +149,7 @@ class FocusViewModel: ObservableObject {
             .sink { [weak self] posture in
                 self?.currentPosture = posture
                 self?.updatePostureStats(posture: posture)
+                self?.handlePostureUpdate(posture: posture)  // 处理坐姿提醒
             }
             .store(in: &cancellables)
         
@@ -288,6 +300,86 @@ class FocusViewModel: ObservableObject {
         case .tooClose, .tooFar:
             postureStats.badPostureCount += 1
             postureStats.distanceWarningCount += 1
+        }
+    }
+    
+    /// 处理坐姿更新，触发渐进式提醒
+    private func handlePostureUpdate(posture: PostureState) {
+        // 打印调试信息
+        print("[PostureAlert] 当前坐姿：\(posture.rawValue), 专注状态：\(status), 是否启用检测：\(isPostureDetectionEnabled), 是否启用提醒：\(isPostureAlertEnabled)")
+        
+        guard status != .idle && isPostureDetectionEnabled && isPostureAlertEnabled else {
+            // 重置提醒状态
+            if badPostureTimer != nil {
+                print("[PostureAlert] 重置提醒状态")
+            }
+            badPostureStartTime = nil
+            badPostureTimer?.invalidate()
+            badPostureTimer = nil
+            currentAlertLevel = 0
+            return
+        }
+        
+        // 如果是良好坐姿，重置提醒
+        if posture == .good {
+            if badPostureTimer != nil {
+                print("[PostureAlert] 恢复良好坐姿，重置提醒")
+            }
+            badPostureStartTime = nil
+            badPostureTimer?.invalidate()
+            badPostureTimer = nil
+            currentAlertLevel = 0
+            return
+        }
+        
+        // 如果是不良坐姿，开始计时
+        if badPostureStartTime == nil {
+            badPostureStartTime = Date()
+            print("[PostureAlert] 开始检测不良坐姿：\(posture.rawValue)")
+            startBadPostureTimer()
+        }
+    }
+    
+    /// 启动不良坐姿提醒计时器（渐进式提醒）
+    private func startBadPostureTimer() {
+        badPostureTimer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { [weak self] timer in
+            guard let self = self,
+                  let startTime = self.badPostureStartTime,
+                  self.currentPosture != .good else {
+                timer.invalidate()
+                return
+            }
+            
+            let elapsed = Int(Date().timeIntervalSince(startTime))
+            print("[PostureAlert] 不良坐姿持续时间：\(elapsed)秒，当前坐姿：\(self.currentPosture.rawValue)")
+            
+            // 渐进式提醒逻辑
+            // 3 秒：一级提醒（温和）
+            // 10 秒：二级提醒（中等）
+            // 20 秒：三级提醒（强烈）
+            let newAlertLevel: Int
+            if elapsed >= 20 {
+                newAlertLevel = 3
+            } else if elapsed >= 10 {
+                newAlertLevel = 2
+            } else if elapsed >= 3 {
+                newAlertLevel = 1
+            } else {
+                return  // 还未到提醒时间
+            }
+            
+            // 只在级别提升时触发提醒
+            if newAlertLevel > self.currentAlertLevel {
+                print("[PostureAlert] 触发\(newAlertLevel)级提醒")
+                self.currentAlertLevel = newAlertLevel
+                self.notificationManager.sendPostureAlert(
+                    posture: self.currentPosture,
+                    level: newAlertLevel,
+                    sound: self.isPostureSoundEnabled,
+                    haptic: self.isPostureHapticEnabled,
+                    banner: self.isPostureBannerEnabled
+                )
+            }
         }
     }
     

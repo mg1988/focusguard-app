@@ -81,3 +81,13 @@
 "delete_snapshot_message" = "Are you sure you want to delete this snapshot?";
 "cancel" = "Cancel";
 "delete" = "Delete";
+
+/* Posture Alert Feature */
+"notification_posture_title_format" = "Posture Alert (Level %d)";
+"notification_posture_body_format" = "Detected you're %@, please maintain proper posture!";
+"posture_alert_settings" = "Posture Alert Settings";
+"enable_posture_alert" = "Enable Posture Alert";
+"posture_alert_description" = "Progressive alerts for bad posture (3s/10s/20s)";
+"posture_sound_alert" = "Posture Alert Sound";
+"posture_haptic_alert" = "Posture Alert Haptic";
+"posture_banner_alert" = "Posture Notification Banner";

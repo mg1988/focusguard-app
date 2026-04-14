@@ -53,6 +53,54 @@ class NotificationManager: NSObject, UNUserNotificationCenterDelegate, Observabl
         )
     }
     
+    /// 发送坐姿提醒通知（渐进式）
+    /// - Parameters:
+    ///   - posture: 当前坐姿状态
+    ///   - level: 提醒级别 (1: 温和，2: 中等，3: 强烈)
+    ///   - sound: 是否播放声音
+    ///   - haptic: 是否震动
+    ///   - banner: 是否显示通知
+    func sendPostureAlert(posture: PostureState, level: Int = 1, sound: Bool = true, haptic: Bool = true, banner: Bool = true) {
+        print("[Notification] 发送坐姿提醒：级别\(level), 坐姿：\(posture.rawValue), 声音：\(sound), 震动：\(haptic), 通知：\(banner)")
+        
+        // 视觉反馈（菜单栏图标闪烁由 UI 层处理）
+        
+        // 听觉反馈：渐进式提示音
+        if sound {
+            switch level {
+            case 1:
+                print("[Notification] 播放温和提示音")
+                playGentleSound()  // 温和提示音
+            case 2:
+                print("[Notification] 播放中等提示音")
+                playModerateSound()  // 中等提示音
+            default:
+                print("[Notification] 播放强烈提示音")
+                playStrongSound()  // 强烈提示音
+            }
+        }
+        
+        // 触觉反馈：渐进式震动
+        if haptic {
+            switch level {
+            case 1:
+                performGentleHaptic()
+            case 2:
+                performModerateHaptic()
+            default:
+                performStrongHaptic()
+            }
+        }
+        
+        // 通知反馈
+        if banner {
+            let title = String(format: NSLocalizedString("notification_posture_title_format", comment: ""), level)
+            let body = String(format: NSLocalizedString("notification_posture_body_format", comment: ""), posture.localizedName)
+            print("[Notification] 发送通知：\(title) - \(body)")
+            sendNotification(title: title, body: body)
+        }
+    }
+    
     /// 播放走神警告音
     private func playAlertSound() {
         NSSound.beep()
@@ -64,6 +112,75 @@ class NotificationManager: NSObject, UNUserNotificationCenterDelegate, Observabl
             sound.play()
         } else {
             NSSound.beep()
+        }
+    }
+    
+    /// 播放温和提示音（滴）
+    private func playGentleSound() {
+        // 短促的单音
+        if let sound = NSSound(named: "Pop") {
+            sound.volume = 0.3
+            sound.play()
+        } else {
+            NSSound.beep()
+        }
+    }
+    
+    /// 播放中等提示音（滴滴）
+    private func playModerateSound() {
+        // 双音提示
+        DispatchQueue.main.asyncAfter(deadline: .now()) { [weak self] in
+            if let sound = NSSound(named: "Pop") {
+                sound.volume = 0.5
+                sound.play()
+            } else {
+                NSSound.beep()
+            }
+        }
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.15) { [weak self] in
+            if let sound = NSSound(named: "Pop") {
+                sound.volume = 0.5
+                sound.play()
+            } else {
+                NSSound.beep()
+            }
+        }
+    }
+    
+    /// 播放强烈提示音（连续）
+    private func playStrongSound() {
+        // 连续三音提示
+        for i in 0..<3 {
+            DispatchQueue.main.asyncAfter(deadline: .now() + Double(i) * 0.1) {
+                if let sound = NSSound(named: "Pop") {
+                    sound.volume = 0.7
+                    sound.play()
+                } else {
+                    NSSound.beep()
+                }
+            }
+        }
+    }
+    
+    /// 执行温和触感反馈（轻微震动）
+    private func performGentleHaptic() {
+        hapticPerformer.perform(.alignment, performanceTime: .now)
+    }
+    
+    /// 执行中等触感反馈（明显震动）
+    private func performModerateHaptic() {
+        hapticPerformer.perform(.levelChange, performanceTime: .now)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.15) { [weak self] in
+            self?.hapticPerformer.perform(.levelChange, performanceTime: .now)
+        }
+    }
+    
+    /// 执行强烈触感反馈（连续震动）
+    private func performStrongHaptic() {
+        for i in 0..<3 {
+            DispatchQueue.main.asyncAfter(deadline: .now() + Double(i) * 0.1) { [weak self] in
+                self?.hapticPerformer.perform(.generic, performanceTime: .now)
+            }
         }
     }
     

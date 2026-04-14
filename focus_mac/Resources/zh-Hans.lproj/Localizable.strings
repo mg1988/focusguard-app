@@ -82,3 +82,13 @@
 "cancel" = "取消";
 "delete" = "删除";
 "quit" = "退出";
+
+/* 坐姿提醒功能 */
+"notification_posture_title_format" = "坐姿提醒 (级别%d)";
+"notification_posture_body_format" = "检测到您正在%@，请保持正确坐姿！";
+"posture_alert_settings" = "坐姿提醒设置";
+"enable_posture_alert" = "启用坐姿提醒";
+"posture_alert_description" = "不良坐姿持续时渐进式提醒（3 秒/10 秒/20 秒）";
+"posture_sound_alert" = "坐姿提醒声音";
+"posture_haptic_alert" = "坐姿提醒震动";
+"posture_banner_alert" = "坐姿通知横幅";
