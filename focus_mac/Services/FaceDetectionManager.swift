@@ -10,10 +10,16 @@ class FaceDetectionManager: NSObject, ObservableObject {
     
     @Published var isFaceDetected: Bool = false
     @Published var isEyesClosed: Bool = false // 眼睛状态
+    @Published var isSmallEyesModeEnabled: Bool = false // 是否启用小眼睛模式
     @Published var cameraPermissionStatus: AVAuthorizationStatus = .notDetermined
     @Published var snapshotTaken: Bool = false // 抓拍完成标记
     @Published var currentPosture: PostureState = .good // 当前坐姿
     @Published var isPostureDetectionEnabled: Bool = true // 是否启用坐姿检测
+    
+    // EAR 动态校准机制
+    private var baseEAR: CGFloat = 0.28 // 默认睁眼基准值
+    private var earCalibrationHistory: [CGFloat] = []
+    private let calibrationSize = 50 // 使用 50 帧来建立基准（约 1.5 秒）
     
     // EAR 平滑处理：滑动窗口
     private var leftEARHistory: [CGFloat] = []
@@ -177,33 +183,46 @@ extension FaceDetectionManager: AVCaptureVideoDataOutputSampleBufferDelegate {
         return currentSampleBuffer
     }
     
-    /// 根据眼睛特征点判断是否闭眼 (使用平滑后的 EAR 算法 + 连续帧验证)
+    /// 根据眼睛特征点判断是否闭眼 (动态校准算法)
     private func checkEyesClosed(leftEye: VNFaceLandmarkRegion2D, rightEye: VNFaceLandmarkRegion2D) -> Bool {
         let leftEAR = calculateEAR(for: leftEye)
         let rightEAR = calculateEAR(for: rightEye)
+        let currentEAR = (leftEAR + rightEAR) / 2.0
         
-        // 更新历史记录
+        // 1. 动态校准：如果 EAR 比较高，说明用户睁着眼，更新基准值
+        if currentEAR > 0.22 {
+            earCalibrationHistory.append(currentEAR)
+            if earCalibrationHistory.count > calibrationSize {
+                earCalibrationHistory.removeFirst()
+                // 基准值设为历史最高 20% 的平均值，代表用户“睁眼”时的常态
+                let sorted = earCalibrationHistory.sorted()
+                let topIndex = Int(Double(calibrationSize) * 0.8)
+                baseEAR = sorted[topIndex...].reduce(0, +) / CGFloat(calibrationSize - topIndex)
+            }
+        }
+        
+        // 2. 更新平滑历史
         leftEARHistory.append(leftEAR)
         rightEARHistory.append(rightEAR)
-        
         if leftEARHistory.count > earWindowSize { leftEARHistory.removeFirst() }
         if rightEARHistory.count > earWindowSize { rightEARHistory.removeFirst() }
         
-        // 计算滑动窗口平均值
         let avgLeftEAR = leftEARHistory.reduce(0, +) / CGFloat(leftEARHistory.count)
         let avgRightEAR = rightEARHistory.reduce(0, +) / CGFloat(rightEARHistory.count)
+        let avgEAR = (avgLeftEAR + avgRightEAR) / 2.0
         
-        // 针对“眼睛较小”的情况，将阈值下调到 0.21（原 0.28）
-        // EAR 值通常在 0.15-0.35 之间。0.21 是一个更严格的闭眼判定标准，
-        // 意味着只有当眼睛高度压缩到宽度的 21% 以下时，才认为是闭眼。
-        let threshold: CGFloat = 0.21
-        let isClosed = avgLeftEAR < threshold && avgRightEAR < threshold
+        // 3. 核心判定逻辑：相对于“个人睁眼基准”下掉 35% 以上才判定为闭眼
+        // 这种相对比例法对小眼睛非常有效，因为它是根据你自己的眼睛大小来算的
+        // 如果开启“小眼睛模式”，则下掉 50% 以上才判定为闭眼，且增加确认时长
+        let dropThreshold = isSmallEyesModeEnabled ? 0.50 : 0.65
+        let dynamicThreshold = baseEAR * dropThreshold 
+        let isClosed = avgEAR < dynamicThreshold
         
-        // 增加确认时间到 10 帧（约 0.33 秒）
-        // 这样可以完全排除眨眼和误判，只有在“真的睡着了”且眼睛高度极低时才报警
+        // 增加确认时间：正常模式 12 帧，小眼睛模式 25 帧 (约 0.8 秒)
+        let confirmationFrames = isSmallEyesModeEnabled ? 25 : 12
         if isClosed {
             consecutiveClosedCount += 1
-            return consecutiveClosedCount >= 10
+            return consecutiveClosedCount >= confirmationFrames
         } else {
             consecutiveClosedCount = 0
             return false

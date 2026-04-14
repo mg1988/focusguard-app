@@ -23,11 +23,16 @@
 "tab_focus" = "专注";
 "tab_stats" = "统计";
 "tab_settings" = "设置";
+"notification_settings" = "通知与反馈";
+"focus_function" = "专注功能";
+"advanced_settings" = "高级设置";
 "history_7_days" = "过去7天历史";
 "sound_alerts" = "声音提醒";
 "haptic_alerts" = "触感提醒 (需手在触控板上)";
 "haptic_desc" = "通过触控板发送震动反馈。如果您的 Mac 配备 Force Touch 触控板 (MacBook 2015+)，您将感受到“轻敲”或“震动”效果。";
 "drowsy_threshold" = "瞌睡判定时长";
+"small_eyes_mode" = "小眼睛模式 (极低灵敏度)";
+"small_eyes_desc" = "如果您的眼睛较小或眯眼，请开启此模式以大幅减少误判。";
 "do_not_disturb" = "免打扰模式";
 "dnd_desc" = "全屏应用时暂停检测 (如看电影)";
 "launch_at_login" = "开机自启动";

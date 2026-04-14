@@ -33,24 +33,31 @@ struct DynamicMenuBarIcon: View {
                 
                 // 中心图标
                 Image(systemName: isGoalActive ? "hourglass" : iconSymbol)
-                    .font(.system(size: 6, weight: .bold))
+                    .font(.system(size: 8, weight: .bold)) // 稍微调大一点中心图标
                     .foregroundColor(displayColor)
             }
             .frame(width: 18, height: 18)
+            .scaleEffect(isPostureAlertActive ? 1.1 : 1.0) // 坐姿不良时图标略微放大
             .opacity(isBlinking && isPostureAlertActive ? 0.4 : 1.0)  // 闪烁效果
-            .animation(isPostureAlertActive ? .easeInOut(duration: 0.6).repeatForever(autoreverses: true) : .default, value: isBlinking)
+            .animation(isPostureAlertActive ? .easeInOut(duration: 0.5).repeatForever(autoreverses: true) : .default, value: isPostureAlertActive)
             
-            if status != .idle {
+            // 如果坐姿不良且正在提醒，显示状态文字，帮助用户直接在菜单栏看到问题
+            if isPostureAlertActive && currentPosture != .good {
+                Text(currentPosture.localizedName)
+                    .font(.system(size: 10, weight: .bold))
+                    .foregroundColor(.orange)
+            } else if status != .idle {
                 Text(timerMode == 1 && isGoalActive ? formatTime(remainingTime) : formatTime(focusTime))
                     .font(.system(size: 10, weight: .medium, design: .monospaced))
                     .foregroundColor(displayColor)
             }
         }
+        .onAppear {
+            if isPostureAlertActive { isBlinking = true }
+        }
         .onChange(of: isPostureAlertActive) { newValue in
-            if newValue {
-                isBlinking = true
-            } else {
-                isBlinking = false
+            withAnimation(newValue ? .easeInOut(duration: 0.5).repeatForever(autoreverses: true) : .default) {
+                isBlinking = newValue
             }
         }
     }

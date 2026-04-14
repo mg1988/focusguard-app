@@ -59,10 +59,16 @@ class FocusViewModel: ObservableObject {
     // 抓拍照片数据
     @Published var snapshots: [DistractionSnapshot] = []
     @Published var isSnapshotEnabled: Bool = true // 是否启用抓拍功能
+    @Published var isSmallEyesModeEnabled: Bool = false // 小眼睛模式 (大幅降低闭眼判定灵敏度)
     
     // 坐姿检测数据
     @Published var currentPosture: PostureState = .good
-    @Published var isPostureDetectionEnabled: Bool = true
+    @Published var isPostureDetectionEnabled: Bool = true {
+        didSet {
+            faceManager.isPostureDetectionEnabled = isPostureDetectionEnabled
+            saveDailyStats()
+        }
+    }
     @Published var postureStats: PostureStats = PostureStats()
     
     // 坐姿提醒配置
@@ -157,8 +163,9 @@ class FocusViewModel: ObservableObject {
         faceManager.$isPostureDetectionEnabled
             .receive(on: DispatchQueue.main)
             .sink { [weak self] enabled in
-                self?.isPostureDetectionEnabled = enabled
-                self?.faceManager.isPostureDetectionEnabled = enabled
+                if self?.isPostureDetectionEnabled != enabled {
+                    self?.isPostureDetectionEnabled = enabled
+                }
             }
             .store(in: &cancellables)
     }
@@ -516,6 +523,12 @@ class FocusViewModel: ObservableObject {
         self.isSnapshotEnabled = UserDefaults.standard.bool(forKey: "isSnapshotEnabled")
         if UserDefaults.standard.object(forKey: "isSnapshotEnabled") == nil { self.isSnapshotEnabled = true }
         
+        self.isPostureDetectionEnabled = UserDefaults.standard.bool(forKey: "isPostureDetectionEnabled")
+        if UserDefaults.standard.object(forKey: "isPostureDetectionEnabled") == nil { self.isPostureDetectionEnabled = true }
+        
+        self.isSmallEyesModeEnabled = UserDefaults.standard.bool(forKey: "isSmallEyesModeEnabled")
+        faceManager.isSmallEyesModeEnabled = self.isSmallEyesModeEnabled
+        
         // 加载坐姿提醒设置
         self.isPostureAlertEnabled = UserDefaults.standard.bool(forKey: "isPostureAlertEnabled")
         if UserDefaults.standard.object(forKey: "isPostureAlertEnabled") == nil { self.isPostureAlertEnabled = true }
@@ -565,6 +578,8 @@ class FocusViewModel: ObservableObject {
         UserDefaults.standard.set(isDoNotDisturbEnabled, forKey: "isDoNotDisturbEnabled")
         UserDefaults.standard.set(timerMode, forKey: "timerMode")
         UserDefaults.standard.set(isSnapshotEnabled, forKey: "isSnapshotEnabled")
+        UserDefaults.standard.set(isSmallEyesModeEnabled, forKey: "isSmallEyesModeEnabled")
+        UserDefaults.standard.set(isPostureDetectionEnabled, forKey: "isPostureDetectionEnabled")
         
         // 保存坐姿提醒设置
         UserDefaults.standard.set(isPostureAlertEnabled, forKey: "isPostureAlertEnabled")

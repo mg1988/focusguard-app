@@ -7,222 +7,139 @@ struct SettingsView: View {
     var body: some View {
         VStack(spacing: 0) {
             ScrollView {
-                VStack(spacing: 24) {
-                    Text(NSLocalizedString("tab_settings", comment: ""))
-                        .font(.headline)
-                        .frame(maxWidth: .infinity, alignment: .leading)
+                VStack(spacing: 20) {
+                    // --- 提醒设置区块 ---
+                    SettingsSection(title: NSLocalizedString("notification_settings", comment: "通知与反馈")) {
+                        SettingsRow(icon: "speaker.wave.2.fill", color: .blue, title: NSLocalizedString("sound_alerts", comment: "")) {
+                            Toggle("", isOn: $viewModel.isSoundEnabled).toggleStyle(.switch).labelsHidden()
+                        }
+                        
+                        SettingsRow(icon: "hand.tap.fill", color: .indigo, title: NSLocalizedString("haptic_alerts", comment: "")) {
+                            Toggle("", isOn: $viewModel.isHapticEnabled).toggleStyle(.switch).labelsHidden()
+                        }
+                        .help(NSLocalizedString("haptic_desc", comment: ""))
+                        
+                        SettingsRow(icon: "moon.fill", color: .purple, title: NSLocalizedString("do_not_disturb", comment: "")) {
+                            Toggle("", isOn: $viewModel.isDoNotDisturbEnabled).toggleStyle(.switch).labelsHidden()
+                        }
+                        .subtitle(NSLocalizedString("dnd_desc", comment: ""))
+                    }
                     
-                    VStack(spacing: 16) {
-                        // 提醒设置
-                        Toggle(NSLocalizedString("sound_alerts", comment: ""), isOn: $viewModel.isSoundEnabled)
-                            .toggleStyle(.switch)
-                        
-                        VStack(alignment: .leading, spacing: 4) {
-                            Toggle(NSLocalizedString("haptic_alerts", comment: ""), isOn: $viewModel.isHapticEnabled)
-                                .toggleStyle(.switch)
-                            
-                            Text(NSLocalizedString("haptic_desc", comment: ""))
-                                .font(.caption)
-                                .foregroundColor(.secondary)
-                        }
-                        
-                        Divider()
-                        
-                        // 系统设置
-                        VStack(alignment: .leading, spacing: 4) {
-                            Toggle(NSLocalizedString("do_not_disturb", comment: ""), isOn: $viewModel.isDoNotDisturbEnabled)
-                                .toggleStyle(.switch)
-                            Text(NSLocalizedString("dnd_desc", comment: ""))
-                                .font(.caption)
-                                .foregroundColor(.secondary)
-                        }
-                        
-                        Toggle(NSLocalizedString("launch_at_login", comment: ""), isOn: $viewModel.isLaunchAtLoginEnabled)
-                            .toggleStyle(.switch)
-                            .onChange(of: viewModel.isLaunchAtLoginEnabled) { _ in
-                                viewModel.toggleLaunchAtLogin()
-                            }
-                        
-                        Divider()
-                        
-                        // 计时模式设置
-                        VStack(alignment: .leading, spacing: 8) {
-                            Text(NSLocalizedString("timer_mode", comment: ""))
-                                .font(.subheadline)
-                                .foregroundColor(.secondary)
-                            
+                    // --- 专注功能区块 ---
+                    SettingsSection(title: NSLocalizedString("focus_function", comment: "专注功能")) {
+                        SettingsRow(icon: "timer", color: .orange, title: NSLocalizedString("timer_mode", comment: "")) {
                             Picker("", selection: $viewModel.timerMode) {
                                 Text(NSLocalizedString("timer_up", comment: "")).tag(0)
                                 Text(NSLocalizedString("timer_down", comment: "")).tag(1)
                             }
                             .pickerStyle(.segmented)
+                            .frame(width: 120)
                         }
                         
-                        Divider()
+                        SettingsRow(icon: "camera.viewfinder", color: .green, title: NSLocalizedString("enable_snapshots", comment: "")) {
+                            Toggle("", isOn: $viewModel.isSnapshotEnabled).toggleStyle(.switch).labelsHidden()
+                        }
+                        .subtitle(NSLocalizedString("snapshots_description", comment: ""))
+                    }
+                    
+                    // --- 坐姿检测区块 ---
+                    SettingsSection(title: NSLocalizedString("posture_detection_settings", comment: "坐姿检测")) {
+                        SettingsRow(icon: "figure.stand", color: .cyan, title: NSLocalizedString("enable_posture_detection", comment: "")) {
+                            Toggle("", isOn: $viewModel.isPostureDetectionEnabled).toggleStyle(.switch).labelsHidden()
+                        }
                         
-                        // 抓拍功能设置
+                        if viewModel.isPostureDetectionEnabled {
+                            SettingsRow(icon: "bell.badge.fill", color: .red, title: NSLocalizedString("enable_posture_alert", comment: "")) {
+                                Toggle("", isOn: $viewModel.isPostureAlertEnabled).toggleStyle(.switch).labelsHidden()
+                            }
+                            .subtitle(NSLocalizedString("posture_alert_description", comment: ""))
+                            
+                            if viewModel.isPostureAlertEnabled {
+                                VStack(spacing: 12) {
+                                    Toggle(NSLocalizedString("posture_sound_alert", comment: ""), isOn: $viewModel.isPostureSoundEnabled)
+                                        .toggleStyle(.checkbox)
+                                    Toggle(NSLocalizedString("posture_haptic_alert", comment: ""), isOn: $viewModel.isPostureHapticEnabled)
+                                        .toggleStyle(.checkbox)
+                                    Toggle(NSLocalizedString("posture_banner_alert", comment: ""), isOn: $viewModel.isPostureBannerEnabled)
+                                        .toggleStyle(.checkbox)
+                                }
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                                .padding(.leading, 38)
+                                .padding(.bottom, 8)
+                            }
+                        }
+                    }
+                    
+                    // --- 阈值与高级设置区块 ---
+                    SettingsSection(title: NSLocalizedString("advanced_settings", comment: "高级设置")) {
                         VStack(alignment: .leading, spacing: 12) {
                             HStack {
-                                Image(systemName: "camera.viewfinder")
-                                    .foregroundColor(.accentColor)
-                                Text(NSLocalizedString("snapshot_settings", comment: "抓拍设置"))
-                                    .font(.subheadline)
-                                    .fontWeight(.semibold)
-                                Spacer()
-                            }
-                            
-                            Toggle(NSLocalizedString("enable_snapshots", comment: "启用抓拍"), isOn: $viewModel.isSnapshotEnabled)
-                                .toggleStyle(.switch)
-                            
-                            Text(NSLocalizedString("snapshots_description", comment: "走神或瞌睡时自动拍照，帮助回顾专注状态"))
-                                .font(.caption)
-                                .foregroundColor(.secondary)
-                            
-                            HStack(spacing: 8) {
-                                Image(systemName: "folder")
-                                    .foregroundColor(.secondary)
-                                Text(NSLocalizedString("snapshot_location", comment: "存储位置"))
-                                    .font(.caption)
-                                    .foregroundColor(.secondary)
-                                Spacer()
-                                Text("Documents/Snapshots")
-                                    .font(.caption)
-                                    .foregroundColor(.accentColor)
-                                    .fontWeight(.medium)
-                            }
-                            
-                            Button(action: {
-                                openSnapshotFolder()
-                            }) {
-                                HStack {
-                                    Image(systemName: "folder.badge.plus")
-                                    Text(NSLocalizedString("open_snapshot_folder", comment: "打开照片文件夹"))
+                                Label {
+                                    Text(NSLocalizedString("drowsy_threshold", comment: ""))
+                                } icon: {
+                                    Image(systemName: "eye.fill").foregroundColor(.blue)
                                 }
-                                .font(.caption)
-                                .foregroundColor(.accentColor)
-                            }
-                            .buttonStyle(.plain)
-                            
-                            Text(String(format: NSLocalizedString("snapshots_count", comment: "已保存 %d 张照片"), viewModel.snapshots.count))
-                                .font(.caption)
-                                .foregroundColor(.accentColor)
-                        }
-                        
-                        Divider()
-                        
-                        // 坐姿检测设置
-                        VStack(alignment: .leading, spacing: 12) {
-                            HStack {
-                                Image(systemName: "figure.stand")
-                                    .foregroundColor(.accentColor)
-                                Text(NSLocalizedString("posture_detection_settings", comment: "坐姿检测"))
-                                    .font(.subheadline)
-                                    .fontWeight(.semibold)
                                 Spacer()
+                                Text("\(Int(viewModel.drowsyThreshold))s").bold().foregroundColor(.accentColor)
                             }
-                            
-                            Toggle(NSLocalizedString("enable_posture_detection", comment: "启用坐姿检测"), isOn: $viewModel.isPostureDetectionEnabled)
-                                .toggleStyle(.switch)
-                            
-                            Text(NSLocalizedString("posture_detection_description", comment: "实时检测坐姿，提醒保持正确姿势"))
-                                .font(.caption)
-                                .foregroundColor(.secondary)
-                            
-                            // 当前坐姿状态
-                            HStack {
-                                Text(NSLocalizedString("current_posture", comment: "当前坐姿"))
-                                    .font(.caption)
-                                    .foregroundColor(.secondary)
-                                Spacer()
-                                Text(viewModel.currentPosture.localizedName)
-                                    .font(.caption)
-                                    .fontWeight(.medium)
-                                    .foregroundColor(viewModel.currentPosture == .good ? .green : .orange)
-                            }
-                            
-                            Divider()
-                            
-                            // 坐姿提醒详细设置
-                            VStack(alignment: .leading, spacing: 12) {
-                                HStack {
-                                    Image(systemName: "bell.badge")
-                                        .foregroundColor(.accentColor)
-                                    Text(NSLocalizedString("posture_alert_settings", comment: "坐姿提醒设置"))
-                                        .font(.subheadline)
-                                        .fontWeight(.semibold)
-                                }
-                                
-                                Toggle(NSLocalizedString("enable_posture_alert", comment: "启用坐姿提醒"), isOn: $viewModel.isPostureAlertEnabled)
-                                    .toggleStyle(.switch)
-                                
-                                Text(NSLocalizedString("posture_alert_description", comment: "不良坐姿持续时渐进式提醒"))
-                                    .font(.caption)
-                                    .foregroundColor(.secondary)
-                                
-                                if viewModel.isPostureAlertEnabled {
-                                    VStack(alignment: .leading, spacing: 10) {
-                                        Toggle(NSLocalizedString("posture_sound_alert", comment: "声音"), isOn: $viewModel.isPostureSoundEnabled)
-                                            .toggleStyle(.checkbox)
-                                        
-                                        Toggle(NSLocalizedString("posture_haptic_alert", comment: "震动"), isOn: $viewModel.isPostureHapticEnabled)
-                                            .toggleStyle(.checkbox)
-                                        
-                                        Toggle(NSLocalizedString("posture_banner_alert", comment: "通知横幅"), isOn: $viewModel.isPostureBannerEnabled)
-                                            .toggleStyle(.checkbox)
-                                    }
-                                    .padding(.leading, 8)
-                                }
-                            }
-                        }
-                        
-                        Divider()
-                        
-                        // 阈值设置
-                        VStack(alignment: .leading, spacing: 8) {
-                            HStack {
-                                Text(NSLocalizedString("drowsy_threshold", comment: ""))
-                                Spacer()
-                                Text("\(Int(viewModel.drowsyThreshold)) \(NSLocalizedString("seconds", comment: ""))")
-                                    .foregroundColor(.accentColor).bold()
-                            }
-                            
                             Slider(value: $viewModel.drowsyThreshold, in: 1...5, step: 1)
                         }
-                    }
-                    .padding()
-                    .background(RoundedRectangle(cornerRadius: 12).fill(Color.primary.opacity(0.05)))
-                    
-                    // 数据导出
-                    Button(action: {
-                        exportData()
-                    }) {
-                        HStack {
-                            Image(systemName: "square.and.arrow.up")
-                            Text(NSLocalizedString("export_data", comment: ""))
+                        .padding(.vertical, 4)
+                        
+                        Divider().padding(.vertical, 4)
+                        
+                        SettingsRow(icon: "eye.trianglebadge.exclamationmark.fill", color: .orange, title: NSLocalizedString("small_eyes_mode", comment: "")) {
+                            Toggle("", isOn: $viewModel.isSmallEyesModeEnabled).toggleStyle(.switch).labelsHidden()
                         }
-                        .frame(maxWidth: .infinity)
+                        .subtitle(NSLocalizedString("small_eyes_desc", comment: ""))
+                        
+                        Divider().padding(.vertical, 4)
+                        
+                        SettingsRow(icon: "arrow.up.right.square.fill", color: .gray, title: NSLocalizedString("launch_at_login", comment: "")) {
+                            Toggle("", isOn: $viewModel.isLaunchAtLoginEnabled).toggleStyle(.switch).labelsHidden()
+                                .onChange(of: viewModel.isLaunchAtLoginEnabled) { _ in
+                                    viewModel.toggleLaunchAtLogin()
+                                }
+                        }
                     }
-                    .buttonStyle(.bordered)
+                    
+                    // --- 数据操作区块 ---
+                    VStack(spacing: 12) {
+                        Button(action: { exportData() }) {
+                            Label(NSLocalizedString("export_data", comment: ""), systemImage: "square.and.arrow.up")
+                                .frame(maxWidth: .infinity)
+                                .padding(.vertical, 8)
+                        }
+                        .buttonStyle(.borderedProminent)
+                        .tint(.accentColor)
+                        
+                        Button(action: { openSnapshotFolder() }) {
+                            Label(NSLocalizedString("open_snapshot_folder", comment: ""), systemImage: "folder.fill")
+                                .frame(maxWidth: .infinity)
+                                .padding(.vertical, 8)
+                        }
+                        .buttonStyle(.bordered)
+                    }
+                    .padding(.top, 8)
                 }
                 .padding(20)
             }
             
-            // 底部退出按钮
-            Divider()
-            
-            Button(action: {
-                NSApplication.shared.terminate(nil)
-            }) {
-                HStack {
-                    Image(systemName: "power")
-                    Text(NSLocalizedString("quit", comment: "Quit App"))
+            // 底部退出
+            VStack(spacing: 0) {
+                Divider()
+                Button(action: { NSApplication.shared.terminate(nil) }) {
+                    HStack {
+                        Image(systemName: "power")
+                        Text(NSLocalizedString("quit", comment: "Quit App"))
+                    }
+                    .foregroundColor(.red)
+                    .frame(maxWidth: .infinity)
+                    .padding(.vertical, 12)
                 }
-                .frame(maxWidth: .infinity)
-                .padding(.vertical, 10)
-                .foregroundColor(.red)
+                .buttonStyle(.plain)
             }
-            .buttonStyle(.plain)
-            .padding(16)
+            .background(Color.primary.opacity(0.03))
         }
     }
     
@@ -268,6 +185,93 @@ struct SettingsView: View {
             
             // 在 Finder 中打开
             NSWorkspace.shared.selectFile(nil, inFileViewerRootedAtPath: snapshotsDir.path)
+        }
+    }
+}
+
+// --- 优雅的 UI 组件库 ---
+
+struct SettingsSection<Content: View>: View {
+    let title: String
+    let content: Content
+    
+    init(title: String, @ViewBuilder content: () -> Content) {
+        self.title = title
+        self.content = content()
+    }
+    
+    var body: some View {
+        VStack(alignment: .leading, spacing: 12) {
+            Text(title)
+                .font(.system(size: 12, weight: .bold))
+                .foregroundColor(.secondary)
+                .padding(.leading, 4)
+            
+            VStack(spacing: 0) {
+                content
+            }
+            .padding(12)
+            .background(
+                RoundedRectangle(cornerRadius: 14)
+                    .fill(Color(NSColor.windowBackgroundColor).opacity(0.5))
+            )
+            .overlay(
+                RoundedRectangle(cornerRadius: 14)
+                    .stroke(Color.primary.opacity(0.05), lineWidth: 1)
+            )
+        }
+    }
+}
+
+struct SettingsRow<Content: View>: View {
+    let icon: String
+    let color: Color
+    let title: String
+    var subtitle: String? = nil
+    let content: Content
+    
+    init(icon: String, color: Color, title: String, @ViewBuilder content: () -> Content) {
+        self.icon = icon
+        self.color = color
+        self.title = title
+        self.content = content()
+    }
+    
+    func subtitle(_ text: String) -> SettingsRow {
+        var copy = self
+        copy.subtitle = text
+        return copy
+    }
+    
+    var body: some View {
+        VStack(alignment: .leading, spacing: 4) {
+            HStack(spacing: 12) {
+                ZStack {
+                    RoundedRectangle(cornerRadius: 6)
+                        .fill(color.opacity(0.15))
+                        .frame(width: 28, height: 28)
+                    Image(systemName: icon)
+                        .font(.system(size: 14, weight: .semibold))
+                        .foregroundColor(color)
+                }
+                
+                VStack(alignment: .leading, spacing: 2) {
+                    Text(title)
+                        .font(.system(size: 13, weight: .medium))
+                    
+                    if let subtitle = subtitle {
+                        Text(subtitle)
+                            .font(.system(size: 11))
+                            .foregroundColor(.secondary)
+                            .lineLimit(2)
+                    }
+                }
+                
+                Spacer()
+                
+                content
+            }
+            .padding(.vertical, 6)
         }
     }
 }
