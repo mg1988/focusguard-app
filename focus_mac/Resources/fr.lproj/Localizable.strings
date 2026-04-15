@@ -66,3 +66,8 @@
 "cancel" = "Annuler";
 "delete" = "Supprimer";
 "quit" = "Quitter";
+
+/* Language Settings */
+"language_settings" = "Langue";
+"language_system" = "Système";
+"language_select_desc" = "Choisissez votre langue préférée";

@@ -3,6 +3,7 @@ import UniformTypeIdentifiers
 
 struct SettingsView: View {
     @ObservedObject var viewModel: FocusViewModel
+    @State private var languageTrigger = 0  // 用于强制刷新 UI
     
     var body: some View {
         VStack(spacing: 0) {
@@ -107,6 +108,25 @@ struct SettingsView: View {
                                 }
                         }
                     }
+                    
+                    // --- 语言设置区块 ---
+                    SettingsSection(title: BundleLanguageHelper.getBundle().localizedString(forKey: "language_settings", value: "语言设置", table: nil)) {
+                        SettingsRow(icon: "globe", color: .purple, title: BundleLanguageHelper.getBundle().localizedString(forKey: "language_settings", value: "", table: nil)) {
+                            Picker("", selection: $viewModel.selectedLanguage) {
+                                ForEach(AppLanguage.allCases) { language in
+                                    Text(language.localizedName).tag(language)
+                                }
+                            }
+                            .pickerStyle(.menu)
+                            .frame(width: 150)
+                            .onChange(of: viewModel.selectedLanguage) { newLanguage in
+                                viewModel.changeLanguage(newLanguage)
+                                languageTrigger += 1  // 触发 UI 刷新
+                            }
+                        }
+                        .subtitle(BundleLanguageHelper.getBundle().localizedString(forKey: "language_select_desc", value: "Select your preferred language", table: nil))
+                    }
+                    .id(languageTrigger)  // 使用 id 强制刷新
                     
                     // --- 数据操作区块 ---
                     VStack(spacing: 12) {

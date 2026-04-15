@@ -90,7 +90,10 @@ class FocusViewModel: ObservableObject {
     @Published var focusGoal: TimeInterval = 25 * 60 // 默认 25 分钟
     @Published var remainingTime: TimeInterval = 25 * 60
     @Published var isGoalActive: Bool = false
-    @Published var timerMode: Int = 0 // 0: 正向计时, 1: 倒计时
+    @Published var timerMode: Int = 0 // 0: 正向计时，1: 倒计时
+    
+    // 语言管理
+    @Published var selectedLanguage: AppLanguage = .system
     
     // 效率评分 (0-100)
     var efficiencyScore: Int {
@@ -121,9 +124,21 @@ class FocusViewModel: ObservableObject {
     }
     
     init() {
+        // 初始化语言设置（从 UserDefaults 加载）
+        if let savedLanguageCode = UserDefaults.standard.string(forKey: "selectedLanguage") {
+            self.selectedLanguage = AppLanguage(rawValue: savedLanguageCode) ?? .system
+        }
+        
         loadDailyStats()
         bindFaceDetection()
         setupNotificationObservers()
+    }
+    
+    /// 切换应用语言
+    func changeLanguage(_ language: AppLanguage) {
+        selectedLanguage = language
+        UserDefaults.standard.set(language.rawValue, forKey: "selectedLanguage")
+        LanguageManager.shared.setLanguage(language)
     }
     
     /// 监听来自系统的指令 (AppIntents / Focus Filters)

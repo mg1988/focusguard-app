@@ -91,3 +91,8 @@
 "posture_sound_alert" = "Звук Предупреждения об Осанке";
 "posture_haptic_alert" = "Тактильное Предупреждение об Осанке";
 "posture_banner_alert" = "Уведомление-Баннер об Осанке";
+
+/* Language Settings */
+"language_settings" = "Язык";
+"language_system" = "Система";
+"language_select_desc" = "Выберите предпочитаемый язык";

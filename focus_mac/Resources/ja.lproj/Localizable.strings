@@ -66,3 +66,8 @@
 "cancel" = "キャンセル";
 "delete" = "削除";
 "quit" = "終了";
+
+/* Language Settings */
+"language_settings" = "言語";
+"language_system" = "システム";
+"language_select_desc" = "希望する言語を選択してください";

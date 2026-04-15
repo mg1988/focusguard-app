@@ -6,5 +6,7 @@
 	<string>需要访问摄像头以检测面部状态，判断是否专注。仅本地分析，不会上传任何数据。</string>
 	<key>LSUIElement</key>
 	<true/>
+	<key>CFBundleIconFile</key>
+	<string>AppIcon</string>
 </dict>
 </plist>

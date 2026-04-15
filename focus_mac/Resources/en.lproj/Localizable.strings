@@ -91,3 +91,7 @@
 "posture_sound_alert" = "Posture Alert Sound";
 "posture_haptic_alert" = "Posture Alert Haptic";
 "posture_banner_alert" = "Posture Notification Banner";
+
+/* Language Settings */
+"language_settings" = "Language";
+"language_system" = "System";

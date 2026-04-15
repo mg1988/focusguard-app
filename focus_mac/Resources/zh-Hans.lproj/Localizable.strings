@@ -100,3 +100,8 @@
 "posture_sound_alert" = "坐姿提醒声音";
 "posture_haptic_alert" = "坐姿提醒震动";
 "posture_banner_alert" = "坐姿通知横幅";
+
+/* Language Settings */
+"language_settings" = "语言设置";
+"language_system" = "跟随系统";
+"language_select_desc" = "选择您偏好的语言";

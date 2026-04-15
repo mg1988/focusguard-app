@@ -91,3 +91,8 @@
 "posture_sound_alert" = "صوت تنبيه الوضعية";
 "posture_haptic_alert" = "تنبيه لمسي للوضعية";
 "posture_banner_alert" = "إشعار بانر للوضعية";
+
+/* Language Settings */
+"language_settings" = "اللغة";
+"language_system" = "النظام";
+"language_select_desc" = "اختر لغتك المفضلة";

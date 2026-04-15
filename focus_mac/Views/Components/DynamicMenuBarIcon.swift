@@ -36,14 +36,8 @@ struct DynamicMenuBarIcon: View {
                     Image(systemName: iconSymbol)
                         .font(.system(size: 8, weight: .black))
                         .foregroundColor(.orange)
-                } else if let appIcon = NSApp.applicationIconImage {
-                    // 使用应用自身的图标
-                    Image(nsImage: appIcon)
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .frame(width: 12, height: 12)
                 } else {
-                    // 备选图标
+                    // 默认显示计时器图标，这在菜单栏中最稳定
                     Image(systemName: "timer")
                         .font(.system(size: 8, weight: .bold))
                         .foregroundColor(displayColor)
@@ -54,6 +48,7 @@ struct DynamicMenuBarIcon: View {
             .opacity(isBlinking && isPostureAlertActive ? 0.5 : 1.0)
             .animation(isPostureAlertActive ? .easeInOut(duration: 0.5).repeatForever(autoreverses: true) : .default, value: isPostureAlertActive)
             
+            // 只有在非空闲状态或坐姿提醒时才显示文本，节省空间
             if isPostureAlertActive && currentPosture != .good {
                 Text(currentPosture.localizedName)
                     .font(.system(size: 11, weight: .bold))
@@ -64,7 +59,9 @@ struct DynamicMenuBarIcon: View {
                     .foregroundColor(displayColor)
             }
         }
+        .contentShape(Rectangle()) // 确保整个区域可点击
         .padding(.horizontal, 2)
+        .frame(height: 22)  // 明确设置菜单栏高度
         .onAppear {
             if isPostureAlertActive { isBlinking = true }
         }
