@@ -7,7 +7,7 @@ struct StatisticsView: View {
         ScrollView(.vertical, showsIndicators: true) {
             VStack(spacing: 16) {
                 // 标题
-                Text(NSLocalizedString("history_7_days", comment: ""))
+                Text("history_7_days".localized)
                     .font(.headline)
                     .frame(maxWidth: .infinity, alignment: .leading)
                 
@@ -19,17 +19,17 @@ struct StatisticsView: View {
                 let stats = viewModel.last7DaysStats
                 
                 VStack(spacing: 12) {
-                    StatRow(title: NSLocalizedString("total_focus", comment: ""), value: formatTime(stats.totalTime), color: .green)
-                    StatRow(title: NSLocalizedString("efficiency", comment: ""), value: "\(viewModel.efficiencyScore)%", color: .yellow)
-                    StatRow(title: NSLocalizedString("avg_distractions", comment: ""), value: String(format: "%.1f", stats.avgDistraction), color: .orange)
-                    StatRow(title: NSLocalizedString("avg_drowsy", comment: ""), value: String(format: "%.1f", stats.avgDrowsy), color: .blue)
+                    StatRow(title: "total_focus".localized, value: formatTime(stats.totalTime), color: .green)
+                    StatRow(title: "efficiency".localized, value: "\(viewModel.efficiencyScore)%", color: .yellow)
+                    StatRow(title: "avg_distractions".localized, value: String(format: "%.1f", stats.avgDistraction), color: .orange)
+                    StatRow(title: "avg_drowsy".localized, value: String(format: "%.1f", stats.avgDrowsy), color: .blue)
                 }
                 .padding(12)
                 .background(RoundedRectangle(cornerRadius: 12).fill(Color.primary.opacity(0.05)))
                 
                 // 历史列表（水平滚动）
                 VStack(alignment: .leading, spacing: 8) {
-                    Text(NSLocalizedString("recent_history", comment: "最近记录"))
+                    Text("recent_history".localized)
                         .font(.system(size: 13, weight: .semibold))
                         .foregroundColor(.secondary)
                     
@@ -67,7 +67,7 @@ struct StatisticsView: View {
                     Divider()
                     
                     HStack {
-                        Text(NSLocalizedString("distraction_snapshots", comment: "走神抓拍"))
+                        Text("distraction_snapshots".localized)
                             .font(.system(size: 13, weight: .semibold))
                             .foregroundColor(.secondary)
                         

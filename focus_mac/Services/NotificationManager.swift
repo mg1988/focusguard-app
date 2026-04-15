@@ -38,8 +38,8 @@ class NotificationManager: NSObject, UNUserNotificationCenterDelegate, Observabl
         if sound { playAlertSound() }
         if haptic { performHapticFeedback() }
         sendNotification(
-            title: NSLocalizedString("notification_distraction_title", comment: "Focus Alert"),
-            body: NSLocalizedString("notification_distraction_body", comment: "Get back to work!")
+            title: "notification_distraction_title".localized,
+            body: "notification_distraction_body".localized
         )
     }
     
@@ -48,8 +48,8 @@ class NotificationManager: NSObject, UNUserNotificationCenterDelegate, Observabl
         if sound { playDrowsySound() }
         if haptic { performStrongHaptic() } // 瞌睡使用更强烈的反馈
         sendNotification(
-            title: NSLocalizedString("notification_drowsy_title", comment: "Drowsy Alert"),
-            body: NSLocalizedString("notification_drowsy_body", comment: "Wake up!")
+            title: "notification_drowsy_title".localized,
+            body: "notification_drowsy_body".localized
         )
     }
     
@@ -91,8 +91,8 @@ class NotificationManager: NSObject, UNUserNotificationCenterDelegate, Observabl
         
         // 通知反馈
         if banner {
-            let title = String(format: NSLocalizedString("notification_posture_title_format", comment: ""), level)
-            let body = String(format: NSLocalizedString("notification_posture_body_format", comment: ""), posture.localizedName)
+            let title = "notification_posture_title_format".localized(with: level)
+            let body = "notification_posture_body_format".localized(with: posture.localizedName)
             print("[Notification] 发送通知：\(title) - \(body)")
             sendNotification(title: title, body: body)
         }

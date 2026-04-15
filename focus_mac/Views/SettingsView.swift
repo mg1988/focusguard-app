@@ -3,70 +3,70 @@ import UniformTypeIdentifiers
 
 struct SettingsView: View {
     @ObservedObject var viewModel: FocusViewModel
-    @State private var languageTrigger = 0  // 用于强制刷新 UI
+    @ObservedObject var languageManager = LanguageManager.shared
     
     var body: some View {
         VStack(spacing: 0) {
             ScrollView {
-                VStack(spacing: 20) {
+                VStack(spacing: 24) {
                     // --- 提醒设置区块 ---
-                    SettingsSection(title: NSLocalizedString("notification_settings", comment: "通知与反馈")) {
-                        SettingsRow(icon: "speaker.wave.2.fill", color: .blue, title: NSLocalizedString("sound_alerts", comment: "")) {
+                    SettingsSection(title: "notification_settings".localized) {
+                        SettingsRow(icon: "speaker.wave.2.fill", color: .blue, title: "sound_alerts".localized) {
                             Toggle("", isOn: $viewModel.isSoundEnabled).toggleStyle(.switch).labelsHidden()
                         }
                         
-                        SettingsRow(icon: "hand.tap.fill", color: .indigo, title: NSLocalizedString("haptic_alerts", comment: "")) {
+                        SettingsRow(icon: "hand.tap.fill", color: .indigo, title: "haptic_alerts".localized) {
                             Toggle("", isOn: $viewModel.isHapticEnabled).toggleStyle(.switch).labelsHidden()
                         }
-                        .help(NSLocalizedString("haptic_desc", comment: ""))
+                        .help("haptic_desc".localized)
                         
-                        SettingsRow(icon: "moon.fill", color: .purple, title: NSLocalizedString("do_not_disturb", comment: "")) {
+                        SettingsRow(icon: "moon.fill", color: .purple, title: "do_not_disturb".localized) {
                             Toggle("", isOn: $viewModel.isDoNotDisturbEnabled).toggleStyle(.switch).labelsHidden()
                         }
-                        .subtitle(NSLocalizedString("dnd_desc", comment: ""))
+                        .subtitle("dnd_desc".localized)
                         
-                        SettingsRow(icon: "link", color: .blue, title: NSLocalizedString("system_focus_sync", comment: "")) {
+                        SettingsRow(icon: "link", color: .blue, title: "system_focus_sync".localized) {
                             Toggle("", isOn: $viewModel.isSystemFocusSyncEnabled).toggleStyle(.switch).labelsHidden()
                         }
-                        .subtitle(NSLocalizedString("system_focus_sync_desc", comment: ""))
+                        .subtitle("system_focus_sync_desc".localized)
                     }
                     
                     // --- 专注功能区块 ---
-                    SettingsSection(title: NSLocalizedString("focus_function", comment: "专注功能")) {
-                        SettingsRow(icon: "timer", color: .orange, title: NSLocalizedString("timer_mode", comment: "")) {
+                    SettingsSection(title: "focus_function".localized) {
+                        SettingsRow(icon: "timer", color: .orange, title: "timer_mode".localized) {
                             Picker("", selection: $viewModel.timerMode) {
-                                Text(NSLocalizedString("timer_up", comment: "")).tag(0)
-                                Text(NSLocalizedString("timer_down", comment: "")).tag(1)
+                                Text("timer_up".localized).tag(0)
+                                Text("timer_down".localized).tag(1)
                             }
                             .pickerStyle(.segmented)
                             .frame(width: 120)
                         }
                         
-                        SettingsRow(icon: "camera.viewfinder", color: .green, title: NSLocalizedString("enable_snapshots", comment: "")) {
+                        SettingsRow(icon: "camera.viewfinder", color: .green, title: "enable_snapshots".localized) {
                             Toggle("", isOn: $viewModel.isSnapshotEnabled).toggleStyle(.switch).labelsHidden()
                         }
-                        .subtitle(NSLocalizedString("snapshots_description", comment: ""))
+                        .subtitle("snapshots_description".localized)
                     }
                     
                     // --- 坐姿检测区块 ---
-                    SettingsSection(title: NSLocalizedString("posture_detection_settings", comment: "坐姿检测")) {
-                        SettingsRow(icon: "figure.stand", color: .cyan, title: NSLocalizedString("enable_posture_detection", comment: "")) {
+                    SettingsSection(title: "posture_detection_settings".localized) {
+                        SettingsRow(icon: "figure.stand", color: .cyan, title: "enable_posture_detection".localized) {
                             Toggle("", isOn: $viewModel.isPostureDetectionEnabled).toggleStyle(.switch).labelsHidden()
                         }
                         
                         if viewModel.isPostureDetectionEnabled {
-                            SettingsRow(icon: "bell.badge.fill", color: .red, title: NSLocalizedString("enable_posture_alert", comment: "")) {
+                            SettingsRow(icon: "bell.badge.fill", color: .red, title: "enable_posture_alert".localized) {
                                 Toggle("", isOn: $viewModel.isPostureAlertEnabled).toggleStyle(.switch).labelsHidden()
                             }
-                            .subtitle(NSLocalizedString("posture_alert_description", comment: ""))
+                            .subtitle("posture_alert_description".localized)
                             
                             if viewModel.isPostureAlertEnabled {
                                 VStack(spacing: 12) {
-                                    Toggle(NSLocalizedString("posture_sound_alert", comment: ""), isOn: $viewModel.isPostureSoundEnabled)
+                                    Toggle("posture_sound_alert".localized, isOn: $viewModel.isPostureSoundEnabled)
                                         .toggleStyle(.checkbox)
-                                    Toggle(NSLocalizedString("posture_haptic_alert", comment: ""), isOn: $viewModel.isPostureHapticEnabled)
+                                    Toggle("posture_haptic_alert".localized, isOn: $viewModel.isPostureHapticEnabled)
                                         .toggleStyle(.checkbox)
-                                    Toggle(NSLocalizedString("posture_banner_alert", comment: ""), isOn: $viewModel.isPostureBannerEnabled)
+                                    Toggle("posture_banner_alert".localized, isOn: $viewModel.isPostureBannerEnabled)
                                         .toggleStyle(.checkbox)
                                 }
                                 .frame(maxWidth: .infinity, alignment: .leading)
@@ -77,11 +77,11 @@ struct SettingsView: View {
                     }
                     
                     // --- 阈值与高级设置区块 ---
-                    SettingsSection(title: NSLocalizedString("advanced_settings", comment: "高级设置")) {
+                    SettingsSection(title: "advanced_settings".localized) {
                         VStack(alignment: .leading, spacing: 12) {
                             HStack {
                                 Label {
-                                    Text(NSLocalizedString("drowsy_threshold", comment: ""))
+                                    Text("drowsy_threshold".localized)
                                 } icon: {
                                     Image(systemName: "eye.fill").foregroundColor(.blue)
                                 }
@@ -94,14 +94,14 @@ struct SettingsView: View {
                         
                         Divider().padding(.vertical, 4)
                         
-                        SettingsRow(icon: "eye.trianglebadge.exclamationmark.fill", color: .orange, title: NSLocalizedString("small_eyes_mode", comment: "")) {
+                        SettingsRow(icon: "eye.trianglebadge.exclamationmark.fill", color: .orange, title: "small_eyes_mode".localized) {
                             Toggle("", isOn: $viewModel.isSmallEyesModeEnabled).toggleStyle(.switch).labelsHidden()
                         }
-                        .subtitle(NSLocalizedString("small_eyes_desc", comment: ""))
+                        .subtitle("small_eyes_desc".localized)
                         
                         Divider().padding(.vertical, 4)
                         
-                        SettingsRow(icon: "arrow.up.right.square.fill", color: .gray, title: NSLocalizedString("launch_at_login", comment: "")) {
+                        SettingsRow(icon: "arrow.up.right.square.fill", color: .gray, title: "launch_at_login".localized) {
                             Toggle("", isOn: $viewModel.isLaunchAtLoginEnabled).toggleStyle(.switch).labelsHidden()
                                 .onChange(of: viewModel.isLaunchAtLoginEnabled) { _ in
                                     viewModel.toggleLaunchAtLogin()
@@ -110,8 +110,8 @@ struct SettingsView: View {
                     }
                     
                     // --- 语言设置区块 ---
-                    SettingsSection(title: BundleLanguageHelper.getBundle().localizedString(forKey: "language_settings", value: "语言设置", table: nil)) {
-                        SettingsRow(icon: "globe", color: .purple, title: BundleLanguageHelper.getBundle().localizedString(forKey: "language_settings", value: "", table: nil)) {
+                    SettingsSection(title: "language_settings".localized) {
+                        SettingsRow(icon: "globe", color: .purple, title: "language_settings".localized) {
                             Picker("", selection: $viewModel.selectedLanguage) {
                                 ForEach(AppLanguage.allCases) { language in
                                     Text(language.localizedName).tag(language)
@@ -121,17 +121,15 @@ struct SettingsView: View {
                             .frame(width: 150)
                             .onChange(of: viewModel.selectedLanguage) { newLanguage in
                                 viewModel.changeLanguage(newLanguage)
-                                languageTrigger += 1  // 触发 UI 刷新
                             }
                         }
-                        .subtitle(BundleLanguageHelper.getBundle().localizedString(forKey: "language_select_desc", value: "Select your preferred language", table: nil))
+                        .subtitle("language_select_desc".localized)
                     }
-                    .id(languageTrigger)  // 使用 id 强制刷新
                     
                     // --- 数据操作区块 ---
                     VStack(spacing: 12) {
                         Button(action: { exportData() }) {
-                            Label(NSLocalizedString("export_data", comment: ""), systemImage: "square.and.arrow.up")
+                            Label("export_data".localized, systemImage: "square.and.arrow.up")
                                 .frame(maxWidth: .infinity)
                                 .padding(.vertical, 8)
                         }
@@ -139,7 +137,7 @@ struct SettingsView: View {
                         .tint(.accentColor)
                         
                         Button(action: { openSnapshotFolder() }) {
-                            Label(NSLocalizedString("open_snapshot_folder", comment: ""), systemImage: "folder.fill")
+                            Label("open_snapshot_folder".localized, systemImage: "folder.fill")
                                 .frame(maxWidth: .infinity)
                                 .padding(.vertical, 8)
                         }
@@ -147,8 +145,9 @@ struct SettingsView: View {
                     }
                     .padding(.top, 8)
                 }
-                .padding(20)
+                .padding(24)
             }
+            .id(languageManager.languageRefreshID)  // 使用全局刷新 ID
             
             // 底部退出
             VStack(spacing: 0) {
@@ -156,16 +155,17 @@ struct SettingsView: View {
                 Button(action: { NSApplication.shared.terminate(nil) }) {
                     HStack {
                         Image(systemName: "power")
-                        Text(NSLocalizedString("quit", comment: "Quit App"))
+                        Text("quit".localized)
                     }
                     .foregroundColor(.red)
                     .frame(maxWidth: .infinity)
-                    .padding(.vertical, 12)
+                    .padding(.vertical, 14)
                 }
                 .buttonStyle(.plain)
             }
-            .background(Color.primary.opacity(0.03))
+            .background(Color(NSColor.windowBackgroundColor))
         }
+        .background(Color(NSColor.windowBackgroundColor))
     }
     
     private func exportData() {
@@ -226,23 +226,23 @@ struct SettingsSection<Content: View>: View {
     }
     
     var body: some View {
-        VStack(alignment: .leading, spacing: 12) {
-            Text(title)
-                .font(.system(size: 12, weight: .bold))
+        VStack(alignment: .leading, spacing: 10) {
+            Text(title.uppercased())
+                .font(.system(size: 11, weight: .bold))
                 .foregroundColor(.secondary)
                 .padding(.leading, 4)
             
             VStack(spacing: 0) {
                 content
             }
-            .padding(12)
             .background(
-                RoundedRectangle(cornerRadius: 14)
-                    .fill(Color(NSColor.windowBackgroundColor).opacity(0.5))
+                RoundedRectangle(cornerRadius: 12)
+                    .fill(Color(NSColor.controlBackgroundColor))
+                    .shadow(color: Color.black.opacity(0.05), radius: 2, x: 0, y: 1)
             )
             .overlay(
-                RoundedRectangle(cornerRadius: 14)
-                    .stroke(Color.primary.opacity(0.05), lineWidth: 1)
+                RoundedRectangle(cornerRadius: 12)
+                    .stroke(Color.primary.opacity(0.08), lineWidth: 0.5)
             )
         }
     }
@@ -269,20 +269,20 @@ struct SettingsRow<Content: View>: View {
     }
     
     var body: some View {
-        VStack(alignment: .leading, spacing: 4) {
+        VStack(spacing: 0) {
             HStack(spacing: 12) {
                 ZStack {
-                    RoundedRectangle(cornerRadius: 6)
-                        .fill(color.opacity(0.15))
+                    RoundedRectangle(cornerRadius: 8)
+                        .fill(color.gradient)
                         .frame(width: 28, height: 28)
                     Image(systemName: icon)
                         .font(.system(size: 14, weight: .semibold))
-                        .foregroundColor(color)
+                        .foregroundColor(.white)
                 }
                 
                 VStack(alignment: .leading, spacing: 2) {
                     Text(title)
-                        .font(.system(size: 13, weight: .medium))
+                        .font(.system(size: 13, weight: .regular))
                     
                     if let subtitle = subtitle {
                         Text(subtitle)
@@ -296,7 +296,8 @@ struct SettingsRow<Content: View>: View {
                 
                 content
             }
-            .padding(.vertical, 6)
+            .padding(.horizontal, 12)
+            .padding(.vertical, 10)
         }
     }
 }

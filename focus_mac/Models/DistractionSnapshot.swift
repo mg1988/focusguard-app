@@ -25,9 +25,9 @@ enum SnapshotType: String, Codable {
     var localizedName: String {
         switch self {
         case .distraction:
-            return NSLocalizedString("snapshot_distraction", comment: "走神")
+            return "snapshot_distraction".localized
         case .drowsy:
-            return NSLocalizedString("snapshot_drowsy", comment: "瞌睡")
+            return "snapshot_drowsy".localized
         }
     }
     

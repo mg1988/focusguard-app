@@ -4,6 +4,7 @@ import AppKit
 /// 专注应用的主视图，整合数据展示、灵敏度控制与开关逻辑
 struct MainView: View {
     @ObservedObject var viewModel: FocusViewModel
+    @ObservedObject var languageManager = LanguageManager.shared
     @State private var selectedTab = 0
     @State private var showPrivacyMask = false
     
@@ -12,7 +13,7 @@ struct MainView: View {
             // 顶部导航/标题栏
             VStack(spacing: 12) {
                 HStack {
-                    Text(NSLocalizedString("app_name", comment: ""))
+                    Text("app_name".localized)
                         .font(.system(size: 18, weight: .heavy))
                     Spacer()
                     StatusIndicator(
@@ -41,9 +42,9 @@ struct MainView: View {
             
             // Tab 切换
             Picker("", selection: $selectedTab) {
-                Text(NSLocalizedString("tab_focus", comment: "")).tag(0)
-                Text(NSLocalizedString("tab_stats", comment: "")).tag(1)
-                Text(NSLocalizedString("tab_settings", comment: "")).tag(2)
+                Text("tab_focus".localized).tag(0)
+                Text("tab_stats".localized).tag(1)
+                Text("tab_settings".localized).tag(2)
             }
             .pickerStyle(.segmented)
             .padding(.horizontal, 24)
@@ -72,6 +73,7 @@ struct MainView: View {
         .background(
             VisualEffectView(material: .popover, blendingMode: .withinWindow)
         )
+        .id(languageManager.languageRefreshID) // 监听语言变化，强制刷新整个 UI
     }
 }
 
@@ -110,7 +112,7 @@ struct FocusContentView: View {
                 // 数据卡片展示
                 VStack(spacing: 8) {
                     StatCard(
-                        title: NSLocalizedString("focus_time", comment: ""),
+                        title: "focus_time".localized,
                         value: viewModel.isGoalActive ? formatTime(viewModel.remainingTime) : viewModel.formattedFocusTime,
                         iconName: viewModel.isGoalActive ? "hourglass" : "timer",
                         color: .green
@@ -118,14 +120,14 @@ struct FocusContentView: View {
                     
                     HStack(spacing: 8) {
                         StatCard(
-                            title: NSLocalizedString("distractions", comment: ""),
+                            title: "distractions".localized,
                             value: "\(viewModel.distractionCount)",
                             iconName: "figure.walk",
                             color: .orange
                         )
                         
                         StatCard(
-                        title: NSLocalizedString("drowsiness", comment: ""),
+                        title: "drowsiness".localized,
                         value: "\(viewModel.drowsyCount)",
                         iconName: "eye.slash",
                         color: .blue
@@ -137,7 +139,7 @@ struct FocusContentView: View {
                 // 专注目标设置 (仅在待命状态可见)
                 if viewModel.status == .idle {
                     VStack(alignment: .leading, spacing: 10) {
-                        Text(NSLocalizedString("focus_goal", comment: ""))
+                        Text("focus_goal".localized)
                             .font(.system(size: 13, weight: .semibold))
                             .foregroundColor(.secondary)
                         
@@ -181,7 +183,7 @@ struct FocusContentView: View {
                         viewModel.toggleFocusMode()
                     }
                 }) {
-                    Text(viewModel.status == .idle ? NSLocalizedString("start_detection", comment: "") : NSLocalizedString("stop_detection", comment: ""))
+                    Text(viewModel.status == .idle ? "start_detection".localized : "stop_detection".localized)
                         .font(.headline)
                         .frame(maxWidth: .infinity)
                         .padding(.vertical, 14)

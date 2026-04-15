@@ -10,14 +10,14 @@ struct SnapshotGalleryView: View {
         VStack(alignment: .leading, spacing: 12) {
             // 标题栏
             HStack {
-                Text(NSLocalizedString("snapshots_gallery", comment: "抓拍相册"))
+                Text("snapshots_gallery".localized)
                     .font(.system(size: 16, weight: .semibold))
                 
                 Spacer()
                 
                 // 启用/禁用抓拍开关
                 Toggle(isOn: $viewModel.isSnapshotEnabled) {
-                    Text(NSLocalizedString("enable_snapshots", comment: "启用抓拍"))
+                    Text("enable_snapshots".localized)
                         .font(.system(size: 12))
                 }
                 .toggleStyle(.switch)
@@ -29,7 +29,7 @@ struct SnapshotGalleryView: View {
                             .foregroundColor(.red)
                     }
                     .buttonStyle(.plain)
-                    .help(NSLocalizedString("clear_all_snapshots", comment: "清空所有照片"))
+                    .help("clear_all_snapshots".localized)
                 }
             }
             
@@ -61,15 +61,15 @@ struct SnapshotGalleryView: View {
             SnapshotDetailView(snapshot: snapshot, viewModel: viewModel)
         }
         .alert(
-            NSLocalizedString("clear_all_snapshots", comment: "清空所有照片"),
+            "clear_all_snapshots".localized,
             isPresented: $showDeleteConfirmation
         ) {
-            Button(NSLocalizedString("cancel", comment: "取消"), role: .cancel) {}
-            Button(NSLocalizedString("delete", comment: "删除"), role: .destructive) {
+            Button("cancel".localized, role: .cancel) {}
+            Button("delete".localized, role: .destructive) {
                 viewModel.clearAllSnapshots()
             }
         } message: {
-            Text(NSLocalizedString("clear_all_snapshots_message", comment: "确定要删除所有抓拍照片吗？此操作不可恢复。"))
+            Text("clear_all_snapshots_message".localized)
         }
     }
     
@@ -155,7 +155,7 @@ struct SnapshotThumbnailView: View {
     
     private func formatDuration(_ duration: TimeInterval) -> String {
         let seconds = Int(duration)
-        return String(format: NSLocalizedString("triggered_after", comment: ""), seconds)
+        return "triggered_after".localized(with: seconds)
     }
 }
 
@@ -215,7 +215,7 @@ struct SnapshotDetailView: View {
                     .font(.system(size: 14))
                     .foregroundColor(.secondary)
                 
-                Text(String(format: NSLocalizedString("triggered_after_format", comment: ""), Int(snapshot.duration)))
+                Text("triggered_after_format".localized(with: Int(snapshot.duration)))
                     .font(.system(size: 12))
                     .foregroundColor(snapshot.type == .distraction ? .orange : .blue)
             }
@@ -227,16 +227,16 @@ struct SnapshotDetailView: View {
             loadImage()
         }
         .alert(
-            NSLocalizedString("delete_snapshot", comment: "删除照片"),
+            "delete_snapshot".localized,
             isPresented: $showDeleteAlert
         ) {
-            Button(NSLocalizedString("cancel", comment: "取消"), role: .cancel) {}
-            Button(NSLocalizedString("delete", comment: "删除"), role: .destructive) {
+            Button("cancel".localized, role: .cancel) {}
+            Button("delete".localized, role: .destructive) {
                 deleteSnapshot()
                 dismiss()
             }
         } message: {
-            Text(NSLocalizedString("delete_snapshot_message", comment: "确定要删除这张照片吗？"))
+            Text("delete_snapshot_message".localized)
         }
     }
     
@@ -271,11 +271,11 @@ struct EmptyStateView: View {
                 .font(.system(size: 48))
                 .foregroundColor(.secondary)
             
-            Text(NSLocalizedString("no_snapshots", comment: "暂无抓拍照片"))
+            Text("no_snapshots".localized)
                 .font(.system(size: 16, weight: .medium))
                 .foregroundColor(.secondary)
             
-            Text(NSLocalizedString("no_snapshots_description", comment: "开始专注后，走神或瞌睡时会自动抓拍"))
+            Text("no_snapshots_description".localized)
                 .font(.system(size: 13))
                 .foregroundColor(.secondary.opacity(0.7))
         }

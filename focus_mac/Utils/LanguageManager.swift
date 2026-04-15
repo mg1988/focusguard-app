@@ -20,7 +20,7 @@ enum AppLanguage: String, CaseIterable, Identifiable {
     
     /// 语言的本地化名称（用于在 UI 中显示）
     var localizedName: String {
-        let bundle = BundleLanguageHelper.getBundle()
+        let bundle = LanguageManager.shared.currentBundle
         switch self {
         case .system:
             return bundle.localizedString(forKey: "language_system", value: "System", table: nil)
@@ -64,63 +64,67 @@ enum AppLanguage: String, CaseIterable, Identifiable {
 class LanguageManager: ObservableObject {
     static let shared = LanguageManager()
     
-    private let selectedLanguageKey = "selected_language"
+    // 统一 UserDefaults 键名
+    static let selectedLanguageKey = "selected_language"
     
     @Published var currentLanguage: AppLanguage = .system
+    @Published var currentBundle: Bundle = Bundle.main
+    @Published var languageRefreshID = UUID() // 用于触发 SwiftUI 全局刷新
     
     init() {
         // 从 UserDefaults 加载已保存的语言设置
-        if let savedLanguageCode = UserDefaults.standard.string(forKey: selectedLanguageKey) {
+        if let savedLanguageCode = UserDefaults.standard.string(forKey: LanguageManager.selectedLanguageKey) {
             self.currentLanguage = AppLanguage(rawValue: savedLanguageCode) ?? .system
         }
         
         // 应用语言设置
-        applyLanguage(currentLanguage)
+        updateBundle(for: currentLanguage)
     }
     
     /// 切换应用语言
     func setLanguage(_ language: AppLanguage) {
         guard currentLanguage != language else { return }
-        currentLanguage = language
         
         // 保存用户选择
-        UserDefaults.standard.set(language.localeIdentifier, forKey: selectedLanguageKey)
+        UserDefaults.standard.set(language.rawValue, forKey: LanguageManager.selectedLanguageKey)
         
         // 应用语言设置
-        applyLanguage(language)
+        updateBundle(for: language)
         
-        // 通知应用刷新 UI
-        NotificationCenter.default.post(name: NSNotification.Name("LanguageDidChange"), object: nil)
+        // 更新状态并触发刷新
+        DispatchQueue.main.async {
+            self.currentLanguage = language
+            self.languageRefreshID = UUID()
+            
+            // 通知应用刷新 UI (兼容旧逻辑)
+            NotificationCenter.default.post(name: NSNotification.Name("LanguageDidChange"), object: nil)
+        }
     }
     
     /// 应用语言设置
-    private func applyLanguage(_ language: AppLanguage) {
+    private func updateBundle(for language: AppLanguage) {
         guard let localeIdentifier = language.localeIdentifier else {
             // 如果是跟随系统，则重置为默认
-            BundleLanguageHelper.setLanguage(nil)
+            currentBundle = Bundle.main
             return
         }
         
-        BundleLanguageHelper.setLanguage(localeIdentifier)
+        if let path = Bundle.main.path(forResource: localeIdentifier, ofType: "lproj"),
+           let bundle = Bundle(path: path) {
+            currentBundle = bundle
+        } else {
+            currentBundle = Bundle.main
+        }
     }
 }
 
-/// 语言切换帮助类 - 使用关联对象实现动态语言切换
-class BundleLanguageHelper {
-    static func setLanguage(_ language: String?) {
-        if let language = language,
-           let path = Bundle.main.path(forResource: language, ofType: "lproj"),
-           let bundle = Bundle(path: path) {
-            objc_setAssociatedObject(Bundle.main, "bundleLanguage", bundle, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
-        } else {
-            objc_setAssociatedObject(Bundle.main, "bundleLanguage", nil, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
-        }
+/// 国际化扩展，方便在代码中使用
+extension String {
+    var localized: String {
+        return LanguageManager.shared.currentBundle.localizedString(forKey: self, value: nil, table: nil)
     }
     
-    static func getBundle() -> Bundle {
-        if let languageBundle = objc_getAssociatedObject(Bundle.main, "bundleLanguage") as? Bundle {
-            return languageBundle
-        }
-        return Bundle.main
+    func localized(with arguments: CVarArg...) -> String {
+        return String(format: self.localized, arguments: arguments)
     }
 }

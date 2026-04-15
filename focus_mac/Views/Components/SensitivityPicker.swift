@@ -7,7 +7,7 @@ struct SensitivityPicker: View {
     
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
-            Text(NSLocalizedString("sensitivity", comment: "Sensitivity Selection Label"))
+            Text("sensitivity".localized)
                 .font(.subheadline)
                 .foregroundColor(.secondary)
             

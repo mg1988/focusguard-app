@@ -27,9 +27,9 @@ enum Sensitivity: String, CaseIterable {
     
     var localizedName: String {
         switch self {
-        case .low: return NSLocalizedString("sensitivity_low", comment: "")
-        case .medium: return NSLocalizedString("sensitivity_medium", comment: "")
-        case .high: return NSLocalizedString("sensitivity_high", comment: "")
+        case .low: return "sensitivity_low".localized
+        case .medium: return "sensitivity_medium".localized
+        case .high: return "sensitivity_high".localized
         }
     }
 }
@@ -125,7 +125,7 @@ class FocusViewModel: ObservableObject {
     
     init() {
         // 初始化语言设置（从 UserDefaults 加载）
-        if let savedLanguageCode = UserDefaults.standard.string(forKey: "selectedLanguage") {
+        if let savedLanguageCode = UserDefaults.standard.string(forKey: LanguageManager.selectedLanguageKey) {
             self.selectedLanguage = AppLanguage(rawValue: savedLanguageCode) ?? .system
         }
         
@@ -137,7 +137,6 @@ class FocusViewModel: ObservableObject {
     /// 切换应用语言
     func changeLanguage(_ language: AppLanguage) {
         selectedLanguage = language
-        UserDefaults.standard.set(language.rawValue, forKey: "selectedLanguage")
         LanguageManager.shared.setLanguage(language)
     }
     
@@ -259,8 +258,8 @@ class FocusViewModel: ObservableObject {
     private func handleGoalReached() {
         stopFocusSession()
         notificationManager.sendNotification(
-            title: NSLocalizedString("goal_reached_title", comment: ""),
-            body: NSLocalizedString("goal_reached_body", comment: "")
+            title: "goal_reached_title".localized,
+            body: "goal_reached_body".localized
         )
         // 播放成功音效
         if isSoundEnabled {
@@ -270,6 +269,7 @@ class FocusViewModel: ObservableObject {
     
     /// 处理面部检测状态变更 (走神判定)
     private func handleFaceDetectionUpdate(_ detected: Bool) {
+        // ... (remaining code unchanged)
         guard status != .idle else { return }
         
         // 检查免打扰模式：如果开启且检测到全屏应用，则不触发逻辑

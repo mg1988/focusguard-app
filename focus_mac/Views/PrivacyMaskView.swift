@@ -10,18 +10,18 @@ struct PrivacyMaskView: View {
                 .font(.system(size: 48))
                 .foregroundColor(.green)
             
-            Text(NSLocalizedString("privacy_title", comment: ""))
+            Text("privacy_title".localized)
                 .font(.title2.bold())
             
             VStack(alignment: .leading, spacing: 12) {
-                PrivacyItem(icon: "cpu", text: NSLocalizedString("privacy_local", comment: ""))
-                PrivacyItem(icon: "eye.slash", text: NSLocalizedString("privacy_no_store", comment: ""))
-                PrivacyItem(icon: "network.slash", text: NSLocalizedString("privacy_no_upload", comment: ""))
+                PrivacyItem(icon: "cpu", text: "privacy_local".localized)
+                PrivacyItem(icon: "eye.slash", text: "privacy_no_store".localized)
+                PrivacyItem(icon: "network.slash", text: "privacy_no_upload".localized)
             }
             .padding()
             .background(RoundedRectangle(cornerRadius: 12).fill(Color.primary.opacity(0.05)))
             
-            Button(NSLocalizedString("privacy_got_it", comment: "")) {
+            Button("privacy_got_it".localized) {
                 dismiss()
             }
             .buttonStyle(.borderedProminent)

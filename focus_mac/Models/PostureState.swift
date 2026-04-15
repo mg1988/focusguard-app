@@ -12,15 +12,15 @@ enum PostureState: String, Codable {
     var localizedName: String {
         switch self {
         case .good:
-            return NSLocalizedString("posture_good", comment: "坐姿良好")
+            return "posture_good".localized
         case .slouching:
-            return NSLocalizedString("posture_slouching", comment: "弯腰驼背")
+            return "posture_slouching".localized
         case .leaning:
-            return NSLocalizedString("posture_leaning", comment: "身体侧倾")
+            return "posture_leaning".localized
         case .tooClose:
-            return NSLocalizedString("posture_too_close", comment: "距离太近")
+            return "posture_too_close".localized
         case .tooFar:
-            return NSLocalizedString("posture_too_far", comment: "距离太远")
+            return "posture_too_far".localized
         }
     }
     

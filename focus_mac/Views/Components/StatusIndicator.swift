@@ -35,12 +35,12 @@ struct StatusIndicator: View {
     
     private var statusText: String {
         switch status {
-        case .idle: return NSLocalizedString("status_idle", comment: "")
+        case .idle: return "status_idle".localized
         case .active: 
-            if !isFaceDetected { return NSLocalizedString("status_distracted", comment: "") }
-            if isEyesClosed { return NSLocalizedString("status_drowsy", comment: "") }
-            return NSLocalizedString("status_detecting", comment: "")
-        case .distracted: return NSLocalizedString("status_distracted", comment: "")
+            if !isFaceDetected { return "status_distracted".localized }
+            if isEyesClosed { return "status_drowsy".localized }
+            return "status_detecting".localized
+        case .distracted: return "status_distracted".localized
         }
     }
 }
