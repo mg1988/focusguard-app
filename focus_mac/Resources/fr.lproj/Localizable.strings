@@ -21,13 +21,24 @@
 "tab_focus" = "Focus";
 "tab_stats" = "Stats";
 "tab_settings" = "Réglages";
+"notification_settings" = "Notifications et feedback";
+"focus_function" = "Fonction Focus";
+"advanced_settings" = "Paramètres avancés";
 "history_7_days" = "7 derniers jours";
 "sound_alerts" = "Alertes sonores";
 "haptic_alerts" = "Alertes haptiques";
+"haptic_desc" = "Envoie un retour vibratoire via le trackpad.";
 "do_not_disturb" = "Ne pas déranger";
 "dnd_desc" = "Pause en mode plein écran.";
 "launch_at_login" = "Lancer à la connexion";
+"timer_mode" = "Mode Minuteur";
+"timer_up" = "Compteur vers le haut";
+"timer_down" = "Compte à rebours";
 "drowsy_threshold" = "Seuil de somnolence";
+"small_eyes_mode" = "Mode Petits Yeux (Très basse sensibilité)";
+"small_eyes_desc" = "Activez ce mode si vos yeux sont petits ou plissés pour réduire considérablement les fausses détections.";
+"system_focus_sync" = "Synchroniser avec le mode Focus système";
+"system_focus_sync_desc" = "Déclenche automatiquement le mode Ne pas déranger du système lorsque le focus est activé (configuration Raccourcis requise)";
 "seconds" = "s";
 "total_focus" = "Focus total";
 "avg_distractions" = "Moy. absence";
@@ -66,6 +77,27 @@
 "cancel" = "Annuler";
 "delete" = "Supprimer";
 "quit" = "Quitter";
+
+/* Paramètres d'autorisation */
+"camera_permission_required" = "Autorisation de caméra requise pour la reconnaissance faciale.";
+"notification_permission_required" = "Autorisation de notification requise pour les alertes de focus.";
+
+/* Détection de posture */
+"posture_detection_settings" = "Détection de posture";
+"enable_posture_detection" = "Activer la détection de posture";
+"posture_detection_description" = "Détection de posture en temps réel pour vous rappeler de maintenir une posture correcte";
+"current_posture" = "Posture actuelle";
+"posture_good" = "Bonne posture";
+"posture_slouching" = "Avachi";
+"posture_leaning" = "Penché";
+"posture_too_close" = "Trop près";
+"posture_too_far" = "Trop loin";
+"posture_alert_settings" = "Paramètres d'alerte de posture";
+"enable_posture_alert" = "Activer l'alerte de posture";
+"posture_alert_description" = "Alertes progressives pour mauvaise posture (3s/10s/20s)";
+"posture_sound_alert" = "Son d'alerte de posture";
+"posture_haptic_alert" = "Retour haptique d'alerte de posture";
+"posture_banner_alert" = "Bannière de notification de posture";
 
 /* Language Settings */
 "language_settings" = "Langue";

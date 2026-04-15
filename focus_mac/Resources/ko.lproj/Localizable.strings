@@ -21,9 +21,13 @@
 "tab_focus" = "집중";
 "tab_stats" = "통계";
 "tab_settings" = "설정";
-"history_7_days" = "지난 7일 기록";
+"notification_settings" = "알림 및 피드백";
+"focus_function" = "집중 기능";
+"advanced_settings" = "고급 설정";
+"history_7_days" = "지난 7 일 기록";
 "sound_alerts" = "소리 알림";
 "haptic_alerts" = "진동 알림";
+"haptic_desc" = "트랙패드를 통해 진동 피드백을 전송합니다.";
 
 /* Language Settings */
 "language_settings" = "언어";
@@ -33,7 +37,14 @@
 "do_not_disturb" = "방해 금지 모드";
 "dnd_desc" = "전체 화면 앱 실행 시 감지 중지";
 "launch_at_login" = "로그인 시 자동 실행";
+"timer_mode" = "타이머 모드";
+"timer_up" = "카운트 업";
+"timer_down" = "카운트 다운";
 "drowsy_threshold" = "졸음 판정 시간";
+"small_eyes_mode" = "작은 눈 모드 (극저감도)";
+"small_eyes_desc" = "눈이 작거나 눈을 가늘게 뜨는 경우 오감지를 크게 줄이려면 이 모드를 켜세요.";
+"system_focus_sync" = "시스템 집중 모드 동기화";
+"system_focus_sync_desc" = "집중을 시작하면 자동으로 시스템 무음 모드를 트리거합니다 (단축키 구성 필요)";
 "seconds" = "초";
 "total_focus" = "누적 집중 시간";
 "avg_distractions" = "평균 이석";
@@ -72,3 +83,24 @@
 "cancel" = "취소";
 "delete" = "삭제";
 "quit" = "종료";
+
+/* 권한 설정 */
+"camera_permission_required" = "얼굴 인식에는 카메라 권한이 필요합니다.";
+"notification_permission_required" = "집중 알림에는 알림 권한이 필요합니다.";
+
+/* 자세 감지 기능 */
+"posture_detection_settings" = "자세 감지";
+"enable_posture_detection" = "자세 감지 사용";
+"posture_detection_description" = "실시간으로 자세를 감지하여 올바른 자세를 유지하도록 알림";
+"current_posture" = "현재 자세";
+"posture_good" = "자세 좋음";
+"posture_slouching" = "구부정한 자세";
+"posture_leaning" = "기울어진 자세";
+"posture_too_close" = "너무 가까움";
+"posture_too_far" = "너무 멀음";
+"posture_alert_settings" = "자세 알림 설정";
+"enable_posture_alert" = "자세 알림 사용";
+"posture_alert_description" = "잘못된 자세에 대한 점진적 알림 (3 초/10 초/20 초)";
+"posture_sound_alert" = "자세 알림 소리";
+"posture_haptic_alert" = "자세 알림 진동";
+"posture_banner_alert" = "자세 알림 배너";

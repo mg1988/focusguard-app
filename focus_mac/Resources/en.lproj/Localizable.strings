@@ -95,3 +95,4 @@
 /* Language Settings */
 "language_settings" = "Language";
 "language_system" = "System";
+"language_select_desc" = "Select your preferred language";

@@ -21,13 +21,24 @@
 "tab_focus" = "Fokus";
 "tab_stats" = "Statistik";
 "tab_settings" = "Einstellungen";
+"notification_settings" = "Benachrichtigungen & Feedback";
+"focus_function" = "Fokus-Funktion";
+"advanced_settings" = "Erweiterte Einstellungen";
 "history_7_days" = "Letzte 7 Tage";
 "sound_alerts" = "Tonsignale";
 "haptic_alerts" = "Haptisches Feedback";
+"haptic_desc" = "Sendet Vibrationsfeedback über das Trackpad.";
 "do_not_disturb" = "Nicht stören";
 "dnd_desc" = "Erkennung in Vollbild-Apps anhalten.";
 "launch_at_login" = "Bei Anmeldung starten";
+"timer_mode" = "Timer-Modus";
+"timer_up" = "Aufwärts zählen";
+"timer_down" = "Abwärts zählen";
 "drowsy_threshold" = "Müdigkeitsschwelle";
+"small_eyes_mode" = "Kleine-Augen-Modus (Extrem niedrig)";
+"small_eyes_desc" = "Aktivieren Sie diesen Modus, wenn Ihre Augen klein sind oder Sie die Augen zusammenkneifen, um Fehlerkennungen erheblich zu reduzieren.";
+"system_focus_sync" = "System-Fokus-Modus synchronisieren";
+"system_focus_sync_desc" = "Löst automatisch den System-Nicht-Stören-Modus aus, wenn der Fokus gestartet wird (Shortcuts-Konfiguration erforderlich)";
 "seconds" = "s";
 "total_focus" = "Gesamtfokus";
 "avg_distractions" = "∅ Abwesenheit";
@@ -66,6 +77,27 @@
 "cancel" = "Abbrechen";
 "delete" = "Löschen";
 "quit" = "Beenden";
+
+/* Berechtigungseinstellungen */
+"camera_permission_required" = "Kameraberechtigung für Gesichtserkennung erforderlich.";
+"notification_permission_required" = "Benachrichtigungsberechtigung für Fokus-Alarme erforderlich.";
+
+/* Positionserkennung */
+"posture_detection_settings" = "Positionserkennung";
+"enable_posture_detection" = "Positionserkennung aktivieren";
+"posture_detection_description" = "Echtzeiterkennung der Körperhaltung, um Sie an eine richtige Haltung zu erinnern";
+"current_posture" = "Aktuelle Haltung";
+"posture_good" = "Gute Haltung";
+"posture_slouching" = "Gebeugt";
+"posture_leaning" = "Geneigt";
+"posture_too_close" = "Zu nah";
+"posture_too_far" = "Zu fern";
+"posture_alert_settings" = "Positionsalarm-Einstellungen";
+"enable_posture_alert" = "Positionsalarm aktivieren";
+"posture_alert_description" = "Progressive Alarme bei schlechter Haltung (3s/10s/20s)";
+"posture_sound_alert" = "Positionsalarm-Ton";
+"posture_haptic_alert" = "Positionsalarm-Vibration";
+"posture_banner_alert" = "Positionsalarm-Banner";
 
 /* Language Settings */
 "language_settings" = "Sprache";

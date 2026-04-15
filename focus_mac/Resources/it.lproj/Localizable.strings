@@ -23,9 +23,13 @@
 "tab_focus" = "Concentrazione";
 "tab_stats" = "Statistiche";
 "tab_settings" = "Impostazioni";
+"notification_settings" = "Notifiche e Feedback";
+"focus_function" = "Funzione Concentrazione";
+"advanced_settings" = "Impostazioni Avanzate";
 "history_7_days" = "Ultimi 7 Giorni";
 "sound_alerts" = "Avvisi Sonori";
 "haptic_alerts" = "Avvisi Tattili";
+"haptic_desc" = "Invia feedback di vibrazione tramite il trackpad.";
 "drowsy_threshold" = "Soglia di Assopimento";
 "do_not_disturb" = "Non Disturbare";
 "dnd_desc" = "Metti in pausa il rilevamento nelle app a schermo intero.";
@@ -33,6 +37,11 @@
 "timer_mode" = "Modalità Timer";
 "timer_up" = "Conta in Su";
 "timer_down" = "Conta alla Rovescia";
+"drowsy_threshold" = "Soglia di Assopimento";
+"small_eyes_mode" = "Modalità Occhi Piccoli (Bassissima sensibilità)";
+"small_eyes_desc" = "Attiva questa modalità se hai gli occhi piccoli o li strizzi per ridurre significativamente i falsi rilevamenti.";
+"system_focus_sync" = "Sincronizza con modalità Focus di sistema";
+"system_focus_sync_desc" = "Attiva automaticamente la modalità Non disturbare di sistema quando si avvia la concentrazione (richiede configurazione Scorciatoie)";
 "seconds" = "s";
 "total_focus" = "Concentrazione Totale";
 "avg_distractions" = "Media Allontanamenti";

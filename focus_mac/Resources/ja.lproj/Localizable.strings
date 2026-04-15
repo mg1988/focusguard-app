@@ -21,13 +21,24 @@
 "tab_focus" = "集中";
 "tab_stats" = "統計";
 "tab_settings" = "設定";
-"history_7_days" = "過去7日間の履歴";
+"notification_settings" = "通知とフィードバック";
+"focus_function" = "集中機能";
+"advanced_settings" = "詳細設定";
+"history_7_days" = "過去 7 日間の履歴";
 "sound_alerts" = "サウンド通知";
 "haptic_alerts" = "振動通知";
+"haptic_desc" = "タッチパッドを通じて振動フィードバックを送信します。";
 "do_not_disturb" = "おやすみモード";
 "dnd_desc" = "全画面表示中に検知を停止します";
 "launch_at_login" = "ログイン時に起動";
+"timer_mode" = "タイマーモード";
+"timer_up" = "カウントアップ";
+"timer_down" = "カウントダウン";
 "drowsy_threshold" = "居眠り判定時間";
+"small_eyes_mode" = "小さい目モード (極低感度)";
+"small_eyes_desc" = "目が小さい場合または目を細める場合、誤判定を大幅に減らすためにこのモードをオンにしてください。";
+"system_focus_sync" = "システム集中モードと同期";
+"system_focus_sync_desc" = "集中を開始すると自動的にシステムのサイレントモードをトリガーします (ショートカットの構成が必要)";
 "seconds" = "秒";
 "total_focus" = "累計集中時間";
 "avg_distractions" = "平均離席数";
@@ -67,7 +78,28 @@
 "delete" = "削除";
 "quit" = "終了";
 
+/* 姿勢検出機能 */
+"posture_detection_settings" = "姿勢検出";
+"enable_posture_detection" = "姿勢検出を有効にする";
+"posture_detection_description" = "リアルタイムで姿勢を検出し、適切な姿勢を維持するようにリマインドします";
+"current_posture" = "現在の姿勢";
+"posture_good" = "良い姿勢";
+"posture_slouching" = "猫背";
+"posture_leaning" = "傾き";
+"posture_too_close" = "近すぎる";
+"posture_too_far" = "遠すぎる";
+"posture_alert_settings" = "姿勢アラート設定";
+"enable_posture_alert" = "姿勢アラートを有効にする";
+"posture_alert_description" = "不良姿勢に対する段階的なアラート (3 秒/10 秒/20 秒)";
+"posture_sound_alert" = "姿勢アラートサウンド";
+"posture_haptic_alert" = "姿勢アラート振動";
+"posture_banner_alert" = "姿勢通知バナー";
+
 /* Language Settings */
 "language_settings" = "言語";
 "language_system" = "システム";
 "language_select_desc" = "希望する言語を選択してください";
+
+/* 権限設定 */
+"camera_permission_required" = "顔認識にはカメラ権限が必要です。";
+"notification_permission_required" = "集中アラートには通知権限が必要です。";
