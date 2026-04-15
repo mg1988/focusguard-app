@@ -1,0 +1,93 @@
+/* FocusGuard Russian Localization */
+
+"app_name" = "FocusGuard";
+"focus_time" = "Время Фокуса";
+"distractions" = "Отвлечения";
+"drowsiness" = "Сонливость";
+"start_detection" = "Запустить Режим Фокуса";
+"stop_detection" = "Остановить Фокус";
+"sensitivity" = "Чувствительность";
+"sensitivity_low" = "Низкая (5с)";
+"sensitivity_medium" = "Средняя (3с)";
+"sensitivity_high" = "Высокая (1с)";
+"status_idle" = "Бездействие";
+"status_detecting" = "Обнаружение";
+"status_distracted" = "Отсутствует";
+"status_drowsy" = "Сонный";
+"notification_distraction_title" = "Предупреждение о Фокусе";
+"notification_distraction_body" = "Вернитесь к работе!";
+"notification_drowsy_title" = "Предупреждение о Сонливости";
+"notification_drowsy_body" = "Проснитесь и оставайтесь сосредоточенными!";
+"camera_permission_required" = "Требуется разрешение на использование камеры для обнаружения лица.";
+"notification_permission_required" = "Требуется разрешение на уведомления для предупреждений о фокусе.";
+"tab_focus" = "Фокус";
+"tab_stats" = "Статистика";
+"tab_settings" = "Настройки";
+"history_7_days" = "Последние 7 Дней";
+"sound_alerts" = "Звуковые Предупреждения";
+"haptic_alerts" = "Тактильные Предупреждения";
+"drowsy_threshold" = "Порог Сонливости";
+"do_not_disturb" = "Не Беспокоить";
+"dnd_desc" = "Приостановить обнаружение в полноэкранных приложениях.";
+"launch_at_login" = "Запуск при Входе";
+"timer_mode" = "Режим Таймера";
+"timer_up" = "Обратный Отсчет";
+"timer_down" = "Таймер Спуска";
+"seconds" = "с";
+"total_focus" = "Всего Фокуса";
+"avg_distractions" = "Среднее Отвлечений";
+"avg_drowsy" = "Средняя Сонливость";
+"efficiency" = "Эффективность";
+"focus_goal" = "Цель Фокуса";
+"goal_reached_title" = "Цель Достигнута!";
+"goal_reached_body" = "Отличная работа! Вы завершили свою сессию фокуса.";
+"export_data" = "Экспорт Данных (CSV)";
+"privacy_title" = "Гарантия Конфиденциальности";
+"privacy_local" = "100% локальная обработка в памяти.";
+"privacy_no_store" = "Изображения НИКОГДА не сохраняются на диске.";
+"privacy_no_upload" = "Никакие данные не загружаются на сервер.";
+"privacy_got_it" = "Понятно";
+
+/* Snapshot Feature */
+"snapshot_settings" = "Настройки Снимков";
+"enable_snapshots" = "Включить Снимки";
+"snapshots_description" = "Автоматическая съемка при отвлечении или сонливости для просмотра состояния фокуса";
+"snapshots_count" = "%d снимков сохранено";
+"snapshot_location" = "Место Хранения";
+"open_snapshot_folder" = "Открыть Папку Снимков";
+
+/* Posture Detection Feature */
+"posture_detection_settings" = "Обнаружение Осанки";
+"enable_posture_detection" = "Включить Обнаружение Осанки";
+"posture_detection_description" = "Обнаружение осанки в реальном времени, чтобы напомнить вам поддерживать правильную осанку";
+"current_posture" = "Текущая Осанка";
+"posture_good" = "Хорошая Осанка";
+"posture_slouching" = "Сутулость";
+"posture_leaning" = "Наклон";
+"posture_too_close" = "Слишком Близко";
+"posture_too_far" = "Слишком Далеко";
+"recent_history" = "Недавняя История";
+"distraction_snapshots" = "Снимки Отвлечения";
+"snapshots_gallery" = "Галерея Снимков";
+"snapshot_distraction" = "Отвлечение";
+"snapshot_drowsy" = "Сонливость";
+"triggered_after" = "Сработало через %ds";
+"triggered_after_format" = "Сработало через %d секунд";
+"no_snapshots" = "Пока нет снимков";
+"no_snapshots_description" = "Снимки будут автоматически сделаны, когда вы отвлечетесь или будете сонными";
+"clear_all_snapshots" = "Очистить Все Снимки";
+"clear_all_snapshots_message" = "Вы уверены, что хотите удалить все снимки? Это действие нельзя отменить.";
+"delete_snapshot" = "Удалить Снимок";
+"delete_snapshot_message" = "Вы уверены, что хотите удалить этот снимок?";
+"cancel" = "Отмена";
+"delete" = "Удалить";
+
+/* Posture Alert Feature */
+"notification_posture_title_format" = "Предупреждение об Осанке (Уровень %d)";
+"notification_posture_body_format" = "Обнаружено, что вы %@, пожалуйста, поддерживайте правильную осанку!";
+"posture_alert_settings" = "Настройки Предупреждения об Осанке";
+"enable_posture_alert" = "Включить Предупреждение об Осанке";
+"posture_alert_description" = "Прогрессивные предупреждения для неправильной осанки (3с/10с/20с)";
+"posture_sound_alert" = "Звук Предупреждения об Осанке";
+"posture_haptic_alert" = "Тактильное Предупреждение об Осанке";
+"posture_banner_alert" = "Уведомление-Баннер об Осанке";

@@ -1,0 +1,93 @@
+/* FocusGuard Arabic Localization */
+
+"app_name" = "FocusGuard";
+"focus_time" = "وقت التركيز";
+"distractions" = "التشتت";
+"drowsiness" = "النعاس";
+"start_detection" = "بدء وضع التركيز";
+"stop_detection" = "إيقاف التركيز";
+"sensitivity" = "الحساسية";
+"sensitivity_low" = "منخفضة (5 ثواني)";
+"sensitivity_medium" = "متوسطة (3 ثواني)";
+"sensitivity_high" = "عالية (1 ثانية)";
+"status_idle" = "خامل";
+"status_detecting" = "كشف";
+"status_distracted" = "غائب";
+"status_drowsy" = "نعسان";
+"notification_distraction_title" = "تنبيه التركيز";
+"notification_distraction_body" = "عد إلى العمل!";
+"notification_drowsy_title" = "تنبيه النعاس";
+"notification_drowsy_body" = "استيقظ وابق مركزاً!";
+"camera_permission_required" = "مطلوب إذن الكاميرا لكشف الوجه.";
+"notification_permission_required" = "مطلوب إذن الإشعارات لتنبيهات التركيز.";
+"tab_focus" = "التركيز";
+"tab_stats" = "الإحصائيات";
+"tab_settings" = "الإعدادات";
+"history_7_days" = "آخر 7 أيام";
+"sound_alerts" = "تنبيهات صوتية";
+"haptic_alerts" = "تنبيهات لمسية";
+"drowsy_threshold" = "عتبة النعاس";
+"do_not_disturb" = "عدم الإزعاج";
+"dnd_desc" = "إيقاف الكشف مؤقتاً في تطبيقات الشاشة الكاملة.";
+"launch_at_login" = "التشغيل عند تسجيل الدخول";
+"timer_mode" = "وضع المؤقت";
+"timer_up" = "عد تصاعدي";
+"timer_down" = "عد تنازلي";
+"seconds" = "ثانية";
+"total_focus" = "إجمالي التركيز";
+"avg_distractions" = "متوسط التشتت";
+"avg_drowsy" = "متوسط النعاس";
+"efficiency" = "الكفاءة";
+"focus_goal" = "هدف التركيز";
+"goal_reached_title" = "تم تحقيق الهدف!";
+"goal_reached_body" = "عمل رائع! لقد أكملت جلسة التركيز الخاصة بك.";
+"export_data" = "تصدير البيانات (CSV)";
+"privacy_title" = "التزام الخصوصية";
+"privacy_local" = "معالجة محلية 100% في الذاكرة.";
+"privacy_no_store" = "الصور لا تُحفظ أبداً على القرص.";
+"privacy_no_upload" = "لا يتم رفع أي بيانات إلى أي خادم.";
+"privacy_got_it" = "فهمت";
+
+/* Snapshot Feature */
+"snapshot_settings" = "إعدادات اللقطات";
+"enable_snapshots" = "تمكين اللقطات";
+"snapshots_description" = "التقاط تلقائي عند التشتت أو النعاس لمراجعة حالة التركيز";
+"snapshots_count" = "%d لقطة محفوظة";
+"snapshot_location" = "موقع التخزين";
+"open_snapshot_folder" = "فتح مجلد اللقطات";
+
+/* Posture Detection Feature */
+"posture_detection_settings" = "كشف الوضعية";
+"enable_posture_detection" = "تمكين كشف الوضعية";
+"posture_detection_description" = "كشف الوضعية في الوقت الحقيقي لتذكيرك بالحفاظ على وضعية صحيحة";
+"current_posture" = "الوضعية الحالية";
+"posture_good" = "وضعية جيدة";
+"posture_slouching" = "منحني";
+"posture_leaning" = "مائل";
+"posture_too_close" = "قريب جداً";
+"posture_too_far" = "بعيد جداً";
+"recent_history" = "السجل الحديث";
+"distraction_snapshots" = "لقطات التشتت";
+"snapshots_gallery" = "معرض اللقطات";
+"snapshot_distraction" = "تشتت";
+"snapshot_drowsy" = "نعاس";
+"triggered_after" = "تم التشغيل بعد %ds";
+"triggered_after_format" = "تم التشغيل بعد %d ثواني";
+"no_snapshots" = "لا توجد لقطات بعد";
+"no_snapshots_description" = "سيتم التقاط اللقطات تلقائياً عندما تكون مشتتاً أو نعساناً";
+"clear_all_snapshots" = "مسح جميع اللقطات";
+"clear_all_snapshots_message" = "هل أنت متأكد أنك تريد حذف جميع اللقطات؟ لا يمكن التراجع عن هذا الإجراء.";
+"delete_snapshot" = "حذف اللقطة";
+"delete_snapshot_message" = "هل أنت متأكد أنك تريد حذف هذه اللقطة؟";
+"cancel" = "إلغاء";
+"delete" = "حذف";
+
+/* Posture Alert Feature */
+"notification_posture_title_format" = "تنبيه الوضعية (المستوى %d)";
+"notification_posture_body_format" = "تم اكتشاف أنك %@، يرجى الحفاظ على وضعية صحيحة!";
+"posture_alert_settings" = "إعدادات تنبيه الوضعية";
+"enable_posture_alert" = "تمكين تنبيه الوضعية";
+"posture_alert_description" = "تنبيهات تصاعدية للوضعية السيئة (3s/10s/20s)";
+"posture_sound_alert" = "صوت تنبيه الوضعية";
+"posture_haptic_alert" = "تنبيه لمسي للوضعية";
+"posture_banner_alert" = "إشعار بانر للوضعية";

@@ -1,0 +1,93 @@
+/* FocusGuard Spanish Localization */
+
+"app_name" = "FocusGuard";
+"focus_time" = "Tiempo de Concentración";
+"distractions" = "Distracciones";
+"drowsiness" = "Somnolencia";
+"start_detection" = "Iniciar Modo Concentración";
+"stop_detection" = "Detener Concentración";
+"sensitivity" = "Sensibilidad";
+"sensitivity_low" = "Baja (5s)";
+"sensitivity_medium" = "Media (3s)";
+"sensitivity_high" = "Alta (1s)";
+"status_idle" = "Inactivo";
+"status_detecting" = "Detectando";
+"status_distracted" = "Ausente";
+"status_drowsy" = "Somnoliento";
+"notification_distraction_title" = "Alerta de Concentración";
+"notification_distraction_body" = "¡Vuelve al trabajo!";
+"notification_drowsy_title" = "Alerta de Somnolencia";
+"notification_drowsy_body" = "¡Despierta y mantente concentrado!";
+"camera_permission_required" = "Se necesita permiso de cámara para la detección facial.";
+"notification_permission_required" = "Se necesita permiso de notificación para alertas de concentración.";
+"tab_focus" = "Concentración";
+"tab_stats" = "Estadísticas";
+"tab_settings" = "Configuración";
+"history_7_days" = "Últimos 7 Días";
+"sound_alerts" = "Alertas Sonoras";
+"haptic_alerts" = "Alertas Táctiles";
+"drowsy_threshold" = "Umbral de Somnolencia";
+"do_not_disturb" = "No Molestar";
+"dnd_desc" = "Pausar detección en aplicaciones a pantalla completa.";
+"launch_at_login" = "Iniciar al Iniciar Sesión";
+"timer_mode" = "Modo de Temporizador";
+"timer_up" = "Contar hacia Arriba";
+"timer_down" = "Contar hacia Atrás";
+"seconds" = "s";
+"total_focus" = "Concentración Total";
+"avg_distractions" = "Promedio de Distracciones";
+"avg_drowsy" = "Promedio de Somnolencia";
+"efficiency" = "Eficiencia";
+"focus_goal" = "Objetivo de Concentración";
+"goal_reached_title" = "¡Objetivo Alcanzado!";
+"goal_reached_body" = "¡Gran trabajo! Has completado tu sesión de concentración.";
+"export_data" = "Exportar Datos (CSV)";
+"privacy_title" = "Compromiso de Privacidad";
+"privacy_local" = "Procesamiento 100% local en memoria.";
+"privacy_no_store" = "Las imágenes NUNCA se guardan en disco.";
+"privacy_no_upload" = "Ningún dato se sube a ningún servidor.";
+"privacy_got_it" = "Entendido";
+
+/* Snapshot Feature */
+"snapshot_settings" = "Configuración de Capturas";
+"enable_snapshots" = "Habilitar Capturas";
+"snapshots_description" = "Captura automática cuando estás distraído o somnoliento para revisar el estado de concentración";
+"snapshots_count" = "%d capturas guardadas";
+"snapshot_location" = "Ubicación de Almacenamiento";
+"open_snapshot_folder" = "Abrir Carpeta de Capturas";
+
+/* Posture Detection Feature */
+"posture_detection_settings" = "Detección de Postura";
+"enable_posture_detection" = "Habilitar Detección de Postura";
+"posture_detection_description" = "Detección de postura en tiempo real para recordarte mantener una postura adecuada";
+"current_posture" = "Postura Actual";
+"posture_good" = "Postura Correcta";
+"posture_slouching" = "Encorvado";
+"posture_leaning" = "Inclinado";
+"posture_too_close" = "Demasiado Cerca";
+"posture_too_far" = "Demasiado Lejos";
+"recent_history" = "Historial Reciente";
+"distraction_snapshots" = "Capturas de Distracción";
+"snapshots_gallery" = "Galería de Capturas";
+"snapshot_distraction" = "Distracción";
+"snapshot_drowsy" = "Somnolencia";
+"triggered_after" = "Activado después de %ds";
+"triggered_after_format" = "Activado después de %d segundos";
+"no_snapshots" = "Sin capturas aún";
+"no_snapshots_description" = "Las capturas se tomarán automáticamente cuando estés distraído o somnoliento";
+"clear_all_snapshots" = "Borrar Todas las Capturas";
+"clear_all_snapshots_message" = "¿Estás seguro de que quieres eliminar todas las capturas? Esta acción no se puede deshacer.";
+"delete_snapshot" = "Eliminar Captura";
+"delete_snapshot_message" = "¿Estás seguro de que quieres eliminar esta captura?";
+"cancel" = "Cancelar";
+"delete" = "Eliminar";
+
+/* Posture Alert Feature */
+"notification_posture_title_format" = "Alerta de Postura (Nivel %d)";
+"notification_posture_body_format" = "Detectado que estás %@, ¡mantén una postura adecuada!";
+"posture_alert_settings" = "Configuración de Alerta de Postura";
+"enable_posture_alert" = "Habilitar Alerta de Postura";
+"posture_alert_description" = "Alertas progresivas por mala postura (3s/10s/20s)";
+"posture_sound_alert" = "Sonido de Alerta de Postura";
+"posture_haptic_alert" = "Respuesta Táctil de Alerta de Postura";
+"posture_banner_alert" = "Notificación de Banner de Postura";
