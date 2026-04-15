@@ -11,6 +11,7 @@ struct DynamicMenuBarIcon: View {
     let timerMode: Int
     let currentPosture: PostureState  // 当前坐姿
     let isPostureAlertActive: Bool    // 是否正在坐姿提醒
+    let customIconName: String?       // 自定义图标名称（从 Assets 加载）
     
     @State private var isBlinking: Bool = false  // 闪烁状态
     
@@ -31,11 +32,18 @@ struct DynamicMenuBarIcon: View {
                     .frame(width: 18, height: 18)
                     .rotationEffect(.degrees(-90))
                 
-                // 中心图标：优先显示坐姿警告，否则显示 AppIcon
+                // 中心图标：优先显示坐姿警告，否则显示自定义图标或默认图标
                 if isPostureAlertActive && currentPosture != .good {
                     Image(systemName: iconSymbol)
                         .font(.system(size: 8, weight: .black))
                         .foregroundColor(.orange)
+                } else if let iconName = customIconName {
+                    // 使用自定义图标（从 Assets 加载）
+                    Image(iconName)
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width: 12, height: 12)
+                        .foregroundColor(displayColor)
                 } else {
                     // 默认显示计时器图标，这在菜单栏中最稳定
                     Image(systemName: "timer")

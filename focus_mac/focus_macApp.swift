@@ -17,7 +17,8 @@ struct focus_macApp: App {
                 isGoalActive: viewModel.isGoalActive,
                 timerMode: viewModel.timerMode,
                 currentPosture: viewModel.currentPosture,
-                isPostureAlertActive: viewModel.isPostureAlertEnabled && viewModel.currentPosture != .good && viewModel.status == .active
+                isPostureAlertActive: viewModel.isPostureAlertEnabled && viewModel.currentPosture != .good && viewModel.status == .active,
+                customIconName:"menuIcon"
             )
         }
         .menuBarExtraStyle(.window)
