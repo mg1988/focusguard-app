@@ -1,6 +1,6 @@
 /* FocusGuard German Localization */
 
-"app_name" = "FocusGuard";
+"app_name" = "Blickfokus";
 "focus_time" = "Fokus Heute";
 "distractions" = "Abwesend";
 "drowsiness" = "Müdigkeit";
@@ -27,7 +27,7 @@
 "history_7_days" = "Letzte 7 Tage";
 "sound_alerts" = "Tonsignale";
 "haptic_alerts" = "Haptisches Feedback";
-"haptic_desc" = "Sendet Vibrationsfeedback über das Trackpad.";
+"haptic_desc" = "Vibrationsfeedback über Trackpad.";
 "do_not_disturb" = "Nicht stören";
 "dnd_desc" = "Erkennung in Vollbild-Apps anhalten.";
 "launch_at_login" = "Bei Anmeldung starten";
@@ -36,9 +36,9 @@
 "timer_down" = "Abwärts zählen";
 "drowsy_threshold" = "Müdigkeitsschwelle";
 "small_eyes_mode" = "Kleine-Augen-Modus (Extrem niedrig)";
-"small_eyes_desc" = "Aktivieren Sie diesen Modus, wenn Ihre Augen klein sind oder Sie die Augen zusammenkneifen, um Fehlerkennungen erheblich zu reduzieren.";
+"small_eyes_desc" = "Bei kleinen Augen/zusammenkneifen减少Fehlerkennungen.";
 "system_focus_sync" = "System-Fokus-Modus synchronisieren";
-"system_focus_sync_desc" = "Löst automatisch den System-Nicht-Stören-Modus aus, wenn der Fokus gestartet wird (Shortcuts-Konfiguration erforderlich)";
+"system_focus_sync_desc" = "Auto. System-Nicht-Stören bei Fokus (Shortcuts erforderlich)";
 "seconds" = "s";
 "total_focus" = "Gesamtfokus";
 "avg_distractions" = "∅ Abwesenheit";
@@ -57,7 +57,7 @@
 /* Schnappschuss-Funktion */
 "snapshot_settings" = "Schnappschuss-Einstellungen";
 "enable_snapshots" = "Schnappschüsse aktivieren";
-"snapshots_description" = "Automatische Aufnahme bei Ablenkung oder Müdigkeit zur Überprüfung des Fokus-Zustands";
+"snapshots_description" = "Auto-Aufnahme bei Ablenkung/Müdigkeit zur Fokus-Analyse";
 "snapshots_count" = "%d Schnappschüsse gespeichert";
 "snapshot_location" = "Speicherort";
 "open_snapshot_folder" = "Schnappschuss-Ordner öffnen";
@@ -85,7 +85,7 @@
 /* Positionserkennung */
 "posture_detection_settings" = "Positionserkennung";
 "enable_posture_detection" = "Positionserkennung aktivieren";
-"posture_detection_description" = "Echtzeiterkennung der Körperhaltung, um Sie an eine richtige Haltung zu erinnern";
+"posture_detection_description" = "Echtzeit-Haltungserkennung, erinnert an richtige Haltung";
 "current_posture" = "Aktuelle Haltung";
 "posture_good" = "Gute Haltung";
 "posture_slouching" = "Gebeugt";

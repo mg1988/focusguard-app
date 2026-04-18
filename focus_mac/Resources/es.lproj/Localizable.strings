@@ -1,6 +1,6 @@
 /* FocusGuard Spanish Localization */
 
-"app_name" = "FocusGuard";
+"app_name" = "MiradaFija";
 "focus_time" = "Tiempo de Concentración";
 "distractions" = "Distracciones";
 "drowsiness" = "Somnolencia";
@@ -29,7 +29,7 @@
 "history_7_days" = "Últimos 7 Días";
 "sound_alerts" = "Alertas Sonoras";
 "haptic_alerts" = "Alertas Táctiles";
-"haptic_desc" = "Envía retroalimentación de vibración a través del trackpad.";
+"haptic_desc" = "Retroalimentación de vibración vía trackpad.";
 "drowsy_threshold" = "Umbral de Somnolencia";
 "do_not_disturb" = "No Molestar";
 "dnd_desc" = "Pausar detección en aplicaciones a pantalla completa.";
@@ -39,9 +39,9 @@
 "timer_down" = "Contar hacia Atrás";
 "drowsy_threshold" = "Umbral de Somnolencia";
 "small_eyes_mode" = "Modo Ojos Pequeños (Muy baja sensibilidad)";
-"small_eyes_desc" = "Activa este modo si tienes ojos pequeños o los entrecierras para reducir significativamente las falsas detecciones.";
+"small_eyes_desc" = "Reduce detecciones falsas para ojos pequeños/entrecerrados.";
 "system_focus_sync" = "Sincronizar con modo Enfoque del sistema";
-"system_focus_sync_desc" = "Activa automáticamente el modo No Molestar del sistema cuando se inicia la concentración (requiere configuración de Atajos)";
+"system_focus_sync_desc" = "Activa auto. modo No Molestar (requiere Atajos)";
 "seconds" = "s";
 "total_focus" = "Concentración Total";
 "avg_distractions" = "Promedio de Distracciones";
@@ -60,7 +60,7 @@
 /* Snapshot Feature */
 "snapshot_settings" = "Configuración de Capturas";
 "enable_snapshots" = "Habilitar Capturas";
-"snapshots_description" = "Captura automática cuando estás distraído o somnoliento para revisar el estado de concentración";
+"snapshots_description" = "Captura auto. en caso de distracción/somnolencia para análisis";
 "snapshots_count" = "%d capturas guardadas";
 "snapshot_location" = "Ubicación de Almacenamiento";
 "open_snapshot_folder" = "Abrir Carpeta de Capturas";
@@ -68,7 +68,7 @@
 /* Posture Detection Feature */
 "posture_detection_settings" = "Detección de Postura";
 "enable_posture_detection" = "Habilitar Detección de Postura";
-"posture_detection_description" = "Detección de postura en tiempo real para recordarte mantener una postura adecuada";
+"posture_detection_description" = "Detección de postura en tiempo real, recuerda postura correcta";
 "current_posture" = "Postura Actual";
 "posture_good" = "Postura Correcta";
 "posture_slouching" = "Encorvado";

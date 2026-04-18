@@ -1,0 +1,4 @@
+/* FocusGuard English InfoPlist Localization */
+
+CFBundleDisplayName = "FocusGuard";
+CFBundleName = "FocusGuard";

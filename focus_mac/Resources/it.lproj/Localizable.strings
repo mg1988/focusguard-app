@@ -1,6 +1,6 @@
 /* FocusGuard Italian Localization */
 
-"app_name" = "FocusGuard";
+"app_name" = "SguardoFisso";
 "focus_time" = "Tempo di Concentrazione";
 "distractions" = "Allontanamenti";
 "drowsiness" = "Assopimento";
@@ -29,7 +29,7 @@
 "history_7_days" = "Ultimi 7 Giorni";
 "sound_alerts" = "Avvisi Sonori";
 "haptic_alerts" = "Avvisi Tattili";
-"haptic_desc" = "Invia feedback di vibrazione tramite il trackpad.";
+"haptic_desc" = "Feedback vibrazione tramite trackpad.";
 "drowsy_threshold" = "Soglia di Assopimento";
 "do_not_disturb" = "Non Disturbare";
 "dnd_desc" = "Metti in pausa il rilevamento nelle app a schermo intero.";
@@ -39,9 +39,9 @@
 "timer_down" = "Conta alla Rovescia";
 "drowsy_threshold" = "Soglia di Assopimento";
 "small_eyes_mode" = "Modalità Occhi Piccoli (Bassissima sensibilità)";
-"small_eyes_desc" = "Attiva questa modalità se hai gli occhi piccoli o li strizzi per ridurre significativamente i falsi rilevamenti.";
+"small_eyes_desc" = "Riduce falsi rilevamenti per occhi piccoli/strizzati.";
 "system_focus_sync" = "Sincronizza con modalità Focus di sistema";
-"system_focus_sync_desc" = "Attiva automaticamente la modalità Non disturbare di sistema quando si avvia la concentrazione (richiede configurazione Scorciatoie)";
+"system_focus_sync_desc" = "Attiva auto. modalità Non disturbare (richiede Scorciatoie)";
 "seconds" = "s";
 "total_focus" = "Concentrazione Totale";
 "avg_distractions" = "Media Allontanamenti";
@@ -60,7 +60,7 @@
 /* Snapshot Feature */
 "snapshot_settings" = "Impostazioni Istantanee";
 "enable_snapshots" = "Abilita Istantanee";
-"snapshots_description" = "Acquisizione automatica quando distratto o assonnato per rivedere lo stato di concentrazione";
+"snapshots_description" = "Acquisizione auto. in caso di distrazione/sonnolenza per analisi";
 "snapshots_count" = "%d istantanee salvate";
 "snapshot_location" = "Percorso di Archiviazione";
 "open_snapshot_folder" = "Apri Cartella Istantanee";
@@ -68,7 +68,7 @@
 /* Posture Detection Feature */
 "posture_detection_settings" = "Rilevamento Postura";
 "enable_posture_detection" = "Abilita Rilevamento Postura";
-"posture_detection_description" = "Rilevamento postura in tempo reale per ricordarti di mantenere una postura corretta";
+"posture_detection_description" = "Rilevamento postura in tempo reale, ricorda postura corretta";
 "current_posture" = "Postura Attuale";
 "posture_good" = "Postura Corretta";
 "posture_slouching" = "Incurvato";
@@ -96,7 +96,7 @@
 "notification_posture_body_format" = "Rilevato che sei %@, mantieni una postura corretta!";
 "posture_alert_settings" = "Impostazioni Avviso Postura";
 "enable_posture_alert" = "Abilita Avviso Postura";
-"posture_alert_description" = "Avvisi progressivi per postura scorretta (3s/10s/20s)";
+"posture_alert_description" = "Avvisi progressivi postura scorretta (3s/10s/20s)";
 "posture_sound_alert" = "Suono Avviso Postura";
 "posture_haptic_alert" = "Feedback Tattile Avviso Postura";
 "posture_banner_alert" = "Banner Notifica Postura";

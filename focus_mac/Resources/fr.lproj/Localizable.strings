@@ -1,6 +1,6 @@
 /* FocusGuard French Localization */
 
-"app_name" = "FocusGuard";
+"app_name" = "RegardFixe";
 "focus_time" = "Focus Aujourd'hui";
 "distractions" = "Absence";
 "drowsiness" = "Somnolence";
@@ -27,7 +27,7 @@
 "history_7_days" = "7 derniers jours";
 "sound_alerts" = "Alertes sonores";
 "haptic_alerts" = "Alertes haptiques";
-"haptic_desc" = "Envoie un retour vibratoire via le trackpad.";
+"haptic_desc" = "Retour vibratoire via trackpad.";
 "do_not_disturb" = "Ne pas déranger";
 "dnd_desc" = "Pause en mode plein écran.";
 "launch_at_login" = "Lancer à la connexion";
@@ -36,9 +36,9 @@
 "timer_down" = "Compte à rebours";
 "drowsy_threshold" = "Seuil de somnolence";
 "small_eyes_mode" = "Mode Petits Yeux (Très basse sensibilité)";
-"small_eyes_desc" = "Activez ce mode si vos yeux sont petits ou plissés pour réduire considérablement les fausses détections.";
+"small_eyes_desc" = "Réduit fausses détections pour yeux petits/plissés.";
 "system_focus_sync" = "Synchroniser avec le mode Focus système";
-"system_focus_sync_desc" = "Déclenche automatiquement le mode Ne pas déranger du système lorsque le focus est activé (configuration Raccourcis requise)";
+"system_focus_sync_desc" = "Active auto. mode Ne pas déranger (Raccourcis requis)";
 "seconds" = "s";
 "total_focus" = "Focus total";
 "avg_distractions" = "Moy. absence";
@@ -57,7 +57,7 @@
 /* Fonction Instantané */
 "snapshot_settings" = "Paramètres des instantanés";
 "enable_snapshots" = "Activer les instantanés";
-"snapshots_description" = "Capture automatique en cas de distraction ou de somnolence pour revoir l'état de concentration";
+"snapshots_description" = "Capture auto. en cas de distraction/somnolence pour analyse";
 "snapshots_count" = "%d instantanés enregistrés";
 "snapshot_location" = "Emplacement de stockage";
 "open_snapshot_folder" = "Ouvrir le dossier des instantanés";
@@ -85,7 +85,7 @@
 /* Détection de posture */
 "posture_detection_settings" = "Détection de posture";
 "enable_posture_detection" = "Activer la détection de posture";
-"posture_detection_description" = "Détection de posture en temps réel pour vous rappeler de maintenir une posture correcte";
+"posture_detection_description" = "Détection posture en temps réel, rappelle posture correcte";
 "current_posture" = "Posture actuelle";
 "posture_good" = "Bonne posture";
 "posture_slouching" = "Avachi";
@@ -94,7 +94,7 @@
 "posture_too_far" = "Trop loin";
 "posture_alert_settings" = "Paramètres d'alerte de posture";
 "enable_posture_alert" = "Activer l'alerte de posture";
-"posture_alert_description" = "Alertes progressives pour mauvaise posture (3s/10s/20s)";
+"posture_alert_description" = "Alertes progressives mauvaise posture (3s/10s/20s)";
 "posture_sound_alert" = "Son d'alerte de posture";
 "posture_haptic_alert" = "Retour haptique d'alerte de posture";
 "posture_banner_alert" = "Bannière de notification de posture";

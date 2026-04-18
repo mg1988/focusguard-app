@@ -1,0 +1,4 @@
+/* FocusGuard 日本語 InfoPlist ローカリゼーション */
+
+CFBundleDisplayName = "凝視";
+CFBundleName = "凝視";

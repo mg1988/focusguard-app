@@ -1,0 +1,4 @@
+/* FocusGuard Русский InfoPlist Локализация */
+
+CFBundleDisplayName = "ВзглядФокус";
+CFBundleName = "ВзглядФокус";

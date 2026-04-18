@@ -1,0 +1,4 @@
+/* FocusGuard 한국어 InfoPlist 현지화 */
+
+CFBundleDisplayName = "주시";
+CFBundleName = "주시";
