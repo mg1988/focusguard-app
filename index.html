@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>凝视 FocusGuard - 智能专注助手</title>
+    <link rel="icon" href="favicon.png" type="image/png">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 600px;
+            background: white;
+            border-radius: 20px;
+            padding: 50px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            text-align: center;
+        }
+        
+        .logo {
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 30px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 60px;
+            color: white;
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
+        }
+        
+        h1 {
+            color: #667eea;
+            font-size: 36px;
+            margin-bottom: 15px;
+        }
+        
+        .tagline {
+            color: #666;
+            font-size: 18px;
+            margin-bottom: 40px;
+        }
+        
+        .features {
+            text-align: left;
+            margin: 30px 0;
+            padding: 30px;
+            background: #f8f9ff;
+            border-radius: 12px;
+        }
+        
+        .features h2 {
+            color: #667eea;
+            font-size: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .feature-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 15px;
+        }
+        
+        .feature-item:last-child {
+            margin-bottom: 0;
+        }
+        
+        .feature-icon {
+            font-size: 24px;
+            margin-right: 15px;
+        }
+        
+        .feature-text {
+            color: #555;
+            font-size: 15px;
+        }
+        
+        .links {
+            margin-top: 40px;
+            padding-top: 30px;
+            border-top: 2px solid #f0f0f0;
+        }
+        
+        .links a {
+            color: #667eea;
+            text-decoration: none;
+            margin: 0 15px;
+            font-weight: 500;
+            font-size: 15px;
+        }
+        
+        .links a:hover {
+            text-decoration: underline;
+        }
+        
+        .footer {
+            margin-top: 30px;
+            color: #999;
+            font-size: 13px;
+        }
+        
+        @media (max-width: 600px) {
+            .container {
+                padding: 30px;
+            }
+            
+            h1 {
+                font-size: 28px;
+            }
+            
+            .logo {
+                width: 100px;
+                height: 100px;
+                font-size: 50px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo">🎯</div>
+        
+        <h1>凝视 FocusGuard</h1>
+        <p class="tagline">智能专注助手 · AI 驱动的效率提升工具</p>
+        
+        <div class="features">
+            <h2>核心功能</h2>
+            
+            <div class="feature-item">
+                <div class="feature-icon">🧠</div>
+                <div class="feature-text">AI 智能专注检测，实时判断专注状态</div>
+            </div>
+            
+            <div class="feature-item">
+                <div class="feature-icon">📸</div>
+                <div class="feature-text">走神/瞌睡自动抓拍，帮助回顾专注状态</div>
+            </div>
+            
+            <div class="feature-item">
+                <div class="feature-icon">🪑</div>
+                <div class="feature-text">实时坐姿检测，渐进式提醒保护脊椎</div>
+            </div>
+            
+            <div class="feature-item">
+                <div class="feature-icon">📊</div>
+                <div class="feature-text">7 天数据统计，专注效率分析</div>
+            </div>
+            
+            <div class="feature-item">
+                <div class="feature-icon">🔒</div>
+                <div class="feature-text">100% 本地处理，保护隐私安全</div>
+            </div>
+        </div>
+        
+        <div class="links">
+            <a href="privacy.html">隐私政策</a>
+            <a href="terms.html">使用条款</a>
+            <a href="mailto:migenwei@163.com">联系支持</a>
+        </div>
+        
+        <div class="footer">
+            <p>© 2026 凝视 FocusGuard. All rights reserved.</p>
+            <p>Available on the Mac App Store</p>
+        </div>
+        
+        <div style="margin-top: 25px;">
+            <a href="https://mg1988.github.io/focusguard-app/Screenshots/Screenshot_01_MacBookPro_FocusMode.png" target="_blank" style="display: inline-block; margin: 10px;">
+                <img src="Screenshots/Screenshot_01_MacBookPro_FocusMode.png" alt="专注模式截图" style="width: 200px; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.15);">
+            </a>
+            <a href="https://mg1988.github.io/focusguard-app/Screenshots/Screenshot_02_MacBookPro_Statistics.png" target="_blank" style="display: inline-block; margin: 10px;">
+                <img src="Screenshots/Screenshot_02_MacBookPro_Statistics.png" alt="统计页面截图" style="width: 200px; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.15);">
+            </a>
+            <a href="https://mg1988.github.io/focusguard-app/Screenshots/Screenshot_03_MacBookPro_Settings.png" target="_blank" style="display: inline-block; margin: 10px;">
+                <img src="Screenshots/Screenshot_03_MacBookPro_Settings.png" alt="设置页面截图" style="width: 200px; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.15);">
+            </a>
+        </div>
+    </div>
+</body>
+</html>
