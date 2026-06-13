@@ -127,3 +127,11 @@
 "theme_system" = "跟随系统";
 "theme_light" = "浅色";
 "theme_dark" = "深色";
+
+/* Menu Quick Actions */
+"menu_start_focus" = "开启专注";
+"menu_stop_focus" = "停止专注";
+"menu_about" = "关于";
+"menu_quit" = "退出";
+"version_info" = "版本 1.0.0";
+"about_description" = "FocusGuard 通过监测您的专注状态，在走神或瞌睡时提供实时提醒，帮助您保持高效工作状态。";

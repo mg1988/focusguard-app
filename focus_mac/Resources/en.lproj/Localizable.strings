@@ -118,3 +118,11 @@
 "theme_system" = "System";
 "theme_light" = "Light";
 "theme_dark" = "Dark";
+
+/* Menu Quick Actions */
+"menu_start_focus" = "Start Focus";
+"menu_stop_focus" = "Stop Focus";
+"menu_about" = "About";
+"menu_quit" = "Quit";
+"version_info" = "Version 1.0.0";
+"about_description" = "FocusGuard helps you stay productive by monitoring your focus state and providing real-time alerts when you get distracted or drowsy.";

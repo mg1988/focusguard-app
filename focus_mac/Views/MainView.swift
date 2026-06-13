@@ -5,6 +5,7 @@ import AppKit
 struct MainView: View {
     @ObservedObject var viewModel: FocusViewModel
     @ObservedObject var languageManager = LanguageManager.shared
+    @ObservedObject var themeManager = ThemeManager.shared
     @State private var selectedTab = 0
     @State private var showPrivacyMask = false
     
