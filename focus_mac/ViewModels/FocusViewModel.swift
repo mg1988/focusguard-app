@@ -8,6 +8,7 @@ import AVFoundation
 enum FocusStatus {
     case idle           // 待命
     case active         // 专注中
+    case paused        // 已暂停
     case distracted     // 走神中
 }
 
@@ -45,6 +46,9 @@ class FocusViewModel: ObservableObject {
     @Published var isFaceDetected: Bool = false
     @Published var isEyesClosed: Bool = false // 眼睛状态
     @Published var cameraPermissionStatus: AVAuthorizationStatus = .notDetermined
+    
+    // 暂停相关属性
+    private var pausedFocusTime: TimeInterval = 0  // 暂停时的专注时间
     
     // 设置属性
     @Published var isSoundEnabled: Bool = true
@@ -211,9 +215,55 @@ class FocusViewModel: ObservableObject {
     func toggleFocusMode() {
         if status == .idle {
             startFocusSession()
+        } else if status == .paused {
+            resumeFocusSession()
         } else {
             stopFocusSession()
         }
+    }
+    
+    /// 切换暂停/恢复状态
+    func togglePause() {
+        if status == .active || status == .distracted {
+            pauseFocusSession()
+        } else if status == .paused {
+            resumeFocusSession()
+        }
+    }
+    
+    /// 暂停专注会话
+    private func pauseFocusSession() {
+        pausedFocusTime = focusTime  // 保存当前专注时间
+        status = .paused
+        faceManager.stopDetection()
+        mainTimer?.invalidate()
+        mainTimer = nil
+        distractionTimer?.invalidate()
+        distractionTimer = nil
+        drowsyTimer?.invalidate()
+        drowsyTimer = nil
+        badPostureTimer?.invalidate()
+        badPostureTimer = nil
+        
+        // 发送暂停通知
+        notificationManager.sendNotification(
+            title: "focus_paused".localized,
+            body: "focus_paused_body".localized
+        )
+    }
+    
+    /// 恢复专注会话
+    private func resumeFocusSession() {
+        focusTime = pausedFocusTime  // 恢复暂停前的专注时间
+        status = .active
+        faceManager.startDetection()
+        startMainTimer()
+        
+        // 发送恢复通知
+        notificationManager.sendNotification(
+            title: "focus_resumed".localized,
+            body: "focus_resumed_body".localized
+        )
     }
     
     /// 开启专注会话

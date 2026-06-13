@@ -96,3 +96,11 @@
 "language_settings" = "Language";
 "language_system" = "System";
 "language_select_desc" = "Select your preferred language";
+
+/* Pause/Resume Feature */
+"pause_detection" = "Pause";
+"resume_detection" = "Resume";
+"focus_paused" = "Focus Paused";
+"focus_paused_body" = "Your focus session has been paused.";
+"focus_resumed" = "Focus Resumed";
+"focus_resumed_body" = "Your focus session has been resumed.";

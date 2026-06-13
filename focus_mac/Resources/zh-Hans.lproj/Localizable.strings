@@ -1,6 +1,6 @@
 /* FocusGuard 简体中文本地化 */
 
-"app_name" = "凝视";
+"app_name" = "凝视 FocusGuard";
 "focus_time" = "今日专注";
 "distractions" = "离席次数";
 "drowsiness" = "瞌睡次数";
@@ -105,3 +105,11 @@
 "language_settings" = "语言设置";
 "language_system" = "跟随系统";
 "language_select_desc" = "选择您偏好的语言";
+
+/* Pause/Resume Feature */
+"pause_detection" = "暂停";
+"resume_detection" = "继续";
+"focus_paused" = "专注已暂停";
+"focus_paused_body" = "您的专注阶段已暂停。";
+"focus_resumed" = "专注已恢复";
+"focus_resumed_body" = "您的专注阶段已继续。";

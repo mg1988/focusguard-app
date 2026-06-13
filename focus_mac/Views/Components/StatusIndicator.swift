@@ -29,6 +29,7 @@ struct StatusIndicator: View {
             if !isFaceDetected { return .orange }
             if isEyesClosed { return .blue }
             return .green
+        case .paused:return .orange
         case .distracted: return .orange
         }
     }
@@ -40,6 +41,7 @@ struct StatusIndicator: View {
             if !isFaceDetected { return "status_distracted".localized }
             if isEyesClosed { return "status_drowsy".localized }
             return "status_detecting".localized
+        case .paused: return "status_distracted".localized
         case .distracted: return "status_distracted".localized
         }
     }

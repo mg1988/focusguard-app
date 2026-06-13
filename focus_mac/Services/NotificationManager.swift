@@ -12,10 +12,36 @@ class NotificationManager: NSObject, UNUserNotificationCenterDelegate, Observabl
     
     @Published var isAuthorized: Bool = false
     
+    // 自定义提示音
+    private var customAlertSound: NSSound?
+    private var customDrowsySound: NSSound?
+    
     override init() {
         super.init()
         center.delegate = self
         checkPermission()
+        loadCustomSounds()
+    }
+    
+    /// 加载自定义提示音文件
+    private func loadCustomSounds() {
+        // 从 Resources/Sounds 目录加载自定义提示音 (支持 mp3 和 wav)
+        if let soundURL = Bundle.main.url(forResource: "alert_triple", withExtension: "mp3", subdirectory: "Sounds") {
+            customAlertSound = NSSound(contentsOf: soundURL, byReference: true)
+            customAlertSound?.volume = 1.0
+        } else if let soundURL = Bundle.main.url(forResource: "alert_triple", withExtension: "wav", subdirectory: "Sounds") {
+            customAlertSound = NSSound(contentsOf: soundURL, byReference: true)
+            customAlertSound?.volume = 1.0
+        }
+        
+        // 瞌睡提醒使用相同的声音
+        if let soundURL = Bundle.main.url(forResource: "alert_triple", withExtension: "mp3", subdirectory: "Sounds") {
+            customDrowsySound = NSSound(contentsOf: soundURL, byReference: true)
+            customDrowsySound?.volume = 1.0
+        } else if let soundURL = Bundle.main.url(forResource: "alert_triple", withExtension: "wav", subdirectory: "Sounds") {
+            customDrowsySound = NSSound(contentsOf: soundURL, byReference: true)
+            customDrowsySound?.volume = 1.0
+        }
     }
     
     /// 检查并请求通知权限
@@ -116,7 +142,7 @@ class NotificationManager: NSObject, UNUserNotificationCenterDelegate, Observabl
     private func playGentleSound() {
         // 短促的单音
         if let sound = NSSound(named: "Pop") {
-            sound.volume = 0.3
+            sound.volume = 0.8  // 增大音量到 0.8
             sound.play()
         } else {
             NSSound.beep()
@@ -144,16 +170,29 @@ class NotificationManager: NSObject, UNUserNotificationCenterDelegate, Observabl
         }
     }
     
-    /// 播放强烈提示音（连续）
+    /// 播放强烈提示音（连续警报）
     private func playStrongSound() {
-        // 连续三音提示
-        for i in 0..<3 {
-            DispatchQueue.main.asyncAfter(deadline: .now() + Double(i) * 0.1) {
-                if let sound = NSSound(named: "Pop") {
-                    sound.volume = 0.7
-                    sound.play()
-                } else {
-                    NSSound.beep()
+        // 优先使用自定义提示音
+        if let sound = customAlertSound {
+            // 连续播放三次自定义提示音
+            for i in 0..<3 {
+                DispatchQueue.main.asyncAfter(deadline: .now() + Double(i) * 0.3) { [weak self] in
+                    if let soundClone = self?.customAlertSound?.copy() as? NSSound {
+                        soundClone.volume = 1.0
+                        soundClone.play()
+                    }
+                }
+            }
+        } else {
+            // 降级到系统 Pop 音
+            for i in 0..<3 {
+                DispatchQueue.main.asyncAfter(deadline: .now() + Double(i) * 0.1) {
+                    if let sound = NSSound(named: "Pop") {
+                        sound.volume = 1.0  // 增大音量到最大 1.0
+                        sound.play()
+                    } else {
+                        NSSound.beep()
+                    }
                 }
             }
         }
