@@ -180,9 +180,7 @@ struct SettingsView: View {
                 }
                 .buttonStyle(.plain)
             }
-            .background(Color(NSColor.windowBackgroundColor))
         }
-        .background(Color(NSColor.windowBackgroundColor))
     }
     
     private func exportData() {
@@ -254,12 +252,11 @@ struct SettingsSection<Content: View>: View {
             }
             .background(
                 RoundedRectangle(cornerRadius: 12)
-                    .fill(Color(NSColor.controlBackgroundColor))
-                    .shadow(color: Color.black.opacity(0.05), radius: 2, x: 0, y: 1)
+                    .fill(Color.primary.opacity(0.05))
             )
             .overlay(
                 RoundedRectangle(cornerRadius: 12)
-                    .stroke(Color.primary.opacity(0.08), lineWidth: 0.5)
+                    .stroke(Color.primary.opacity(0.05), lineWidth: 0.5)
             )
         }
     }
