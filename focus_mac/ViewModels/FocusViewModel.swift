@@ -69,6 +69,14 @@ class FocusViewModel: ObservableObject {
     @Published var isSnapshotEnabled: Bool = true // 是否启用抓拍功能
     @Published var isSmallEyesModeEnabled: Bool = false // 小眼睛模式 (大幅降低闭眼判定灵敏度)
     
+    // 20-20-20 护眼提醒
+    @Published var isEyeCareEnabled: Bool = false {
+        didSet {
+            eyeCareService.isEnabled = isEyeCareEnabled
+            eyeCareService.saveSettings()
+        }
+    }
+    
     // 坐姿检测数据
     @Published var currentPosture: PostureState = .good
     @Published var isPostureDetectionEnabled: Bool = true {
@@ -120,6 +128,7 @@ class FocusViewModel: ObservableObject {
     // 底层服务引用
     private let faceManager = FaceDetectionManager.shared
     private let notificationManager = NotificationManager.shared
+    private let eyeCareService = EyeCareReminderService.shared
     private var cancellables = Set<AnyCancellable>()
     
     // 格式化输出
@@ -248,6 +257,9 @@ class FocusViewModel: ObservableObject {
         badPostureTimer?.invalidate()
         badPostureTimer = nil
         
+        // 暂停护眼提醒
+        eyeCareService.pauseFocusSession()
+        
         // 发送暂停通知
         notificationManager.sendNotification(
             title: "focus_paused".localized,
@@ -262,6 +274,9 @@ class FocusViewModel: ObservableObject {
         faceManager.startDetection()
         startMainTimer()
         
+        // 恢复护眼提醒
+        eyeCareService.resumeFocusSession()
+        
         // 发送恢复通知
         notificationManager.sendNotification(
             title: "focus_resumed".localized,
@@ -274,6 +289,9 @@ class FocusViewModel: ObservableObject {
         status = .active
         faceManager.startDetection()
         startMainTimer()
+        
+        // 启动护眼提醒
+        eyeCareService.startFocusSession()
         
         // 如果启用了系统同步，尝试触发勿扰模式
         if isSystemFocusSyncEnabled {
@@ -291,6 +309,9 @@ class FocusViewModel: ObservableObject {
         distractionTimer?.invalidate()
         distractionTimer = nil
         saveDailyStats()
+        
+        // 停止护眼提醒
+        eyeCareService.stopFocusSession()
         
         // 如果启用了系统同步，尝试关闭勿扰模式
         if isSystemFocusSyncEnabled {
@@ -652,6 +673,10 @@ class FocusViewModel: ObservableObject {
         
         self.isPostureBannerEnabled = UserDefaults.standard.bool(forKey: "isPostureBannerEnabled")
         if UserDefaults.standard.object(forKey: "isPostureBannerEnabled") == nil { self.isPostureBannerEnabled = true }
+        
+        // 加载 20-20-20 护眼提醒设置
+        self.isEyeCareEnabled = UserDefaults.standard.bool(forKey: "isEyeCareEnabled")
+        eyeCareService.isEnabled = self.isEyeCareEnabled
 
         // 加载历史数据
         if let data = UserDefaults.standard.data(forKey: "FocusGuardHistory"),
@@ -698,6 +723,9 @@ class FocusViewModel: ObservableObject {
         UserDefaults.standard.set(isPostureSoundEnabled, forKey: "isPostureSoundEnabled")
         UserDefaults.standard.set(isPostureHapticEnabled, forKey: "isPostureHapticEnabled")
         UserDefaults.standard.set(isPostureBannerEnabled, forKey: "isPostureBannerEnabled")
+        
+        // 保存 20-20-20 护眼提醒设置
+        UserDefaults.standard.set(isEyeCareEnabled, forKey: "isEyeCareEnabled")
 
         // 保存统计数据
         let todayStr = getTodayString()

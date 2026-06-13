@@ -63,6 +63,11 @@ struct SettingsView: View {
                             Toggle("", isOn: $viewModel.isSnapshotEnabled).toggleStyle(.switch).labelsHidden()
                         }
                         .subtitle("snapshots_description".localized)
+                        
+                        SettingsRow(icon: "eye.fill", color: .cyan, title: "eye_care_reminder".localized) {
+                            Toggle("", isOn: $viewModel.isEyeCareEnabled).toggleStyle(.switch).labelsHidden()
+                        }
+                        .subtitle("eye_care_reminder_desc".localized)
                     }
                     
                     // --- 坐姿检测区块 ---

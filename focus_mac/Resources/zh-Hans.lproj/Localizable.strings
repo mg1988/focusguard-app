@@ -135,3 +135,15 @@
 "menu_quit" = "退出";
 "version_info" = "版本 1.0.0";
 "about_description" = "FocusGuard 通过监测您的专注状态，在走神或瞌睡时提供实时提醒，帮助您保持高效工作状态。";
+
+/* Statistics Charts */
+"focus_trend" = "专注趋势";
+"distraction_comparison" = "走神/瞌睡对比";
+
+/* Eye Care Reminder (20-20-20) */
+"eye_care_reminder" = "20-20-20 护眼提醒";
+"eye_care_reminder_desc" = "每 20 分钟提醒看远处 20 秒";
+"eye_care_reminder_title" = "护眼时间";
+"eye_care_reminder_body" = "请看向 20 英尺（约 6 米）远的地方，持续 20 秒";
+"eye_care_resume_title" = "继续工作";
+"eye_care_resume_body" = "眼睛休息完成，可以继续工作了";

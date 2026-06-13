@@ -126,3 +126,15 @@
 "menu_quit" = "Quit";
 "version_info" = "Version 1.0.0";
 "about_description" = "FocusGuard helps you stay productive by monitoring your focus state and providing real-time alerts when you get distracted or drowsy.";
+
+/* Statistics Charts */
+"focus_trend" = "Focus Trend";
+"distraction_comparison" = "Distraction Comparison";
+
+/* Eye Care Reminder (20-20-20) */
+"eye_care_reminder" = "Eye Care Reminder";
+"eye_care_reminder_desc" = "Remind to look away every 20 minutes for 20 seconds";
+"eye_care_reminder_title" = "Eye Rest Time";
+"eye_care_reminder_body" = "Look at something 20 feet (6 meters) away for 20 seconds";
+"eye_care_resume_title" = "Resume Work";
+"eye_care_resume_body" = "Eye rest complete, you can continue working";

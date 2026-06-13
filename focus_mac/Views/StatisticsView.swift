@@ -27,6 +27,26 @@ struct StatisticsView: View {
                 .padding(12)
                 .background(RoundedRectangle(cornerRadius: 12).fill(Color.primary.opacity(0.05)))
                 
+                // 专注趋势折线图
+                VStack(alignment: .leading, spacing: 8) {
+                    Text("focus_trend".localized)
+                        .font(.system(size: 13, weight: .semibold))
+                        .foregroundColor(.secondary)
+                    
+                    FocusTrendChart(history: viewModel.history)
+                        .frame(height: 120)
+                }
+                
+                // 走神/瞌睡柱状图
+                VStack(alignment: .leading, spacing: 8) {
+                    Text("distraction_comparison".localized)
+                        .font(.system(size: 13, weight: .semibold))
+                        .foregroundColor(.secondary)
+                    
+                    DistractionBarChart(history: viewModel.history)
+                        .frame(height: 120)
+                }
+                
                 // 历史列表（水平滚动）
                 VStack(alignment: .leading, spacing: 8) {
                     Text("recent_history".localized)
@@ -178,5 +198,128 @@ struct StatRow: View {
             Spacer()
             Text(value).bold()
         }
+    }
+}
+
+// MARK: - 专注趋势折线图组件
+
+/// 专注趋势折线图组件，展示过去7天的专注时长变化
+struct FocusTrendChart: View {
+    let history: [DailyStats]
+    
+    var body: some View {
+        GeometryReader { geometry in
+            let data = Array(history.prefix(7).reversed())
+            let maxTime = data.map(\.focusTime).max() ?? 1
+            
+            ZStack(alignment: .bottomLeading) {
+                // 背景网格
+                VStack {
+                    ForEach(0..<4) { _ in
+                        Divider()
+                            .background(Color.primary.opacity(0.1))
+                        Spacer()
+                    }
+                }
+                
+                // 折线图
+                if data.count > 1 {
+                    Path { path in
+                        let width = geometry.size.width
+                        let height = geometry.size.height
+                        let stepX = width / CGFloat(data.count - 1)
+                        
+                        for (index, stat) in data.enumerated() {
+                            let x = CGFloat(index) * stepX
+                            let y = height - (CGFloat(stat.focusTime / maxTime) * height * 0.8)
+                            
+                            if index == 0 {
+                                path.move(to: CGPoint(x: x, y: y))
+                            } else {
+                                path.addLine(to: CGPoint(x: x, y: y))
+                            }
+                        }
+                    }
+                    .stroke(Color.green, lineWidth: 2)
+                    
+                    // 数据点
+                    ForEach(Array(data.enumerated()), id: \.offset) { index, stat in
+                        let width = geometry.size.width
+                        let height = geometry.size.height
+                        let stepX = width / CGFloat(data.count - 1)
+                        let x = CGFloat(index) * stepX
+                        let y = height - (CGFloat(stat.focusTime / maxTime) * height * 0.8)
+                        
+                        Circle()
+                            .fill(Color.green)
+                            .frame(width: 6, height: 6)
+                            .position(x: x, y: y)
+                            .help("\(stat.date): \(formatTime(stat.focusTime))")
+                    }
+                }
+            }
+        }
+        .padding(8)
+        .background(RoundedRectangle(cornerRadius: 12).fill(Color.primary.opacity(0.03)))
+    }
+    
+    private func formatTime(_ time: TimeInterval) -> String {
+        let hours = Int(time) / 3600
+        let minutes = (Int(time) % 3600) / 60
+        return String(format: "%dh %dm", hours, minutes)
+    }
+}
+
+// MARK: - 走神/瞌睡柱状图组件
+
+/// 走神/瞌睡柱状图组件，对比每日的分心次数
+struct DistractionBarChart: View {
+    let history: [DailyStats]
+    
+    var body: some View {
+        GeometryReader { geometry in
+            let data = Array(history.prefix(7).reversed())
+            let maxValue = max(
+                data.map(\.distractionCount).max() ?? 1,
+                data.map(\.drowsyCount).max() ?? 1
+            )
+            
+            HStack(alignment: .bottom, spacing: 8) {
+                ForEach(Array(data.enumerated()), id: \.offset) { index, stat in
+                    VStack(spacing: 4) {
+                        // 柱状图
+                        HStack(alignment: .bottom, spacing: 2) {
+                            // 走神柱
+                            Rectangle()
+                                .fill(Color.orange)
+                                .frame(
+                                    width: 12,
+                                    height: max(2, CGFloat(stat.distractionCount) / CGFloat(maxValue) * (geometry.size.height - 30))
+                                )
+                                .cornerRadius(2)
+                                .help("distraction".localized + ": \(stat.distractionCount)")
+                            
+                            // 瞌睡柱
+                            Rectangle()
+                                .fill(Color.blue)
+                                .frame(
+                                    width: 12,
+                                    height: max(2, CGFloat(stat.drowsyCount) / CGFloat(maxValue) * (geometry.size.height - 30))
+                                )
+                                .cornerRadius(2)
+                                .help("drowsy".localized + ": \(stat.drowsyCount)")
+                        }
+                        
+                        // 日期标签
+                        Text(stat.date.suffix(5))
+                            .font(.system(size: 9))
+                            .foregroundColor(.secondary)
+                    }
+                }
+            }
+            .frame(maxWidth: .infinity, alignment: .center)
+        }
+        .padding(8)
+        .background(RoundedRectangle(cornerRadius: 12).fill(Color.primary.opacity(0.03)))
     }
 }
