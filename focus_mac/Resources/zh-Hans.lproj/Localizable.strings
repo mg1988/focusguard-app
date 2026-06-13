@@ -112,4 +112,18 @@
 "focus_paused" = "专注已暂停";
 "focus_paused_body" = "您的专注阶段已暂停。";
 "focus_resumed" = "专注已恢复";
-"focus_resumed_body" = "您的专注阶段已继续。";
+"focus_resumed_body" = "您的专注阶段已恢复。";
+
+/* Quick Action Buttons */
+"start_focus" = "开始专注";
+"pause_focus" = "暂停专注";
+"quit_app" = "退出应用";
+"about_menu" = "关于";
+"about_desc" = "专注守护，让您保持高效工作状态";
+
+/* Theme Settings */
+"appearance_settings" = "外观";
+"theme_mode" = "主题模式";
+"theme_system" = "跟随系统";
+"theme_light" = "浅色";
+"theme_dark" = "深色";

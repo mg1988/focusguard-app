@@ -37,6 +37,9 @@ enum Sensitivity: String, CaseIterable {
 
 /// 核心业务逻辑 ViewModel，驱动 UI 变化并协调底层服务
 class FocusViewModel: ObservableObject {
+    // 单例实例，供 StatusBarManager 等非 SwiftUI 上下文使用
+    static let shared = FocusViewModel()
+    
     // 状态属性
     @Published var status: FocusStatus = .idle
     @Published var focusTime: TimeInterval = 0

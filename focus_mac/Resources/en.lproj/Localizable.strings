@@ -104,3 +104,17 @@
 "focus_paused_body" = "Your focus session has been paused.";
 "focus_resumed" = "Focus Resumed";
 "focus_resumed_body" = "Your focus session has been resumed.";
+
+/* Quick Action Buttons */
+"start_focus" = "Start Focus";
+"pause_focus" = "Pause Focus";
+"quit_app" = "Quit App";
+"about_menu" = "About";
+"about_desc" = "Focus guardian to keep you productive";
+
+/* Theme Settings */
+"appearance_settings" = "Appearance";
+"theme_mode" = "Theme";
+"theme_system" = "System";
+"theme_light" = "Light";
+"theme_dark" = "Dark";

@@ -90,6 +90,7 @@ struct DynamicMenuBarIcon: View {
         switch status {
         case .idle: return .primary.opacity(0.6)
         case .active: return .green
+        case .paused: return .yellow
         case .distracted: return .orange
         }
     }

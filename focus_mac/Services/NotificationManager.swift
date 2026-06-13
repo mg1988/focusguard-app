@@ -25,36 +25,47 @@ class NotificationManager: NSObject, UNUserNotificationCenterDelegate, Observabl
     
     /// 加载自定义提示音文件
     private func loadCustomSounds() {
-        // 从 Resources/Sounds 目录加载自定义提示音 (支持 mp3 和 wav)
-        if let soundURL = Bundle.main.url(forResource: "alert_triple", withExtension: "mp3", subdirectory: "Sounds") {
-            customAlertSound = NSSound(contentsOf: soundURL, byReference: true)
-            customAlertSound?.volume = 1.0
-        } else if let soundURL = Bundle.main.url(forResource: "alert_triple", withExtension: "wav", subdirectory: "Sounds") {
-            customAlertSound = NSSound(contentsOf: soundURL, byReference: true)
-            customAlertSound?.volume = 1.0
-        }
+        // 尝试从 Sounds 子目录加载，如果找不到则从 Bundle 根目录加载
+        let soundURL = Bundle.main.url(forResource: "alert_triple", withExtension: "mp3", subdirectory: "Sounds")
+            ?? Bundle.main.url(forResource: "alert_triple", withExtension: "mp3")
         
-        // 瞌睡提醒使用相同的声音
-        if let soundURL = Bundle.main.url(forResource: "alert_triple", withExtension: "mp3", subdirectory: "Sounds") {
-            customDrowsySound = NSSound(contentsOf: soundURL, byReference: true)
+        if let url = soundURL {
+            customAlertSound = NSSound(contentsOf: url, byReference: true)
+            customAlertSound?.volume = 1.0
+            customDrowsySound = NSSound(contentsOf: url, byReference: true)
             customDrowsySound?.volume = 1.0
-        } else if let soundURL = Bundle.main.url(forResource: "alert_triple", withExtension: "wav", subdirectory: "Sounds") {
-            customDrowsySound = NSSound(contentsOf: soundURL, byReference: true)
-            customDrowsySound?.volume = 1.0
+            print("[Notification] 成功加载自定义警告音：\(url.path)")
+        } else {
+            print("[Notification] 警告：无法找到 alert_triple.mp3 文件")
         }
     }
     
     /// 检查并请求通知权限
     func checkPermission() {
+        // 先获取当前权限状态
         center.getNotificationSettings { settings in
             DispatchQueue.main.async {
                 self.isAuthorized = settings.authorizationStatus == .authorized
+                print("[Notification] 当前权限状态：\(settings.authorizationStatus.rawValue) (0=notDetermined, 1=denied, 2=authorized, 3=provisional)")
             }
         }
         
-        center.requestAuthorization(options: [.alert, .sound]) { granted, error in
+        // 请求权限
+        center.requestAuthorization(options: [.alert, .sound, .badge]) { granted, error in
             DispatchQueue.main.async {
                 self.isAuthorized = granted
+                print("[Notification] 权限请求结果：\(granted ? "已授权" : "被拒绝")")
+                if let error = error {
+                    print("[Notification] 权限请求错误：\(error)")
+                }
+            }
+            
+            // 请求后再次获取最新状态
+            self.center.getNotificationSettings { settings in
+                DispatchQueue.main.async {
+                    self.isAuthorized = settings.authorizationStatus == .authorized
+                    print("[Notification] 请求后权限状态：\(settings.authorizationStatus.rawValue)")
+                }
             }
         }
     }
@@ -124,77 +135,79 @@ class NotificationManager: NSObject, UNUserNotificationCenterDelegate, Observabl
         }
     }
     
-    /// 播放走神警告音
+    /// 播放走神警告音（使用自定义 alert_triple.mp3）
     private func playAlertSound() {
-        NSSound.beep()
-    }
-    
-    /// 播放瞌睡警告音 (更强烈的提醒)
-    private func playDrowsySound() {
-        if let sound = NSSound(named: "Glass") {
-            sound.play()
-        } else {
-            NSSound.beep()
-        }
-    }
-    
-    /// 播放温和提示音（滴）
-    private func playGentleSound() {
-        // 短促的单音
-        if let sound = NSSound(named: "Pop") {
-            sound.volume = 0.8  // 增大音量到 0.8
-            sound.play()
-        } else {
-            NSSound.beep()
-        }
-    }
-    
-    /// 播放中等提示音（滴滴）
-    private func playModerateSound() {
-        // 双音提示
-        DispatchQueue.main.asyncAfter(deadline: .now()) { [weak self] in
-            if let sound = NSSound(named: "Pop") {
-                sound.volume = 0.5
-                sound.play()
-            } else {
-                NSSound.beep()
-            }
-        }
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.15) { [weak self] in
-            if let sound = NSSound(named: "Pop") {
-                sound.volume = 0.5
-                sound.play()
-            } else {
-                NSSound.beep()
-            }
-        }
-    }
-    
-    /// 播放强烈提示音（连续警报）
-    private func playStrongSound() {
-        // 优先使用自定义提示音
         if let sound = customAlertSound {
-            // 连续播放三次自定义提示音
+            sound.currentTime = 0
+            sound.play()
+        } else {
+            NSSound.beep()
+        }
+    }
+    
+    /// 播放瞌睡警告音（使用自定义 alert_triple.mp3，连续三次，更强烈的提醒）
+    private func playDrowsySound() {
+        if let sound = customDrowsySound {
+            // 连续播放三次自定义提示音，提供更强烈的提醒
             for i in 0..<3 {
                 DispatchQueue.main.asyncAfter(deadline: .now() + Double(i) * 0.3) { [weak self] in
-                    if let soundClone = self?.customAlertSound?.copy() as? NSSound {
-                        soundClone.volume = 1.0
-                        soundClone.play()
+                    if let s = self?.customDrowsySound {
+                        s.volume = 1.0
+                        s.currentTime = 0
+                        s.play()
                     }
                 }
             }
         } else {
-            // 降级到系统 Pop 音
+            NSSound.beep()
+        }
+    }
+    
+    /// 播放温和提示音（使用自定义 alert_triple.mp3）
+    private func playGentleSound() {
+        if let sound = customAlertSound {
+            sound.volume = 0.8
+            sound.currentTime = 0
+            sound.play()
+        } else {
+            NSSound.beep()
+        }
+    }
+    
+    /// 播放中等提示音（使用自定义 alert_triple.mp3，双音）
+    private func playModerateSound() {
+        if let sound = customAlertSound {
+            sound.volume = 0.5
+            sound.currentTime = 0
+            sound.play()
+        } else {
+            NSSound.beep()
+        }
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.15) { [weak self] in
+            if let sound = self?.customAlertSound {
+                sound.volume = 0.5
+                sound.currentTime = 0
+                sound.play()
+            } else {
+                NSSound.beep()
+            }
+        }
+    }
+    
+    /// 播放强烈提示音（使用自定义 alert_triple.mp3，连续三次）
+    private func playStrongSound() {
+        if let sound = customAlertSound {
             for i in 0..<3 {
-                DispatchQueue.main.asyncAfter(deadline: .now() + Double(i) * 0.1) {
-                    if let sound = NSSound(named: "Pop") {
-                        sound.volume = 1.0  // 增大音量到最大 1.0
-                        sound.play()
-                    } else {
-                        NSSound.beep()
+                DispatchQueue.main.asyncAfter(deadline: .now() + Double(i) * 0.3) { [weak self] in
+                    if let s = self?.customAlertSound {
+                        s.volume = 1.0
+                        s.currentTime = 0
+                        s.play()
                     }
                 }
             }
+        } else {
+            NSSound.beep()
         }
     }
     
@@ -229,22 +242,46 @@ class NotificationManager: NSObject, UNUserNotificationCenterDelegate, Observabl
         hapticPerformer.perform(.generic, performanceTime: .now)
     }
     
+    /// 发送本地通知（使用自定义 alert_triple.mp3 声音）
     func sendNotification(title: String, body: String) {
-        let content = UNMutableNotificationContent()
-        content.title = title
-        content.body = body
-        content.sound = .default
-        
-        let request = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: nil)
-        center.add(request) { error in
-            if let error = error {
-                print("Failed to send notification: \(error)")
+        // 检查权限
+        center.getNotificationSettings { [weak self] settings in
+            guard let self = self else { return }
+            let authorized = settings.authorizationStatus == .authorized
+            DispatchQueue.main.async {
+                self.isAuthorized = authorized
+            }
+            
+            guard authorized else {
+                print("[Notification] 警告：通知权限未授权 (status: \(settings.authorizationStatus.rawValue))，无法发送通知")
+                return
+            }
+            
+            let content = UNMutableNotificationContent()
+            content.title = title
+            content.body = body
+            // 使用自定义声音 alert_triple.mp3（直接在 Resources 目录）
+            content.sound = UNNotificationSound(named: UNNotificationSoundName("alert_triple.mp3"))
+            
+            let request = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: nil)
+            self.center.add(request) { error in
+                if let error = error {
+                    print("[Notification] 发送通知失败：\(error)")
+                } else {
+                    print("[Notification] 通知已发送：\(title) - \(body)")
+                }
             }
         }
     }
     
     // UNUserNotificationCenterDelegate: 在应用前台时也能显示通知
     func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
-        completionHandler([.banner, .sound])
+        // macOS 13+ 需要 .list 选项才能在通知中心显示
+        // .banner: 显示横幅，.sound: 播放声音，.list: 在通知中心显示
+        if #available(macOS 13.0, *) {
+            completionHandler([.banner, .sound, .list])
+        } else {
+            completionHandler([.banner, .sound])
+        }
     }
 }

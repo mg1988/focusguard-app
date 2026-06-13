@@ -4,11 +4,28 @@ import UniformTypeIdentifiers
 struct SettingsView: View {
     @ObservedObject var viewModel: FocusViewModel
     @ObservedObject var languageManager = LanguageManager.shared
+    @ObservedObject var themeManager = ThemeManager.shared
     
     var body: some View {
         VStack(spacing: 0) {
             ScrollView {
                 VStack(spacing: 24) {
+                    // --- 外观设置区块 ---
+                    SettingsSection(title: "appearance_settings".localized) {
+                        SettingsRow(icon: "paintbrush.fill", color: .purple, title: "theme_mode".localized) {
+                            Picker("", selection: $themeManager.currentTheme) {
+                                ForEach(AppTheme.allCases) { theme in
+                                    Label(theme.localizedName, systemImage: theme.iconName)
+                                        .tag(theme)
+                                }
+                            }
+                            .pickerStyle(.menu)
+                            .onChange(of: themeManager.currentTheme) { newValue in
+                                themeManager.setTheme(newValue)
+                            }
+                        }
+                    }
+                    
                     // --- 提醒设置区块 ---
                     SettingsSection(title: "notification_settings".localized) {
                         SettingsRow(icon: "speaker.wave.2.fill", color: .blue, title: "sound_alerts".localized) {
