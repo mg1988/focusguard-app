@@ -8,9 +8,8 @@
 ## 🎉 已完成的更新
 
 ### 1. ✅ 品牌名称统一
-- **中文名**: 凝视
 - **英文名**: FocusGuard
-- **完整名称**: 凝视 FocusGuard
+- **完整名称**: FocusGuard
 
 ### 2. ✅ 联系邮箱更新
 - **邮箱**: `migenwei@163.com`
@@ -42,7 +41,7 @@
 
 ### 修改的文件：
 1. `index.html` - 首页
-   - 标题更新为"凝视 FocusGuard"
+   - 标题更新为"FocusGuard"
    - 邮箱更新为 migenwei@163.com
    - 版权年份更新为 2026
    - 添加应用截图展示
@@ -104,7 +103,7 @@
    - File → Add Local Repository
    - 选择 `AppStoreAssets` 文件夹
 3. **提交更改**
-   - 输入提交信息：`Update: 凝视 FocusGuard branding, contact info, screenshots and favicon`
+   - 输入提交信息：`Update: FocusGuard branding, contact info, screenshots and favicon`
    - 点击 "Commit to main"
 4. **推送**
    - 点击 "Push origin"
@@ -130,7 +129,7 @@
      - 整个 `Screenshots/` 文件夹
 
 3. **提交**
-   - 输入提交信息：`Update: 凝视 FocusGuard branding, contact info, screenshots and favicon`
+   - 输入提交信息：`Update: FocusGuard branding, contact info, screenshots and favicon`
    - 点击 "Commit changes"
 
 ---
@@ -145,7 +144,7 @@
 ```
 https://mg1988.github.io/focusguard-app/
 ```
-- [ ] 标题显示"凝视 FocusGuard"
+- [ ] 标题显示"FocusGuard"
 - [ ] 能看到应用截图（3 张）
 - [ ] 联系邮箱是 `migenwei@163.com`
 - [ ] 浏览器标签页显示 favicon
@@ -154,7 +153,7 @@ https://mg1988.github.io/focusguard-app/
 ```
 https://mg1988.github.io/focusguard-app/privacy.html
 ```
-- [ ] 标题显示"凝视 FocusGuard - 隐私政策"
+- [ ] 标题显示"FocusGuard - 隐私政策"
 - [ ] 日期显示"2026 年 6 月 9 日"
 - [ ] 邮箱是 `migenwei@163.com`
 - [ ] URL 正确
@@ -164,7 +163,7 @@ https://mg1988.github.io/focusguard-app/privacy.html
 ```
 https://mg1988.github.io/focusguard-app/terms.html
 ```
-- [ ] 标题显示"凝视 FocusGuard - 使用条款"
+- [ ] 标题显示"FocusGuard - 使用条款"
 - [ ] 日期显示"2026 年 6 月 9 日"
 - [ ] 邮箱是 `migenwei@163.com`
 - [ ] URL 正确
@@ -205,7 +204,7 @@ https://appstoreconnect.apple.com
 - 点击 "我的 App" → "+" → "新 App"
 - 选择 macOS
 - 填写应用信息：
-  - **名称**: 凝视 FocusGuard
+  - **名称**: FocusGuard
   - **Bundle ID**: com.mg.focus-mac
   - **SKU**: 可以填 001 或任意唯一标识
 

@@ -1,4 +1,4 @@
 /* FocusGuard 简体中文 InfoPlist 本地化 */
 
-CFBundleDisplayName = "凝视 FocusGuard";
-CFBundleName = "凝视 FocusGuard";
+CFBundleDisplayName = "FocusGuard";
+CFBundleName = "FocusGuard";

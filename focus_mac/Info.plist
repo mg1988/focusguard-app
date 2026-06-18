@@ -11,7 +11,7 @@
 	<key>CFBundleIconFile</key>
 	<string>AppIcon</string>
 	<key>CFBundleName</key>
-	<string>凝视 FocusGuard</string>
+	<string>FocusGuard</string>
 	<key>CFBundleShortVersionString</key>
 	<string>1.0</string>
 	<key>CFBundleVersion</key>
@@ -19,7 +19,7 @@
 	<key>LSMinimumSystemVersion</key>
 	<string>13.0</string>
 	<key>NSHumanReadableCopyright</key>
-	<string>Copyright © 2026 凝视 FocusGuard. All rights reserved.</string>
+	<string>Copyright © 2026 FocusGuard. All rights reserved.</string>
 	<key>NSPrincipalClass</key>
 	<string>NSApplication</string>
 	<key>LSApplicationCategoryType</key>

@@ -1,4 +1,4 @@
-# 凝视 FocusGuard - App Store 发布信息完整版
+# FocusGuard - App Store 发布信息完整版
 
 **生成日期**: 2026 年 6 月 12 日  
 **应用版本**: 1.0 (Build 1)  
@@ -13,7 +13,7 @@
 | 字段 | 内容 |
 |------|------|
 | **平台** | macOS |
-| **名称** | 凝视 FocusGuard |
+| **名称** | FocusGuard |
 | **主语言** | 简体中文（可选：英文） |
 | **Bundle ID** | com.mg.focus-mac |
 | **SKU** | focusguard-001 |
@@ -65,7 +65,7 @@ AI 驱动的效率提升工具
 ### 应用描述 - 简体中文 (5000 字符以内)
 
 ```
-【凝视 FocusGuard】是一款专为 macOS 用户设计的 AI 智能专注助手，帮助您告别分心，高效工作。
+FocusGuard 是一款专为 macOS 用户设计的 AI 智能专注助手，帮助您告别分心，高效工作。
 
 🔒 隐私优先
 - 100% 本地处理，数据绝不离开您的设备
@@ -130,7 +130,7 @@ AI 驱动的效率提升工具
 ### 应用描述 - English (5000 characters)
 
 ```
-[Gazing FocusGuard] is an AI-powered focus assistant designed for macOS users, helping you eliminate distractions and work more efficiently.
+FocusGuard is an AI-powered focus assistant designed for macOS users, helping you eliminate distractions and work more efficiently.
 
 🔒 Privacy First
 - 100% local processing, data never leaves your device
@@ -241,7 +241,7 @@ https://mg1988.github.io/focusguard-app/
 ### 版权信息
 
 ```
-© 2026 凝视 FocusGuard. All rights reserved.
+© 2026 FocusGuard. All rights reserved.
 ```
 
 ### 版本发布说明 (1.0)
@@ -249,7 +249,7 @@ https://mg1988.github.io/focusguard-app/
 ```
 首发版本
 
-【凝视 FocusGuard 1.0 正式发布】
+【FocusGuard 1.0 正式发布】
 
 ✨ 新功能
 - AI 智能专注检测，实时监测专注状态
@@ -401,7 +401,7 @@ open focus_mac.xcodeproj
 
 | 项目 | 内容 |
 |------|------|
-| **开发者** | 凝视 FocusGuard |
+| **开发者** | FocusGuard |
 | **联系邮箱** | migenwei@163.com |
 | **网站** | https://mg1988.github.io/focusguard-app/ |
 | **隐私政策** | https://mg1988.github.io/focusguard-app/privacy.html |
@@ -458,5 +458,5 @@ open focus_mac.xcodeproj
 ---
 
 **文档生成时间**: 2026 年 6 月 12 日  
-**最后更新**: 凝视 FocusGuard 首发版本发布信息  
+**最后更新**: FocusGuard 首发版本发布信息  
 **文档版本**: 1.0

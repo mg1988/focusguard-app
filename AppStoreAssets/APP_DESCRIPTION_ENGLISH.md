@@ -14,7 +14,7 @@ focus,productivity,pomodoro,posture,alert,AI,face detection,work,study,time mana
 
 ### Promotional Text (170 characters max)
 ```
-Your AI-powered focus guardian. Real-time distraction detection, posture monitoring, and smart alerts. 100% private, runs locally on your Mac.
+Your AI-powered focus guardian. Real-time distraction detection, posture monitoring, and smart alerts. 100% private, runs locally on your device.
 ```
 
 ---
@@ -153,7 +153,7 @@ Fully customizable to your needs
 
 **Screenshot 5: Privacy Focus**
 ```
-100% private. All processing on your Mac.
+100% private. All processing on your device.
 ```
 
 ### Social Media Posts
@@ -184,7 +184,7 @@ Key features:
 
 Perfect for remote workers, students, developers, and anyone who wants to build better work habits.
 
-Available on the Mac App Store.
+Available on the App Store.
 
 #Productivity #AI #RemoteWork #HealthTech #MacOS
 ```
@@ -196,7 +196,7 @@ AI focus monitor that watches you work (privately)
 
 **Product Hunt Description**
 ```
-FocusGuard is the first focus app that actively monitors your attention using AI. Instead of just blocking distractions, it uses your Mac's camera to detect when you're losing focus, getting drowsy, or developing poor posture.
+FocusGuard is the first focus app that actively monitors your attention using AI. Instead of just blocking distractions, it uses your device's camera to detect when you're losing focus, getting drowsy, or developing poor posture.
 
 All processing happens locally - your privacy is our top priority. No data ever leaves your device.
 
@@ -293,7 +293,7 @@ focus,productivity,pomodoro,posture,alert,AI,face detection,work,study,time mana
 
 ### Promotional Text (Copy this)
 ```
-Your AI-powered focus guardian. Real-time distraction detection, posture monitoring, and smart alerts. 100% private, runs locally on your Mac.
+Your AI-powered focus guardian. Real-time distraction detection, posture monitoring, and smart alerts. 100% private, runs locally on your device.
 ```
 
 ### Full Description (Copy this)

@@ -1,4 +1,4 @@
-# 凝视 FocusGuard - App Store Connect 应用描述（纯文本版本）
+# FocusGuard - App Store Connect 应用描述（纯文本版本）
 
 ## 中文描述（无特殊字符版）
 
@@ -15,7 +15,7 @@ AI 驱动的效率提升工具
 ### 应用描述（纯文本，无 emoji）
 
 ```
-【凝视 FocusGuard】是一款专为 macOS 用户设计的 AI 智能专注助手，帮助您告别分心，高效工作。
+FocusGuard 是一款专为 macOS 用户设计的 AI 智能专注助手，帮助您告别分心，高效工作。
 
 隐私优先
 - 100% 本地处理，数据绝不离开您的设备
@@ -68,7 +68,7 @@ AI 驱动的效率提升工具
 - 考试复习 / 备考学习
 - 自由职业者 / 创意工作者
 
-立即下载，让凝视成为您的专注守护者！
+立即下载，让 FocusGuard 成为您的专注守护者！
 ```
 
 ---
@@ -76,7 +76,7 @@ AI 驱动的效率提升工具
 ## 英文描述（无特殊字符版）
 
 ```
-[Gazing FocusGuard] is an AI-powered focus assistant designed for macOS users, helping you eliminate distractions and work more efficiently.
+FocusGuard is an AI-powered focus assistant designed for macOS users, helping you eliminate distractions and work more efficiently.
 
 Privacy First
 - 100% local processing, data never leaves your device
@@ -141,7 +141,7 @@ Download now and let FocusGuard be your focus guardian!
 ```
 首发版本
 
-凝视 FocusGuard 1.0 正式发布
+FocusGuard 1.0 正式发布
 
 新功能
 - AI 智能专注检测，实时监测专注状态
@@ -169,7 +169,7 @@ Download now and let FocusGuard be your focus guardian!
 ```
 Initial Release
 
-Gazing FocusGuard 1.0 is officially released!
+FocusGuard 1.0 is officially released!
 
 New Features
 - AI-powered intelligent focus detection, real-time monitoring
@@ -228,7 +228,7 @@ App Store 不允许的字符：
 ### 中文描述（复制整个区域）
 
 ```
-【凝视 FocusGuard】是一款专为 macOS 用户设计的 AI 智能专注助手，帮助您告别分心，高效工作。
+FocusGuard 是一款专为 macOS 用户设计的 AI 智能专注助手，帮助您告别分心，高效工作。
 
 隐私优先
 - 100% 本地处理，数据绝不离开您的设备
@@ -281,13 +281,13 @@ App Store 不允许的字符：
 - 考试复习、备考学习
 - 自由职业者、创意工作者
 
-立即下载，让凝视成为您的专注守护者！
+立即下载，让 FocusGuard 成为您的专注守护者！
 ```
 
 ### 英文描述（复制整个区域）
 
 ```
-[Gazing FocusGuard] is an AI-powered focus assistant designed for macOS users, helping you eliminate distractions and work more efficiently.
+FocusGuard is an AI-powered focus assistant designed for macOS users, helping you eliminate distractions and work more efficiently.
 
 Privacy First
 - 100% local processing, data never leaves your device
@@ -348,7 +348,7 @@ Download now and let FocusGuard be your focus guardian!
 ```
 首发版本
 
-凝视 FocusGuard 1.0 正式发布
+FocusGuard 1.0 正式发布
 
 新功能
 - AI 智能专注检测，实时监测专注状态

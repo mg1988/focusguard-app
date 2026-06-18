@@ -1,6 +1,6 @@
 /* FocusGuard 简体中文本地化 */
 
-"app_name" = "凝视 FocusGuard";
+"app_name" = "FocusGuard";
 "focus_time" = "今日专注";
 "distractions" = "离席次数";
 "drowsiness" = "瞌睡次数";

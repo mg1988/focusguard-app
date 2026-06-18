@@ -80,13 +80,9 @@ https://mg1988.github.io/focusguard-app/terms.html
 ### 5. 应用名称确认（可选）
 
 **当前**：
-- 中文名："凝视"（根据代码）
 - 英文名："FocusGuard"
 
-**确认**：是否需要统一？
-
-**如果需要修改**：
-- 在所有 HTML 文件中搜索 "FocusGuard" 并替换
+**确认**：名称已统一为 FocusGuard
 
 ---
 
@@ -311,7 +307,7 @@ https://mg1988.github.io/focusguard-app/terms.html
 
 ### 2. 添加下载链接
 
-**当前**：只有 "Available on the Mac App Store" 文字
+**当前**：只有 "Available on the App Store" 文字
 
 **可以添加**：App Store 下载按钮
 
