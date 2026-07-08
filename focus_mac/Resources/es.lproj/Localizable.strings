@@ -37,7 +37,6 @@
 "timer_mode" = "Modo de Temporizador";
 "timer_up" = "Contar hacia Arriba";
 "timer_down" = "Contar hacia Atrás";
-"drowsy_threshold" = "Umbral de Somnolencia";
 "small_eyes_mode" = "Modo Ojos Pequeños (Muy baja sensibilidad)";
 "small_eyes_desc" = "Reduce detecciones falsas para ojos pequeños/entrecerrados.";
 "system_focus_sync" = "Sincronizar con modo Enfoque del sistema";
@@ -105,3 +104,47 @@
 "language_settings" = "Idioma";
 "language_system" = "Sistema";
 "language_select_desc" = "Selecciona tu idioma preferido";
+
+/* Pausa/Reanudación */
+"pause_detection" = "Pausa";
+"resume_detection" = "Reanudar";
+"focus_paused" = "Concentración en pausa";
+"focus_paused_body" = "Tu sesión de concentración ha sido pausada.";
+"focus_resumed" = "Concentración reanudada";
+"focus_resumed_body" = "Tu sesión de concentración ha sido reanudada.";
+
+/* Botones de acción rápida */
+"start_focus" = "Iniciar concentración";
+"pause_focus" = "Pausar concentración";
+"quit_app" = "Salir de la app";
+"about_menu" = "Acerca de";
+"about_desc" = "Guardián de la concentración para mantenerte productivo";
+
+/* Configuración de apariencia */
+"appearance_settings" = "Apariencia";
+"theme_mode" = "Tema";
+"theme_system" = "Sistema";
+"theme_light" = "Claro";
+"theme_dark" = "Oscuro";
+
+/* Acciones rápidas del menú */
+"menu_start_focus" = "Iniciar concentración";
+"menu_stop_focus" = "Detener concentración";
+"menu_about" = "Acerca de";
+"menu_quit" = "Salir";
+"version_info" = "Versión 1.0.0";
+"about_description" = "MiradaFija te ayuda a mantenerte productivo monitoreando tu estado de concentración y enviando alertas en tiempo real cuando te distraes o tienes sueño.";
+
+/* Gráficos de estadísticas */
+"focus_trend" = "Tendencia de concentración";
+"distraction_comparison" = "Comparación de distracciones/somnolencia";
+
+/* Recordatorio de cuidado ocular (20-20-20) */
+"eye_care_reminder" = "Recordatorio de cuidado ocular";
+"eye_care_reminder_desc" = "Recordar mirar lejos cada 20 minutos durante 20 segundos";
+"eye_care_reminder_title" = "Descanso visual";
+"eye_care_reminder_body" = "Mira algo a 20 pies (6 metros) de distancia durante 20 segundos";
+"eye_care_resume_title" = "Reanudar trabajo";
+"eye_care_resume_body" = "Descanso visual completado, puedes continuar trabajando";
+
+"quit" = "Salir";

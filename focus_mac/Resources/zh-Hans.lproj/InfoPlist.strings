@@ -2,3 +2,9 @@
 
 CFBundleDisplayName = "FocusGuard";
 CFBundleName = "FocusGuard";
+
+/* 摄像头使用描述 - 系统权限对话框显示 */
+NSCameraUsageDescription = "FocusGuard 需要访问摄像头以检测面部状态（专注、走神、瞌睡、坐姿），帮助您保持高效工作。所有分析仅在本地设备上进行，不会上传任何数据。";
+
+/* 通知使用描述 - 系统权限对话框显示 */
+NSUserNotificationUsageDescription = "需要发送通知以提醒您保持专注、正确坐姿，以及进行护眼休息提醒。";

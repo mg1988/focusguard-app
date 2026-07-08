@@ -37,7 +37,6 @@
 "timer_mode" = "Modalità Timer";
 "timer_up" = "Conta in Su";
 "timer_down" = "Conta alla Rovescia";
-"drowsy_threshold" = "Soglia di Assopimento";
 "small_eyes_mode" = "Modalità Occhi Piccoli (Bassissima sensibilità)";
 "small_eyes_desc" = "Riduce falsi rilevamenti per occhi piccoli/strizzati.";
 "system_focus_sync" = "Sincronizza con modalità Focus di sistema";
@@ -105,3 +104,47 @@
 "language_settings" = "Lingua";
 "language_system" = "Sistema";
 "language_select_desc" = "Seleziona la tua lingua preferita";
+
+/* Pausa/Ripresa */
+"pause_detection" = "Pausa";
+"resume_detection" = "Riprendi";
+"focus_paused" = "Concentrazione in pausa";
+"focus_paused_body" = "La tua sessione di concentrazione è stata messa in pausa.";
+"focus_resumed" = "Concentrazione ripresa";
+"focus_resumed_body" = "La tua sessione di concentrazione è stata ripresa.";
+
+/* Pulsanti azione rapida */
+"start_focus" = "Avvia concentrazione";
+"pause_focus" = "Metti in pausa";
+"quit_app" = "Esci dall'app";
+"about_menu" = "Informazioni";
+"about_desc" = "Guardiano della concentrazione per la tua produttività";
+
+/* Impostazioni aspetto */
+"appearance_settings" = "Aspetto";
+"theme_mode" = "Tema";
+"theme_system" = "Sistema";
+"theme_light" = "Chiaro";
+"theme_dark" = "Scuro";
+
+/* Azioni rapide menu */
+"menu_start_focus" = "Avvia concentrazione";
+"menu_stop_focus" = "Ferma concentrazione";
+"menu_about" = "Informazioni";
+"menu_quit" = "Esci";
+"version_info" = "Versione 1.0.0";
+"about_description" = "SguardoFisso ti aiuta a rimanere produttivo monitorando il tuo stato di concentrazione e fornendo avvisi in tempo reale quando sei distratto o assonnato.";
+
+/* Grafici statistiche */
+"focus_trend" = "Andamento concentrazione";
+"distraction_comparison" = "Confronto distrazioni/sonnolenza";
+
+/* Promemoria cura occhi (20-20-20) */
+"eye_care_reminder" = "Promemoria cura occhi";
+"eye_care_reminder_desc" = "Ricorda di guardare lontano ogni 20 minuti per 20 secondi";
+"eye_care_reminder_title" = "Pausa occhi";
+"eye_care_reminder_body" = "Guarda qualcosa a 20 piedi (6 metri) di distanza per 20 secondi";
+"eye_care_resume_title" = "Riprendi lavoro";
+"eye_care_resume_body" = "Pausa occhi completata, puoi continuare a lavorare";
+
+"quit" = "Esci";

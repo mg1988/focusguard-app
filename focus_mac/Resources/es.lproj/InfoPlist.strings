@@ -2,3 +2,9 @@
 
 CFBundleDisplayName = "MiradaFija";
 CFBundleName = "MiradaFija";
+
+/* Descripción de uso de cámara - diálogo de permiso del sistema */
+NSCameraUsageDescription = "MiradaFija utiliza la cámara para detectar el estado de tu rostro (concentración, distracción, somnolencia, postura) y ayudarte a mantenerte productivo. Todo el procesamiento se realiza localmente en tu dispositivo — ningún dato se carga.";
+
+/* Descripción de uso de notificaciones - diálogo de permiso del sistema */
+NSUserNotificationUsageDescription = "Las notificaciones se utilizan para alertarte cuando te distraes, tienes sueño, o para recordarte el cuidado de los ojos y la postura.";

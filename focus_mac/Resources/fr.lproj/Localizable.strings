@@ -103,3 +103,49 @@
 "language_settings" = "Langue";
 "language_system" = "Système";
 "language_select_desc" = "Choisissez votre langue préférée";
+
+/* Pause/Reprise */
+"pause_detection" = "Pause";
+"resume_detection" = "Reprendre";
+"focus_paused" = "Focus en pause";
+"focus_paused_body" = "Votre session de focus a été mise en pause.";
+"focus_resumed" = "Focus repris";
+"focus_resumed_body" = "Votre session de focus a été reprise.";
+
+/* Boutons d'action rapide */
+"start_focus" = "Démarrer le focus";
+"pause_focus" = "Mettre le focus en pause";
+"quit_app" = "Quitter l'application";
+"about_menu" = "À propos";
+"about_desc" = "Gardien du focus pour rester productif";
+
+/* Paramètres d'apparence */
+"appearance_settings" = "Apparence";
+"theme_mode" = "Thème";
+"theme_system" = "Système";
+"theme_light" = "Clair";
+"theme_dark" = "Sombre";
+
+/* Actions rapides du menu */
+"menu_start_focus" = "Démarrer le focus";
+"menu_stop_focus" = "Arrêter le focus";
+"menu_about" = "À propos";
+"menu_quit" = "Quitter";
+"version_info" = "Version 1.0.0";
+"about_description" = "RegardFixe vous aide à rester productif en surveillant votre état de concentration et en envoyant des alertes en temps réel lorsque vous êtes distrait ou somnolent.";
+
+/* Graphiques statistiques */
+"focus_trend" = "Tendance de concentration";
+"distraction_comparison" = "Comparaison distraction/somnolence";
+
+/* Rappel de soins oculaires (20-20-20) */
+"eye_care_reminder" = "Rappel de soins oculaires";
+"eye_care_reminder_desc" = "Rappeler de regarder au loin toutes les 20 minutes pendant 20 secondes";
+"eye_care_reminder_title" = "Pause pour les yeux";
+"eye_care_reminder_body" = "Regardez quelque chose à 20 pieds (6 mètres) pendant 20 secondes";
+"eye_care_resume_title" = "Reprendre le travail";
+"eye_care_resume_body" = "Pause oculaire terminée, vous pouvez continuer à travailler";
+
+/* Format des notifications de posture */
+"notification_posture_title_format" = "Alarme Posture (Niveau %d)";
+"notification_posture_body_format" = "Détecté que vous êtes %@, gardez une bonne posture !";

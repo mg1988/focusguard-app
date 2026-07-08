@@ -12,6 +12,8 @@
 	<string>AppIcon</string>
 	<key>CFBundleName</key>
 	<string>FocusGuard</string>
+	<key>CFBundleDisplayName</key>
+	<string>FocusGuard</string>
 	<key>CFBundleShortVersionString</key>
 	<string>1.0</string>
 	<key>CFBundleVersion</key>

@@ -2,3 +2,9 @@
 
 CFBundleDisplayName = "OlharFoco";
 CFBundleName = "OlharFoco";
+
+/* Descrição de uso da câmera - diálogo de permissão do sistema */
+NSCameraUsageDescription = "O OlharFoco usa a câmera para detectar o estado do seu rosto (concentração, distração, sonolência, postura) e ajudá-lo a manter a produtividade. Todo o processamento é feito localmente no seu dispositivo — nenhum dado é enviado.";
+
+/* Descrição de uso de notificações - diálogo de permissão do sistema */
+NSUserNotificationUsageDescription = "As notificações são usadas para alertá-lo quando você está distraído, com sono, ou para lembrá-lo sobre cuidados com os olhos e postura.";

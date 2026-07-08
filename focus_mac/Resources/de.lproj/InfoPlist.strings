@@ -2,3 +2,9 @@
 
 CFBundleDisplayName = "Blickfokus";
 CFBundleName = "Blickfokus";
+
+/* Kameranutzungsbeschreibung - Systemberechtigungsdialog */
+NSCameraUsageDescription = "Blickfokus verwendet die Kamera, um Ihren Gesichtszustand (Konzentration, Ablenkung, Schläfrigkeit, Haltung) zu erkennen und Ihre Produktivität zu fördern. Die gesamte Verarbeitung erfolgt lokal auf Ihrem Gerät – es werden keine Daten hochgeladen.";
+
+/* Benachrichtigungsnutzungsbeschreibung - Systemberechtigungsdialog */
+NSUserNotificationUsageDescription = "Benachrichtigungen werden verwendet, um Sie bei Ablenkung oder Schläfrigkeit zu warnen und an Augenpflege und Haltung zu erinnern.";

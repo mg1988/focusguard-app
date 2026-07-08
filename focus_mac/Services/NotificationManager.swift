@@ -34,9 +34,13 @@ class NotificationManager: NSObject, UNUserNotificationCenterDelegate, Observabl
             customAlertSound?.volume = 1.0
             customDrowsySound = NSSound(contentsOf: url, byReference: true)
             customDrowsySound?.volume = 1.0
+            #if DEBUG
             print("[Notification] 成功加载自定义警告音：\(url.path)")
+            #endif
         } else {
+            #if DEBUG
             print("[Notification] 警告：无法找到 alert_triple.mp3 文件")
+            #endif
         }
     }
     
@@ -46,7 +50,9 @@ class NotificationManager: NSObject, UNUserNotificationCenterDelegate, Observabl
         center.getNotificationSettings { settings in
             DispatchQueue.main.async {
                 self.isAuthorized = settings.authorizationStatus == .authorized
+                #if DEBUG
                 print("[Notification] 当前权限状态：\(settings.authorizationStatus.rawValue) (0=notDetermined, 1=denied, 2=authorized, 3=provisional)")
+                #endif
             }
         }
         
@@ -54,17 +60,21 @@ class NotificationManager: NSObject, UNUserNotificationCenterDelegate, Observabl
         center.requestAuthorization(options: [.alert, .sound, .badge]) { granted, error in
             DispatchQueue.main.async {
                 self.isAuthorized = granted
+                #if DEBUG
                 print("[Notification] 权限请求结果：\(granted ? "已授权" : "被拒绝")")
                 if let error = error {
                     print("[Notification] 权限请求错误：\(error)")
                 }
+                #endif
             }
             
             // 请求后再次获取最新状态
             self.center.getNotificationSettings { settings in
                 DispatchQueue.main.async {
                     self.isAuthorized = settings.authorizationStatus == .authorized
+                    #if DEBUG
                     print("[Notification] 请求后权限状态：\(settings.authorizationStatus.rawValue)")
+                    #endif
                 }
             }
         }
@@ -98,7 +108,9 @@ class NotificationManager: NSObject, UNUserNotificationCenterDelegate, Observabl
     ///   - haptic: 是否震动
     ///   - banner: 是否显示通知
     func sendPostureAlert(posture: PostureState, level: Int = 1, sound: Bool = true, haptic: Bool = true, banner: Bool = true) {
+        #if DEBUG
         print("[Notification] 发送坐姿提醒：级别\(level), 坐姿：\(posture.rawValue), 声音：\(sound), 震动：\(haptic), 通知：\(banner)")
+        #endif
         
         // 视觉反馈（菜单栏图标闪烁由 UI 层处理）
         
@@ -130,7 +142,9 @@ class NotificationManager: NSObject, UNUserNotificationCenterDelegate, Observabl
         if banner {
             let title = "notification_posture_title_format".localized(with: level)
             let body = "notification_posture_body_format".localized(with: posture.localizedName)
+            #if DEBUG
             print("[Notification] 发送通知：\(title) - \(body)")
+            #endif
             sendNotification(title: title, body: body)
         }
     }
@@ -253,7 +267,9 @@ class NotificationManager: NSObject, UNUserNotificationCenterDelegate, Observabl
             }
             
             guard authorized else {
+                #if DEBUG
                 print("[Notification] 警告：通知权限未授权 (status: \(settings.authorizationStatus.rawValue))，无法发送通知")
+                #endif
                 return
             }
             
@@ -265,11 +281,13 @@ class NotificationManager: NSObject, UNUserNotificationCenterDelegate, Observabl
             
             let request = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: nil)
             self.center.add(request) { error in
+                #if DEBUG
                 if let error = error {
                     print("[Notification] 发送通知失败：\(error)")
                 } else {
                     print("[Notification] 通知已发送：\(title) - \(body)")
                 }
+                #endif
             }
         }
     }

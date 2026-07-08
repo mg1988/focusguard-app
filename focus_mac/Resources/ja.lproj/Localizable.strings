@@ -103,3 +103,49 @@
 /* 権限設定 */
 "camera_permission_required" = "顔認識にはカメラ権限が必要です。";
 "notification_permission_required" = "集中アラートには通知権限が必要です。";
+
+/* 姿勢通知 */
+"notification_posture_title_format" = "姿勢警告 (レベル%d)";
+"notification_posture_body_format" = "%@が検出されました。正しい姿勢を維持してください！";
+
+/* 一時停止/再開機能 */
+"pause_detection" = "一時停止";
+"resume_detection" = "再開";
+"focus_paused" = "集中を一時停止しました";
+"focus_paused_body" = "集中セッションが一時停止されました。";
+"focus_resumed" = "集中を再開しました";
+"focus_resumed_body" = "集中セッションが再開されました。";
+
+/* クイックアクションボタン */
+"start_focus" = "集中を開始";
+"pause_focus" = "集中を一時停止";
+"quit_app" = "アプリを終了";
+"about_menu" = "このアプリについて";
+"about_desc" = "集中を守り、生産性を維持します";
+
+/* テーマ設定 */
+"appearance_settings" = "外観";
+"theme_mode" = "テーマ";
+"theme_system" = "システム";
+"theme_light" = "ライト";
+"theme_dark" = "ダーク";
+
+/* メニュークイックアクション */
+"menu_start_focus" = "集中開始";
+"menu_stop_focus" = "集中停止";
+"menu_about" = "このアプリについて";
+"menu_quit" = "終了";
+"version_info" = "バージョン 1.0.0";
+"about_description" = "凝視は、集中状態を監視して、気が散ったり眠くなったりしたときにリアルタイムで警告を送り、生産性を維持するのに役立ちます。";
+
+/* 統計グラフ */
+"focus_trend" = "集中傾向";
+"distraction_comparison" = "散漫・居眠り比較";
+
+/* アイケアリマインダー (20-20-20) */
+"eye_care_reminder" = "アイケアリマインダー";
+"eye_care_reminder_desc" = "20分ごとに20秒間遠くを見るよう通知";
+"eye_care_reminder_title" = "目の休憩時間";
+"eye_care_reminder_body" = "20フィート（約6メートル）先を20秒間見てください";
+"eye_care_resume_title" = "作業再開";
+"eye_care_resume_body" = "目の休憩が完了しました。作業を続けられます。";

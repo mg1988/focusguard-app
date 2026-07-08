@@ -56,7 +56,7 @@ struct SettingsView: View {
                                 Text("timer_down".localized).tag(1)
                             }
                             .pickerStyle(.segmented)
-                            .frame(width: 120)
+                            .frame(width: 240)
                         }
                         
                         SettingsRow(icon: "camera.viewfinder", color: .green, title: "enable_snapshots".localized) {
@@ -203,7 +203,9 @@ struct SettingsView: View {
                     do {
                         try csvContent.write(to: url, atomically: true, encoding: .utf8)
                     } catch {
+                        #if DEBUG
                         print("Failed to save CSV: \(error.localizedDescription)")
+                        #endif
                     }
                 }
             }
@@ -224,7 +226,9 @@ struct SettingsView: View {
                 do {
                     try fileManager.createDirectory(at: snapshotsDir, withIntermediateDirectories: true, attributes: nil)
                 } catch {
+                    #if DEBUG
                     print("Failed to create snapshots folder: \(error.localizedDescription)")
+                    #endif
                 }
             }
             

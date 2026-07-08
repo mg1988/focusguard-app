@@ -2,3 +2,9 @@
 
 CFBundleDisplayName = "FocusGuard";
 CFBundleName = "FocusGuard";
+
+/* Camera usage description shown in system permission dialog */
+NSCameraUsageDescription = "FocusGuard uses the camera to detect your face state (focus, distraction, drowsiness, posture) to help you stay productive. All processing is done locally on your device — no data is ever uploaded.";
+
+/* Notification usage description shown in system permission dialog */
+NSUserNotificationUsageDescription = "Notifications are used to alert you when you are distracted, drowsy, or to remind you about eye care and posture.";

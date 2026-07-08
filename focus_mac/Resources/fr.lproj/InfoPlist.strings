@@ -2,3 +2,9 @@
 
 CFBundleDisplayName = "RegardFixe";
 CFBundleName = "RegardFixe";
+
+/* Description d'utilisation de la caméra - dialogue d'autorisation système */
+NSCameraUsageDescription = "RegardFixe utilise la caméra pour détecter l'état de votre visage (concentration, distraction, somnolence, posture) et vous aider à rester productif. Tout le traitement est effectué localement sur votre appareil — aucune donnée n'est téléchargée.";
+
+/* Description d'utilisation des notifications - dialogue d'autorisation système */
+NSUserNotificationUsageDescription = "Les notifications sont utilisées pour vous alerter en cas de distraction ou de somnolence, et pour vous rappeler les soins des yeux et la posture.";

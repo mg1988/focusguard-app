@@ -66,7 +66,7 @@ class FocusViewModel: ObservableObject {
     
     // 抓拍照片数据
     @Published var snapshots: [DistractionSnapshot] = []
-    @Published var isSnapshotEnabled: Bool = true // 是否启用抓拍功能
+    @Published var isSnapshotEnabled: Bool = false // 是否启用抓拍功能 (默认关闭，需用户主动开启)
     @Published var isSmallEyesModeEnabled: Bool = false // 小眼睛模式 (大幅降低闭眼判定灵敏度)
     
     // 20-20-20 护眼提醒
@@ -319,13 +319,16 @@ class FocusViewModel: ObservableObject {
         }
     }
     
-    /// 运行系统快捷指令
+    /// 运行系统快捷指令（仅调试模式下可用，App Sandbox 不允许 Process 调用）
     private func runShortcut(name: String) {
+        #if DEBUG
         let process = Process()
         process.executableURL = URL(fileURLWithPath: "/usr/bin/shortcuts")
         process.arguments = ["run", name]
-        
         try? process.run()
+        #else
+        // Release build: Process execution not permitted under App Sandbox
+        #endif
     }
     
     /// 专注目标达成处理
@@ -383,7 +386,9 @@ class FocusViewModel: ObservableObject {
         
         snapshots.insert(snapshot, at: 0)
         saveSnapshots()
+        #if DEBUG
         print("走神抓拍成功：\(imagePath)")
+        #endif
     }
     
     /// 执行瞌睡抓拍
@@ -402,7 +407,9 @@ class FocusViewModel: ObservableObject {
         
         snapshots.insert(snapshot, at: 0)
         saveSnapshots()
+        #if DEBUG
         print("瞌睡抓拍成功：\(imagePath)")
+        #endif
     }
     
     /// 处理眼睛状态变更 (瞌睡判定)
@@ -444,12 +451,16 @@ class FocusViewModel: ObservableObject {
     /// 处理坐姿更新，触发渐进式提醒
     private func handlePostureUpdate(posture: PostureState) {
         // 打印调试信息
+        #if DEBUG
         print("[PostureAlert] 当前坐姿：\(posture.rawValue), 专注状态：\(status), 是否启用检测：\(isPostureDetectionEnabled), 是否启用提醒：\(isPostureAlertEnabled)")
+        #endif
         
         guard status != .idle && isPostureDetectionEnabled && isPostureAlertEnabled else {
             // 重置提醒状态
             if badPostureTimer != nil {
+                #if DEBUG
                 print("[PostureAlert] 重置提醒状态")
+            #endif
             }
             badPostureStartTime = nil
             badPostureTimer?.invalidate()
@@ -461,7 +472,9 @@ class FocusViewModel: ObservableObject {
         // 检查免打扰模式：如果开启且检测到全屏应用，则暂停提醒
         if isDoNotDisturbEnabled && isAnyAppFullScreen() {
             if badPostureTimer != nil {
+                #if DEBUG
                 print("[PostureAlert] 免打扰模式开启且处于全屏，暂停坐姿提醒")
+            #endif
             }
             badPostureStartTime = nil
             badPostureTimer?.invalidate()
@@ -473,7 +486,9 @@ class FocusViewModel: ObservableObject {
         // 如果是良好坐姿，重置提醒
         if posture == .good {
             if badPostureTimer != nil {
+                #if DEBUG
                 print("[PostureAlert] 恢复良好坐姿，重置提醒")
+            #endif
             }
             badPostureStartTime = nil
             badPostureTimer?.invalidate()
@@ -485,7 +500,9 @@ class FocusViewModel: ObservableObject {
         // 如果是不良坐姿，开始计时
         if badPostureStartTime == nil {
             badPostureStartTime = Date()
+            #if DEBUG
             print("[PostureAlert] 开始检测不良坐姿：\(posture.rawValue)")
+            #endif
             startBadPostureTimer()
         }
     }
@@ -501,7 +518,9 @@ class FocusViewModel: ObservableObject {
             }
             
             let elapsed = Int(Date().timeIntervalSince(startTime))
+            #if DEBUG
             print("[PostureAlert] 不良坐姿持续时间：\(elapsed)秒，当前坐姿：\(self.currentPosture.rawValue)")
+            #endif
             
             // 渐进式提醒逻辑
             // 3 秒：一级提醒（温和）
@@ -520,7 +539,9 @@ class FocusViewModel: ObservableObject {
             
             // 只在级别提升时触发提醒
             if newAlertLevel > self.currentAlertLevel {
+                #if DEBUG
                 print("[PostureAlert] 触发\(newAlertLevel)级提醒")
+                #endif
                 self.currentAlertLevel = newAlertLevel
                 self.notificationManager.sendPostureAlert(
                     posture: self.currentPosture,
@@ -628,7 +649,9 @@ class FocusViewModel: ObservableObject {
                 try SMAppService.mainApp.unregister()
             }
         } catch {
+            #if DEBUG
             print("SMAppService error: \(error.localizedDescription)")
+            #endif
             // 如果失败，回滚状态
             isLaunchAtLoginEnabled = (SMAppService.mainApp.status == .enabled)
         }

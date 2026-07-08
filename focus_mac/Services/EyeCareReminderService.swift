@@ -165,12 +165,14 @@ class EyeCareReminderService: ObservableObject {
         )
         
         UNUserNotificationCenter.current().add(request) { error in
+            #if DEBUG
             if let error = error {
                 print("发送护眼提醒通知失败: \(error)")
             }
+            #endif
         }
     }
-    
+
     private func sendResumeWorkNotification() {
         let content = UNMutableNotificationContent()
         content.title = "eye_care_resume_title".localized
@@ -184,9 +186,11 @@ class EyeCareReminderService: ObservableObject {
         )
         
         UNUserNotificationCenter.current().add(request) { error in
+            #if DEBUG
             if let error = error {
                 print("发送恢复工作通知失败: \(error)")
             }
+            #endif
         }
     }
     

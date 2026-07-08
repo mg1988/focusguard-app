@@ -104,3 +104,49 @@
 "posture_sound_alert" = "자세 알림 소리";
 "posture_haptic_alert" = "자세 알림 진동";
 "posture_banner_alert" = "자세 알림 배너";
+
+/* 자세 알림 형식 */
+"notification_posture_title_format" = "자세 경고 (레벨 %d)";
+"notification_posture_body_format" = "%@ 상태가 감지되었습니다. 올바른 자세를 유지하세요!";
+
+/* 일시 정지/재개 기능 */
+"pause_detection" = "일시 정지";
+"resume_detection" = "재개";
+"focus_paused" = "집중 일시 정지됨";
+"focus_paused_body" = "집중 세션이 일시 정지되었습니다.";
+"focus_resumed" = "집중 재개됨";
+"focus_resumed_body" = "집중 세션이 재개되었습니다.";
+
+/* 빠른 실행 버튼 */
+"start_focus" = "집중 시작";
+"pause_focus" = "집중 일시 정지";
+"quit_app" = "앱 종료";
+"about_menu" = "정보";
+"about_desc" = "집중을 지켜 생산성을 유지하세요";
+
+/* 테마 설정 */
+"appearance_settings" = "외관";
+"theme_mode" = "테마";
+"theme_system" = "시스템";
+"theme_light" = "라이트";
+"theme_dark" = "다크";
+
+/* 메뉴 빠른 실행 */
+"menu_start_focus" = "집중 시작";
+"menu_stop_focus" = "집중 중지";
+"menu_about" = "정보";
+"menu_quit" = "종료";
+"version_info" = "버전 1.0.0";
+"about_description" = "주시는 집중 상태를 모니터링하여 산만하거나 졸릴 때 실시간 알림을 제공하여 생산성을 유지하도록 도와줍니다.";
+
+/* 통계 차트 */
+"focus_trend" = "집중 추세";
+"distraction_comparison" = "산만/졸음 비교";
+
+/* 눈 보호 알림 (20-20-20) */
+"eye_care_reminder" = "눈 보호 알림";
+"eye_care_reminder_desc" = "20분마다 20초 동안 먼 곳을 보도록 알림";
+"eye_care_reminder_title" = "눈 휴식 시간";
+"eye_care_reminder_body" = "20피트(약 6미터) 떨어진 곳을 20초간 바라보세요";
+"eye_care_resume_title" = "작업 재개";
+"eye_care_resume_body" = "눈 휴식이 완료되었습니다. 작업을 계속할 수 있습니다.";

@@ -101,7 +101,9 @@ class FaceDetectionManager: NSObject, ObservableObject {
         )
         
         guard !discoverySession.devices.isEmpty else {
+            #if DEBUG
             print("No camera device found")
+            #endif
             return
         }
         
@@ -174,7 +176,9 @@ extension FaceDetectionManager: AVCaptureVideoDataOutputSampleBufferDelegate {
                 }
             }
         } catch {
+            #if DEBUG
             print("Failed to perform face detection: \(error)")
+            #endif
         }
     }
     

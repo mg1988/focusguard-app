@@ -36,7 +36,7 @@
 "timer_down" = "Abwärts zählen";
 "drowsy_threshold" = "Müdigkeitsschwelle";
 "small_eyes_mode" = "Kleine-Augen-Modus (Extrem niedrig)";
-"small_eyes_desc" = "Bei kleinen Augen/zusammenkneifen减少Fehlerkennungen.";
+"small_eyes_desc" = "Reduziert Fehlerkennungen bei kleinen Augen oder zusammengekniffenen Augen.";
 "system_focus_sync" = "System-Fokus-Modus synchronisieren";
 "system_focus_sync_desc" = "Auto. System-Nicht-Stören bei Fokus (Shortcuts erforderlich)";
 "seconds" = "s";
@@ -92,6 +92,10 @@
 "posture_leaning" = "Geneigt";
 "posture_too_close" = "Zu nah";
 "posture_too_far" = "Zu fern";
+
+/* Posture Alert Feature */
+"notification_posture_title_format" = "Positionsalarm (Stufe %d)";
+"notification_posture_body_format" = "Es wurde festgestellt, dass Sie %@ sind, bitte halten Sie eine korrekte Haltung ein!";
 "posture_alert_settings" = "Positionsalarm-Einstellungen";
 "enable_posture_alert" = "Positionsalarm aktivieren";
 "posture_alert_description" = "Progressive Alarme bei schlechter Haltung (3s/10s/20s)";
@@ -104,4 +108,44 @@
 "language_system" = "System";
 "language_select_desc" = "Wählen Sie Ihre bevorzugte Sprache";
 
-```
+/* Pause/Fortsetzen-Funktion */
+"pause_detection" = "Pause";
+"resume_detection" = "Fortsetzen";
+"focus_paused" = "Fokus pausiert";
+"focus_paused_body" = "Ihre Fokus-Sitzung wurde pausiert.";
+"focus_resumed" = "Fokus fortgesetzt";
+"focus_resumed_body" = "Ihre Fokus-Sitzung wurde fortgesetzt.";
+
+/* Quick-Action-Buttons */
+"start_focus" = "Fokus starten";
+"pause_focus" = "Fokus pausieren";
+"quit_app" = "App beenden";
+"about_menu" = "Über";
+"about_desc" = "Fokus-Wächter für Ihre Produktivität";
+
+/* Theme-Einstellungen */
+"appearance_settings" = "Erscheinungsbild";
+"theme_mode" = "Design";
+"theme_system" = "System";
+"theme_light" = "Hell";
+"theme_dark" = "Dunkel";
+
+/* Menü-Quick-Actions */
+"menu_start_focus" = "Fokus starten";
+"menu_stop_focus" = "Fokus beenden";
+"menu_about" = "Über";
+"menu_quit" = "Beenden";
+"version_info" = "Version 1.0.0";
+"about_description" = "Blickfokus hilft Ihnen, produktiv zu bleiben, indem es Ihren Fokus-Zustand überwacht und Echtzeit-Warnungen bei Ablenkung oder Müdigkeit sendet.";
+
+/* Statistik-Diagramme */
+"focus_trend" = "Fokus-Trend";
+"distraction_comparison" = "Ablenkungsvergleich";
+
+/* Augenpflege-Erinnerung (20-20-20) */
+"eye_care_reminder" = "Augenpflege-Erinnerung";
+"eye_care_reminder_desc" = "Alle 20 Minuten ans Fernsehen erinnern für 20 Sekunden";
+"eye_care_reminder_title" = "Augenruhezeit";
+"eye_care_reminder_body" = "Schauen Sie für 20 Sekunden auf etwas in 20 Fuß (ca. 6 Meter) Entfernung";
+"eye_care_resume_title" = "Weiterarbeiten";
+"eye_care_resume_body" = "Augenruhe abgeschlossen, Sie können weiterarbeiten";

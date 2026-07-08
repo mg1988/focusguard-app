@@ -2,3 +2,9 @@
 
 CFBundleDisplayName = "주시";
 CFBundleName = "주시";
+
+/* 카메라 사용 설명 - 시스템 권한 대화상자 */
+NSCameraUsageDescription = "주시는 얼굴 상태(집중, 주의산만, 졸음, 자세)를 감지하여 생산성을 유지하도록 카메라를 사용합니다. 모든 처리는 기기에서 로컬로 이루어지며, 데이터가 업로드되지 않습니다.";
+
+/* 알림 사용 설명 - 시스템 권한 대화상자 */
+NSUserNotificationUsageDescription = "주의산만이나 졸음 경고, 눈 관리 및 자세 알림을 보내는 데 사용됩니다.";

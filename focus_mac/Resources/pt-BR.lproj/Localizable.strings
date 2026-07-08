@@ -37,7 +37,6 @@
 "timer_mode" = "Modo Temporizador";
 "timer_up" = "Contar para Cima";
 "timer_down" = "Contagem Regressiva";
-"drowsy_threshold" = "Limiar de Sonolência";
 "small_eyes_mode" = "Modo Olhos Pequenos (Sensibilidade muito baixa)";
 "small_eyes_desc" = "Reduz detecções falsas para olhos pequenos/semicerrados.";
 "system_focus_sync" = "Sincronizar com modo Foco do sistema";
@@ -105,3 +104,47 @@
 "language_settings" = "Idioma";
 "language_system" = "Sistema";
 "language_select_desc" = "Selecione seu idioma preferido";
+
+/* Pausa/Retomar */
+"pause_detection" = "Pausar";
+"resume_detection" = "Retomar";
+"focus_paused" = "Foco pausado";
+"focus_paused_body" = "Sua sessão de foco foi pausada.";
+"focus_resumed" = "Foco retomado";
+"focus_resumed_body" = "Sua sessão de foco foi retomada.";
+
+/* Botões de ação rápida */
+"start_focus" = "Iniciar foco";
+"pause_focus" = "Pausar foco";
+"quit_app" = "Sair do app";
+"about_menu" = "Sobre";
+"about_desc" = "Guardião do foco para mantê-lo produtivo";
+
+/* Configurações de aparência */
+"appearance_settings" = "Aparência";
+"theme_mode" = "Tema";
+"theme_system" = "Sistema";
+"theme_light" = "Claro";
+"theme_dark" = "Escuro";
+
+/* Ações rápidas do menu */
+"menu_start_focus" = "Iniciar foco";
+"menu_stop_focus" = "Parar foco";
+"menu_about" = "Sobre";
+"menu_quit" = "Sair";
+"version_info" = "Versão 1.0.0";
+"about_description" = "OlharFoco ajuda você a manter a produtividade monitorando seu estado de foco e fornecendo alertas em tempo real quando você se distrai ou fica com sono.";
+
+/* Gráficos de estatísticas */
+"focus_trend" = "Tendência de foco";
+"distraction_comparison" = "Comparação de distração/sonolência";
+
+/* Lembrete de cuidado ocular (20-20-20) */
+"eye_care_reminder" = "Lembrete de cuidado ocular";
+"eye_care_reminder_desc" = "Lembrar de olhar para longe a cada 20 minutos por 20 segundos";
+"eye_care_reminder_title" = "Hora de descansar os olhos";
+"eye_care_reminder_body" = "Olhe para algo a 20 pés (6 metros) de distância por 20 segundos";
+"eye_care_resume_title" = "Retomar trabalho";
+"eye_care_resume_body" = "Descanso ocular concluído, você pode continuar trabalhando";
+
+"quit" = "Sair";

@@ -2,3 +2,9 @@
 
 CFBundleDisplayName = "SguardoFisso";
 CFBundleName = "SguardoFisso";
+
+/* Descrizione utilizzo fotocamera - dialogo autorizzazione sistema */
+NSCameraUsageDescription = "SguardoFisso utilizza la fotocamera per rilevare lo stato del tuo viso (concentrazione, distrazione, sonnolenza, postura) per aiutarti a rimanere produttivo. Tutta l'elaborazione avviene localmente sul tuo dispositivo — nessun dato viene caricato.";
+
+/* Descrizione utilizzo notifiche - dialogo autorizzazione sistema */
+NSUserNotificationUsageDescription = "Le notifiche vengono utilizzate per avvisarti in caso di distrazione o sonnolenza e per ricordarti la cura degli occhi e la postura.";
