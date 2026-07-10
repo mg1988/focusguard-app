@@ -108,25 +108,25 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		AA4AD0832F8BD88D007ABD0C /* focus_mac */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = AA4AD0A82F8BD88F007ABD0C /* Build configuration list for PBXNativeTarget "focus_mac" */;
-			buildPhases = (
-				AA4AD0802F8BD88D007ABD0C /* Sources */,
-				AA4AD0812F8BD88D007ABD0C /* Frameworks */,
-				AA4AD0822F8BD88D007ABD0C /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			fileSystemSynchronizedGroups = (
-				AA4AD0862F8BD88D007ABD0C /* focus_mac */,
-			);
-			name = focus_mac;
-			packageProductDependencies = (
-			);
-			productName = focus_mac;
+		AA4AD0832F8BD88D007ABD0C /* FocusGuard */ = {
+		isa = PBXNativeTarget;
+		buildConfigurationList = AA4AD0A82F8BD88F007ABD0C /* Build configuration list for PBXNativeTarget "FocusGuard" */;
+		buildPhases = (
+			AA4AD0802F8BD88D007ABD0C /* Sources */,
+			AA4AD0812F8BD88D007ABD0C /* Frameworks */,
+			AA4AD0822F8BD88D007ABD0C /* Resources */,
+		);
+		buildRules = (
+		);
+		dependencies = (
+		);
+		fileSystemSynchronizedGroups = (
+			AA4AD0862F8BD88D007ABD0C /* focus_mac */,
+		);
+		name = FocusGuard;
+		packageProductDependencies = (
+		);
+		productName = FocusGuard;
 			productReference = AA4AD0842F8BD88D007ABD0C /* FocusGuard.app */;
 			productType = "com.apple.product-type.application";
 		};
@@ -199,7 +199,7 @@
 					};
 				};
 			};
-			buildConfigurationList = AA4AD07F2F8BD88D007ABD0C /* Build configuration list for PBXProject "focus_mac" */;
+			buildConfigurationList = AA4AD07F2F8BD88D007ABD0C /* Build configuration list for PBXProject "FocusGuard" */;
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -320,7 +320,7 @@
 				);
 				MACOSX_DEPLOYMENT_TARGET = 13.0;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.mg.focus-mac";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.mg.focusguard";
 				PRODUCT_NAME = "FocusGuard";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = macos;
@@ -363,7 +363,7 @@
 				);
 				MACOSX_DEPLOYMENT_TARGET = 13.0;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.mg.focus-mac";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.mg.focusguard";
 				PRODUCT_NAME = "FocusGuard";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = macos;
