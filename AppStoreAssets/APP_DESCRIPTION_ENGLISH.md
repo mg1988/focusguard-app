@@ -22,7 +22,7 @@ Your AI-powered focus guardian. Real-time distraction detection, posture monitor
 ## App Description (Optimized for English Markets)
 
 ```
-FocusGuard is an intelligent focus assistant for macOS that uses AI to keep you productive and healthy. Unlike traditional focus apps, it actively monitors your attention and posture in real-time.
+FocusGuard is an intelligent focus assistant for desktop that uses AI to keep you productive and healthy. Unlike traditional focus apps, it actively monitors your attention and posture in real-time.
 
 PRIVACY FIRST
 - All processing happens locally on your device
@@ -76,7 +76,7 @@ Most focus apps just block distractions. FocusGuard actively monitors your atten
 The AI-powered detection uses Apple's Vision framework to analyze facial landmarks and eye movement, ensuring accurate and responsive monitoring without compromising your privacy.
 
 SYSTEM REQUIREMENTS
-- macOS 13.0 or later
+- System 13.0 or later
 - Camera access for face detection
 - Works with built-in or external cameras
 
@@ -114,7 +114,7 @@ PRIVACY & SECURITY
 - Camera data processed in memory only
 
 USER EXPERIENCE
-- Clean macOS native design
+- Clean native desktop design
 - Dark and light mode support
 - Menu bar app for quick access
 - 11 language support
@@ -164,16 +164,16 @@ Struggling to stay focused while working from home?
 
 FocusGuard uses AI to monitor your attention and posture in real-time. Get instant alerts when you drift off or slouch.
 
-100% private. Runs locally on your Mac.
+100% private. Runs locally on your computer.
 
-#Productivity #Focus #RemoteWork #MacApp
+#Productivity #Focus #RemoteWork #DesktopApp
 ```
 
 **LinkedIn Post**
 ```
 As remote work becomes the norm, maintaining focus and good posture is more challenging than ever.
 
-I built FocusGuard, an AI-powered macOS app that actively monitors your attention and provides real-time feedback. Unlike traditional focus apps that just block distractions, FocusGuard uses computer vision to detect when you're losing focus or developing poor posture habits.
+I built FocusGuard, an AI-powered desktop app that actively monitors your attention and provides real-time feedback. Unlike traditional focus apps that just block distractions, FocusGuard uses computer vision to detect when you're losing focus or developing poor posture habits.
 
 Key features:
 - Real-time attention monitoring
@@ -186,7 +186,7 @@ Perfect for remote workers, students, developers, and anyone who wants to build 
 
 Available on the App Store.
 
-#Productivity #AI #RemoteWork #HealthTech #MacOS
+#Productivity #AI #RemoteWork #HealthTech #Desktop
 ```
 
 **Product Hunt Tagline**
@@ -225,14 +225,14 @@ Built with Apple Vision framework for accurate, responsive monitoring.
 
 ### Primary Keywords to Target
 1. focus timer
-2. productivity app mac
+2. productivity app desktop
 3. posture corrector
 4. pomodoro timer
 5. distraction blocker
 
 ### Long-tail Keywords
 1. ai focus monitor
-2. mac posture detector
+2. desktop posture detector
 3. remote work productivity
 4. study timer with breaks
 5. face detection focus app
@@ -242,7 +242,7 @@ Built with Apple Vision framework for accurate, responsive monitoring.
 2. **Privacy-first** (local processing)
 3. **Health focus** (posture + drowsiness)
 4. **AI-powered** (Apple Vision framework)
-5. **Native macOS** (not Electron/web app)
+5. **Native desktop** (not Electron/web app)
 
 ### Target Audience Segments
 1. **Remote workers** (25-45, knowledge workers)
@@ -273,7 +273,7 @@ Consider offering:
 
 ### Language Variations
 - Use "app" not "application"
-- Use "macOS" not "Mac OS X"
+- Use "desktop" not "computer-specific"
 - Use "real-time" not "realtime"
 - Use "customizable" (US) vs "customisable" (UK) - choose based on target market
 
@@ -298,7 +298,7 @@ Your AI-powered focus guardian. Real-time distraction detection, posture monitor
 
 ### Full Description (Copy this)
 ```
-FocusGuard is an intelligent focus assistant for macOS that uses AI to keep you productive and healthy. Unlike traditional focus apps, it actively monitors your attention and posture in real-time.
+FocusGuard is an intelligent focus assistant for desktop that uses AI to keep you productive and healthy. Unlike traditional focus apps, it actively monitors your attention and posture in real-time.
 
 PRIVACY FIRST
 - All processing happens locally on your device
@@ -352,7 +352,7 @@ Most focus apps just block distractions. FocusGuard actively monitors your atten
 The AI-powered detection uses Apple's Vision framework to analyze facial landmarks and eye movement, ensuring accurate and responsive monitoring without compromising your privacy.
 
 SYSTEM REQUIREMENTS
-- macOS 13.0 or later
+- System 13.0 or later
 - Camera access for face detection
 - Works with built-in or external cameras
 
@@ -387,7 +387,7 @@ PRIVACY & SECURITY
 - Camera data processed in memory only
 
 USER EXPERIENCE
-- Clean macOS native design
+- Clean native desktop design
 - Dark and light mode support
 - Menu bar app for quick access
 - 11 language support

@@ -130,52 +130,52 @@
 			productReference = AA4AD0842F8BD88D007ABD0C /* FocusGuard.app */;
 			productType = "com.apple.product-type.application";
 		};
-		AA4AD0942F8BD88F007ABD0C /* focus_macTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = AA4AD0AD2F8BD88F007ABD0C /* Build configuration list for PBXNativeTarget "focus_macTests" */;
-			buildPhases = (
-				AA4AD0912F8BD88F007ABD0C /* Sources */,
-				AA4AD0922F8BD88F007ABD0C /* Frameworks */,
-				AA4AD0932F8BD88F007ABD0C /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				AA4AD0972F8BD88F007ABD0C /* PBXTargetDependency */,
-			);
-			fileSystemSynchronizedGroups = (
-				AA4AD0982F8BD88F007ABD0C /* focus_macTests */,
-			);
-			name = focus_macTests;
-			packageProductDependencies = (
-			);
-			productName = focus_macTests;
-			productReference = AA4AD0952F8BD88F007ABD0C /* focus_macTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
-		AA4AD09E2F8BD88F007ABD0C /* focus_macUITests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = AA4AD0B02F8BD88F007ABD0C /* Build configuration list for PBXNativeTarget "focus_macUITests" */;
-			buildPhases = (
-				AA4AD09B2F8BD88F007ABD0C /* Sources */,
-				AA4AD09C2F8BD88F007ABD0C /* Frameworks */,
-				AA4AD09D2F8BD88F007ABD0C /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				AA4AD0A12F8BD88F007ABD0C /* PBXTargetDependency */,
-			);
-			fileSystemSynchronizedGroups = (
-				AA4AD0A22F8BD88F007ABD0C /* focus_macUITests */,
-			);
-			name = focus_macUITests;
-			packageProductDependencies = (
-			);
-			productName = focus_macUITests;
-			productReference = AA4AD09F2F8BD88F007ABD0C /* focus_macUITests.xctest */;
-			productType = "com.apple.product-type.bundle.ui-testing";
-		};
+		AA4AD0942F8BD88F007ABD0C /* FocusGuardTests */ = {
+		isa = PBXNativeTarget;
+		buildConfigurationList = AA4AD0AD2F8BD88F007ABD0C /* Build configuration list for PBXNativeTarget "FocusGuardTests" */;
+		buildPhases = (
+			AA4AD0912F8BD88F007ABD0C /* Sources */,
+			AA4AD0922F8BD88F007ABD0C /* Frameworks */,
+			AA4AD0932F8BD88F007ABD0C /* Resources */,
+		);
+		buildRules = (
+		);
+		dependencies = (
+			AA4AD0972F8BD88F007ABD0C /* PBXTargetDependency */,
+		);
+		fileSystemSynchronizedGroups = (
+			AA4AD0982F8BD88F007ABD0C /* focus_macTests */,
+		);
+		name = FocusGuardTests;
+		packageProductDependencies = (
+		);
+		productName = FocusGuardTests;
+		productReference = AA4AD0952F8BD88F007ABD0C /* FocusGuardTests.xctest */;
+		productType = "com.apple.product-type.bundle.unit-test";
+	};
+		AA4AD09E2F8BD88F007ABD0C /* FocusGuardUITests */ = {
+		isa = PBXNativeTarget;
+		buildConfigurationList = AA4AD0B02F8BD88F007ABD0C /* Build configuration list for PBXNativeTarget "FocusGuardUITests" */;
+		buildPhases = (
+			AA4AD09B2F8BD88F007ABD0C /* Sources */,
+			AA4AD09C2F8BD88F007ABD0C /* Frameworks */,
+			AA4AD09D2F8BD88F007ABD0C /* Resources */,
+		);
+		buildRules = (
+		);
+		dependencies = (
+			AA4AD0A12F8BD88F007ABD0C /* PBXTargetDependency */,
+		);
+		fileSystemSynchronizedGroups = (
+			AA4AD0A22F8BD88F007ABD0C /* focus_macUITests */,
+		);
+		name = FocusGuardUITests;
+		packageProductDependencies = (
+		);
+		productName = FocusGuardUITests;
+		productReference = AA4AD09F2F8BD88F007ABD0C /* FocusGuardUITests.xctest */;
+		productType = "com.apple.product-type.bundle.ui-testing";
+	};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -511,8 +511,8 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 26.2;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.mg.focus-macTests";
-				PRODUCT_NAME = "FocusGuard";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.mg.focusguard.tests";
+				PRODUCT_NAME = "FocusGuardTests";
 				STRING_CATALOG_GENERATE_SYMBOLS = NO;
 				SWIFT_APPROACHABLE_CONCURRENCY = YES;
 				SWIFT_EMIT_LOC_STRINGS = NO;
@@ -533,8 +533,8 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 26.2;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.mg.focus-macTests";
-				PRODUCT_NAME = "FocusGuard";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.mg.focusguard.tests";
+				PRODUCT_NAME = "FocusGuardTests";
 				STRING_CATALOG_GENERATE_SYMBOLS = NO;
 				SWIFT_APPROACHABLE_CONCURRENCY = YES;
 				SWIFT_EMIT_LOC_STRINGS = NO;
@@ -553,8 +553,8 @@
 				DEVELOPMENT_TEAM = 844956U9NN;
 				GENERATE_INFOPLIST_FILE = YES;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.mg.focus-macUITests";
-				PRODUCT_NAME = "FocusGuard";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.mg.focusguard.uitests";
+				PRODUCT_NAME = "FocusGuardUITests";
 				STRING_CATALOG_GENERATE_SYMBOLS = NO;
 				SWIFT_APPROACHABLE_CONCURRENCY = YES;
 				SWIFT_EMIT_LOC_STRINGS = NO;
@@ -573,8 +573,8 @@
 				DEVELOPMENT_TEAM = 844956U9NN;
 				GENERATE_INFOPLIST_FILE = YES;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.mg.focus-macUITests";
-				PRODUCT_NAME = "FocusGuard";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.mg.focusguard.uitests";
+				PRODUCT_NAME = "FocusGuardUITests";
 				STRING_CATALOG_GENERATE_SYMBOLS = NO;
 				SWIFT_APPROACHABLE_CONCURRENCY = YES;
 				SWIFT_EMIT_LOC_STRINGS = NO;
