@@ -301,7 +301,7 @@
 				CODE_SIGN_ENTITLEMENTS = focus_mac/focus_mac.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Mac Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 9;
+				CURRENT_PROJECT_VERSION = 10;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=macosx*]" = U4AF57UZM2;
 				ENABLE_PREVIEWS = YES;
@@ -331,9 +331,8 @@
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Debug;
+				};
+				name = Debug;
 		};
 		AA4AD0AA2F8BD88F007ABD0C /* Release */ = {
 			isa = XCBuildConfiguration;
@@ -344,7 +343,7 @@
 				CODE_SIGN_ENTITLEMENTS = focus_mac/focus_mac.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Mac Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 9;
+				CURRENT_PROJECT_VERSION = 10;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=macosx*]" = U4AF57UZM2;
 				ENABLE_PREVIEWS = YES;
@@ -374,9 +373,8 @@
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Release;
+				};
+				name = Release;
 		};
 		AA4AD0AB2F8BD88F007ABD0C /* Debug */ = {
 			isa = XCBuildConfiguration;
@@ -506,7 +504,7 @@
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 9;
+				CURRENT_PROJECT_VERSION = 10;
 				DEVELOPMENT_TEAM = 844956U9NN;
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 26.2;
@@ -518,17 +516,16 @@
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/focus_mac.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/focus_mac";
-			};
-			name = Debug;
+					TEST_HOST = "$(BUILT_PRODUCTS_DIR)/focus_mac.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/focus_mac";
+				};
+				name = Debug;
 		};
 		AA4AD0AF2F8BD88F007ABD0C /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 9;
+				CURRENT_PROJECT_VERSION = 10;
 				DEVELOPMENT_TEAM = 844956U9NN;
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 26.2;
@@ -540,16 +537,15 @@
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/focus_mac.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/focus_mac";
-			};
-			name = Release;
+					TEST_HOST = "$(BUILT_PRODUCTS_DIR)/focus_mac.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/focus_mac";
+				};
+				name = Release;
 		};
 		AA4AD0B12F8BD88F007ABD0C /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 9;
+				CURRENT_PROJECT_VERSION = 10;
 				DEVELOPMENT_TEAM = 844956U9NN;
 				GENERATE_INFOPLIST_FILE = YES;
 				MARKETING_VERSION = 1.0;
@@ -560,16 +556,15 @@
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = focus_mac;
-			};
-			name = Debug;
+					TEST_TARGET_NAME = focus_mac;
+				};
+				name = Debug;
 		};
 		AA4AD0B22F8BD88F007ABD0C /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 9;
+				CURRENT_PROJECT_VERSION = 10;
 				DEVELOPMENT_TEAM = 844956U9NN;
 				GENERATE_INFOPLIST_FILE = YES;
 				MARKETING_VERSION = 1.0;
@@ -580,10 +575,9 @@
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = focus_mac;
-			};
-			name = Release;
+					TEST_TARGET_NAME = focus_mac;
+				};
+				name = Release;
 		};
 /* End XCBuildConfiguration section */
 
