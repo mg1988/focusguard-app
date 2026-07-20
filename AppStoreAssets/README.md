@@ -1,6 +1,6 @@
 # FocusGuard 隐私政策网站
 
-这是 FocusGuard macOS 应用的官方隐私政策和使用条款网站。
+这是 FocusGuard 应用的官方隐私政策和使用条款网站。
 
 ## 文件结构
 

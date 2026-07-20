@@ -65,9 +65,9 @@
 
 ### 新增的文件：
 4. `favicon.png` - 网站图标 (32x32)
-5. `Screenshots/Screenshot_01_MacBookPro_FocusMode.png` - 主界面截图
-6. `Screenshots/Screenshot_02_MacBookPro_Statistics.png` - 统计截图
-7. `Screenshots/Screenshot_03_MacBookPro_Settings.png` - 设置截图
+5.6. `Screenshots/Screenshot_01_Desktop_FocusMode.png` - 主界面截图
+7. `Screenshots/Screenshot_02_Desktop_Statistics.png` - 统计截图
+8. `Screenshots/Screenshot_03_Desktop_Settings.png` - 设置截图
 
 ---
 
@@ -202,7 +202,7 @@ https://appstoreconnect.apple.com
 
 #### 2. 创建新应用
 - 点击 "我的 App" → "+" → "新 App"
-- 选择 macOS
+- 选择桌面平台
 - 填写应用信息：
   - **名称**: FocusGuard
   - **Bundle ID**: com.mg.focus-mac
@@ -220,9 +220,9 @@ https://mg1988.github.io/focusguard-app/terms.html
 
 #### 5. 上传应用截图
 使用已准备好的 3 张截图：
-- `Screenshot_01_MacBookPro_FocusMode.png`
-- `Screenshot_02_MacBookPro_Statistics.png`
-- `Screenshot_03_MacBookPro_Settings.png`
+- `Screenshot_01_Desktop_FocusMode.png`
+- `Screenshot_02_Desktop_Statistics.png`
+- `Screenshot_03_Desktop_Settings.png`
 
 #### 6. 填写应用描述
 - **副标题**: AI 驱动的效率提升工具

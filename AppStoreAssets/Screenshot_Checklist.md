@@ -11,11 +11,11 @@
 
 ### 必需截图（至少 2 张）
 
-#### 1. MacBook Pro 13" 主界面 - **必须**
+#### 1. 桌面显示器 13" 主界面 - **必须**
 - [ ] 截图已生成
 - [ ] 尺寸：2880 x 1800 像素
 - [ ] 内容：专注模式运行中
-- [ ] 文件名：`Screenshot_01_MacBookPro_FocusMode.png`
+- [ ] 文件名：`Screenshot_01_Desktop_FocusMode.png`
 
 #### 2. iPad Pro 12.9" 统计数据 - **必须**
 - [ ] 截图已生成
@@ -27,17 +27,17 @@
 
 ### 推荐截图（最多 10 张）
 
-#### 3. MacBook Pro 设置页面
+#### 3. 桌面显示器 设置页面
 - [ ] 截图已生成
 - [ ] 尺寸：2880 x 1800 像素
 - [ ] 内容：灵敏度调节、多语言切换
-- [ ] 文件名：`Screenshot_03_MacBookPro_Settings.png`
+- [ ] 文件名：`Screenshot_03_Desktop_Settings.png`
 
-#### 4. MacBook Pro 坐姿检测
+#### 4. 桌面显示器 坐姿检测
 - [ ] 截图已生成
 - [ ] 尺寸：2880 x 1800 像素
 - [ ] 内容：坐姿警告状态
-- [ ] 文件名：`Screenshot_04_MacBookPro_PostureAlert.png`
+- [ ] 文件名：`Screenshot_04_Desktop_PostureAlert.png`
 
 #### 5. iPad Pro 抓拍相册
 - [ ] 截图已生成
@@ -86,11 +86,11 @@
 
 ## 📐 尺寸要求
 
-### macOS 截图
-- **MacBook Pro 13"**: 2880 x 1800 像素
-- **MacBook Pro 15"**: 2880 x 1800 像素
-- **iMac 21.5"**: 1920 x 1080 像素
-- **iMac 27"**: 2560 x 1440 像素
+### 桌面截图
+- **桌面显示器 13"**: 2880 x 1800 像素
+- **桌面显示器 15"**: 2880 x 1800 像素
+- **显示器 21.5"**: 1920 x 1080 像素
+- **显示器 27"**: 2560 x 1440 像素
 
 ### iPad 截图
 - **iPad Pro 12.9" (第 6 代)**: 2048 x 2732 像素 ⭐ **必须**
@@ -103,13 +103,13 @@
 
 ```
 1. Xcode → File → New Simulator Window
-2. 选择 Mac 设备
+2. 选择桌面设备
 3. 运行应用
 4. 模拟器菜单 → File → Capture Screen (⌘S)
 5. 截图自动保存到桌面
 ```
 
-### 方法 2: macOS 原生截图（最快速）
+### 方法 2: 桌面原生截图（最快速）
 
 ```
 截取窗口：

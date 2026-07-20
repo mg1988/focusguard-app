@@ -30,7 +30,7 @@
 - [ ] 截取主界面（专注模式运行中）
 - [ ] 截取统计数据页面
 - [ ] 截取设置页面
-- [ ] 调整尺寸为 2880x1800 (MacBook) 和 2048x2732 (iPad)
+- [ ] 调整尺寸为 2880x1800 (桌面) 和 2048x2732 (iPad)
 - [ ] 保存到 `AppStoreAssets/Screenshots/` 目录
 
 **快速操作**:
@@ -52,7 +52,7 @@ cd AppStoreAssets
 #### 3. Apple Developer 配置 ⏳
 - [ ] 确认 Apple Developer 账号有效（$99/年）
 - [ ] 创建 Distribution Certificate
-- [ ] 创建 Mac App Store Provisioning Profile
+- [ ] 创建 App Store Provisioning Profile
 - [ ] 在 Xcode 中配置签名
 
 **操作步骤**:
@@ -66,7 +66,7 @@ cd AppStoreAssets
 
 #### 4. App Store Connect 创建应用 ⏳
 - [ ] 登录 https://appstoreconnect.apple.com
-- [ ] 创建新应用（选择 macOS）
+- [ ] 创建新应用
 - [ ] 填写应用名称：FocusGuard - 智能专注助手
 - [ ] Bundle ID: com.mg.focus-mac
 - [ ] 填写基本信息
@@ -168,7 +168,7 @@ cd AppStoreAssets
 - [App Store Connect](https://appstoreconnect.apple.com)
 - [Apple Developer](https://developer.apple.com)
 - [审核指南](https://developer.apple.com/app-store/review/guidelines/)
-- [macOS 提交指南](https://developer.apple.com/macos/submit/)
+- [App Store 提交指南](https://developer.apple.com/app-store/submit/)
 
 ### 辅助工具
 - [appletoscreenshot.com](https://appletoscreenshot.com) - 添加设备边框

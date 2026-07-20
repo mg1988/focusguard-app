@@ -327,7 +327,7 @@ com.apple.security.files.user-selected.read-write: true
 
 - [ ] 版本号：1.0
 - [ ] Build 号：1
-- [ ] 目标：macOS 13.0+
+- [ ] 目标：系统 13.0+
 - [ ] 代码签名：Distribution
 - [ ] Archive 构建成功
 - [ ] 验证通过

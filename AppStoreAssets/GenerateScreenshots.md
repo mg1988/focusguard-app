@@ -15,9 +15,9 @@
 - **分辨率**: 2048 x 2732 像素
 - **用途**: App Store 主要展示
 
-#### 2. 13 英寸 MacBook Pro 13" - **必须**
+#### 2. 13 英寸桌面显示器 - **必须**
 - **分辨率**: 2880 x 1800 像素 或 2560 x 1600 像素
-- **用途**: macOS App 展示
+- **用途**: App Store 展示
 
 ---
 
@@ -91,7 +91,7 @@
 **步骤**:
 1. 在 Xcode 中运行应用
 2. 点击菜单栏 **File → New Simulator Window**
-3. 选择 **Mac** 设备
+3. 选择 **桌面** 设备
 4. 运行应用到模拟器
 5. 在模拟器中点击 **File → Capture Screen** (⌘S)
 6. 截图会自动保存到桌面
@@ -111,7 +111,7 @@
 - 批量处理
 - 专业美观
 
-### 方案 3: macOS 原生截图
+### 方案 3: 桌面原生截图
 
 **快捷键**:
 - `⌘ + ⇧ + 3`: 截取全屏
@@ -141,7 +141,7 @@
 ### 使用命令行
 
 ```bash
-# 调整尺寸为 MacBook Pro 13" (2880x1800)
+# 调整尺寸为桌面显示器 13" (2880x1800)
 sips -z 1800 2880 screenshot.png --out screenshot_resized.png
 
 # 调整尺寸为 iPad Pro 12.9" (2048x2732)
@@ -199,9 +199,9 @@ sips -z 2732 2048 screenshot.png --out screenshot_resized.png
 ```
 Screenshot_01_iPadPro_FocusMode.png      # 主界面 - 专注模式
 Screenshot_02_iPadPro_Statistics.png     # 统计数据页面
-Screenshot_03_MacBookPro_MainUI.png      # MacBook 主界面
-Screenshot_04_MacBookPro_Settings.png    # 设置页面
-Screenshot_05_MacBookPro_PostureAlert.png # 坐姿提醒
+Screenshot_03_Desktop_MainUI.png      # 桌面主界面
+Screenshot_04_Desktop_Settings.png    # 设置页面
+Screenshot_05_Desktop_PostureAlert.png # 坐姿提醒
 ```
 
 ---
