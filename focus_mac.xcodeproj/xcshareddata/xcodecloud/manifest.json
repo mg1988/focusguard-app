@@ -1,0 +1,9 @@
+{
+  "id" : "913fa021-dca2-4f9c-94f2-f6e5faf74931",
+  "targets" : [
+    {
+      "id" : "064d16c3-5497-4f67-a0a7-2ea4de26a94b",
+      "name" : "FocusGuard"
+    }
+  ]
+}
